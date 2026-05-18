@@ -62,7 +62,6 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   color: #0a0906;
   text-decoration: none;
   font-weight: 700;
@@ -77,22 +76,9 @@ body::before {
   cursor: pointer;
 }
 
-.settings-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 25px;
-  line-height: 1;
-  transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-}
-
 .admin-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(212, 175, 106, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.admin-btn:hover .settings-icon {
-  transform: rotate(20deg);
 }
 
 .admin-btn:active {
