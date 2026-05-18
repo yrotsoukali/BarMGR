@@ -2,14 +2,21 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="BarMGR - A refined catalog of signature cocktail recipes with ingredients and preparation methods for professional bar service." />
+  <meta name="theme-color" content="#0a0906" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>BarMGR | Signature Drinks</title>
   <link rel="stylesheet" href="./static/index.css">
 </head>
 <body>
 
   <header class="page-utility" aria-label="Admin access">
-    <a href="/login" class="admin-btn">Διαχείριση</a>
+    <a href="/login" class="admin-btn">
+      <span class="settings-icon">⚙</span>
+      <span>Settings</span>
+    </a>
   </header>
 
   <main class="page">
@@ -187,6 +194,19 @@
   </main>
 
   <script>
+    // Debounce function for better performance
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
     const searchInput = document.getElementById('catalog-search');
     const cards = Array.from(document.querySelectorAll('.drink-card'));
     const hint = document.getElementById('results-hint');
@@ -214,8 +234,15 @@
         : `${visibleCount} cocktails match your search.`;
     }
 
-    searchInput.addEventListener('input', updateCatalog);
+    searchInput.addEventListener('input', debounce(updateCatalog, 100));
+    
+    // Run initial update
     updateCatalog();
+
+    // Add touch-friendly improvements for mobile
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.body.style.touchAction = 'manipulation';
+    }
   </script>
 
 </body>
