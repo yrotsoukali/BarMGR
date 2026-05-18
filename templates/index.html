@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BarMGR | Signature Drinks</title>
+  <link rel="stylesheet" href="../static/index.css" />
+</head>
+<body>
+
+  <header class="page-utility" aria-label="Admin access">
+    <a href="/login" class="admin-btn">Διαχείριση</a>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Curated Bar Library</span>
+      <h2>Elegant recipes, built for confident service.</h2>
+      <p>
+        A refined catalog of signatures with ingredients and method in one place,
+        so the team can move quickly, stay consistent, and keep the service polished.
+      </p>
+
+      <div class="catalog-tools" aria-label="Catalog search">
+        <label class="search-field" for="catalog-search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            id="catalog-search"
+            name="catalog-search"
+            type="search"
+            placeholder="Search cocktails, ingredients, or notes"
+            autocomplete="off"
+          />
+        </label>
+        <p class="search-hint" id="results-hint">Showing all cocktails in the catalog.</p>
+      </div>
+    </section>
+
+    <section class="drinks-grid" id="catalog-grid" aria-live="polite">
+
+      <article class="drink-card">
+        <div class="card-number">01</div>
+        <h3>Mojito</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>50ml λευκό ρούμι</li>
+            <li>25ml lime juice</li>
+            <li>2 κ.γ. ζάχαρη</li>
+            <li>Φρέσκος δυόσμος</li>
+            <li>Soda</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Πιέζουμε απαλά lime, ζάχαρη και δυόσμο. Προσθέτουμε πάγο, ρούμι και συμπληρώνουμε με soda.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">02</div>
+        <h3>Margarita</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>50ml tequila</li>
+            <li>25ml triple sec</li>
+            <li>25ml lime juice</li>
+            <li>Αλάτι για το χείλος</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Χτυπάμε όλα τα υλικά με πάγο και σουρώνουμε σε ποτήρι με αλατισμένο χείλος.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">03</div>
+        <h3>Aperol Spritz</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>90ml prosecco</li>
+            <li>60ml Aperol</li>
+            <li>30ml soda</li>
+            <li>Φέτα πορτοκάλι</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Γεμίζουμε ποτήρι με πάγο. Προσθέτουμε prosecco, Aperol, soda και γαρνίρουμε με πορτοκάλι.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">04</div>
+        <h3>Negroni</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>30ml gin</li>
+            <li>30ml Campari</li>
+            <li>30ml sweet vermouth</li>
+            <li>Orange peel</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Ανακατεύουμε με πάγο σε mixing glass και σερβίρουμε με μεγάλο πάγο και orange peel.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">05</div>
+        <h3>Espresso Martini</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>50ml vodka</li>
+            <li>30ml espresso</li>
+            <li>20ml coffee liqueur</li>
+            <li>10ml sugar syrup</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Χτυπάμε δυνατά με πάγο και σουρώνουμε σε coupe ποτήρι. Γαρνίρουμε με κόκκους καφέ.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">06</div>
+        <h3>Mai Tai</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>50ml dark rum</li>
+            <li>20ml orange curaçao</li>
+            <li>20ml lime juice</li>
+            <li>15ml orgeat syrup</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Χτυπάμε με πάγο, σερβίρουμε σε ποτήρι με crushed ice και γαρνίρουμε με δυόσμο.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">07</div>
+        <h3>Paloma</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>50ml tequila</li>
+            <li>20ml lime juice</li>
+            <li>Grapefruit soda</li>
+            <li>Αλάτι</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Βάζουμε tequila και lime σε ποτήρι με πάγο. Συμπληρώνουμε με grapefruit soda και ανακατεύουμε ελαφρά.</p>
+        </div>
+      </article>
+
+      <article class="drink-card">
+        <div class="card-number">08</div>
+        <h3>Old Fashioned</h3>
+        <div class="card-section">
+          <h4>Υλικά</h4>
+          <ul>
+            <li>60ml bourbon</li>
+            <li>1 κύβος ζάχαρης</li>
+            <li>Angostura bitters</li>
+            <li>Orange peel</li>
+          </ul>
+        </div>
+        <div class="card-section">
+          <h4>Εκτέλεση</h4>
+          <p>Διαλύουμε ζάχαρη με bitters, προσθέτουμε bourbon και πάγο. Ανακατεύουμε και αρωματίζουμε με orange peel.</p>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('catalog-search');
+    const cards = Array.from(document.querySelectorAll('.drink-card'));
+    const hint = document.getElementById('results-hint');
+
+    function updateCatalog() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const matches = card.textContent.toLowerCase().includes(query);
+        card.hidden = query.length > 0 && !matches;
+
+        if (!card.hidden) {
+          visibleCount += 1;
+        }
+      });
+
+      if (query.length === 0) {
+        hint.textContent = 'Showing all cocktails in the catalog.';
+        return;
+      }
+
+      hint.textContent = visibleCount === 1
+        ? '1 cocktail matches your search.'
+        : `${visibleCount} cocktails match your search.`;
+    }
+
+    searchInput.addEventListener('input', updateCatalog);
+    updateCatalog();
+  </script>
+
+</body>
+</html>
