@@ -13,7 +13,7 @@
 <body>
 
   <header class="page-utility" aria-label="Admin access">
-    <a href="/login" class="admin-btn">Settings</a>
+    <a href="./templates/settings.html" class="admin-btn">Settings</a>
   </header>
 
   <main class="page">
@@ -191,7 +191,6 @@
   </main>
 
   <script>
-    // Debounce function for better performance
     function debounce(func, wait) {
       let timeout;
       return function executedFunction(...args) {
@@ -232,14 +231,7 @@
     }
 
     searchInput.addEventListener('input', debounce(updateCatalog, 100));
-    
-    // Run initial update
     updateCatalog();
-
-    // Add touch-friendly improvements for mobile
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      document.body.style.touchAction = 'manipulation';
-    }
   </script>
 
 </body>
