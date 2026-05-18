@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="BarMGR cafe warehouse-out page." />
+  <meta name="theme-color" content="#0a0906" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Warehouse Out | BarMGR</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0906;
+      --card: rgba(255, 248, 238, 0.06);
+      --card-border: rgba(205, 180, 140, 0.12);
+      --text: #faf7f2;
+      --muted: #a89a8a;
+      --gold: #d4af6a;
+      --shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Noto Serif", Georgia, serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(212, 175, 106, 0.12), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(101, 75, 45, 0.1), transparent 40%),
+        linear-gradient(135deg, #0a0906 0%, #13100c 50%, #0a0906 100%);
+      padding: 32px 48px;
+      line-height: 1.6;
+      letter-spacing: 0.3px;
+    }
+
+    .user-badge {
+      position: fixed;
+      top: 32px;
+      right: 48px;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e8d5b7, #d4af6a);
+      color: #0a0906;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(212, 175, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .panel {
+      min-height: calc(100vh - 64px);
+      display: grid;
+      place-items: center;
+    }
+
+    .card {
+      width: min(100%, 720px);
+      padding: 56px 42px;
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255, 248, 238, 0.08), rgba(255, 248, 238, 0.02)),
+        rgba(255, 255, 255, 0.032);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(20px);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(34px, 3.4vw, 54px);
+      line-height: 1.1;
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--muted);
+      font-family: "Noto Serif", serif;
+      font-size: 16px;
+    }
+
+    .hint {
+      margin-top: 24px;
+      padding: 10px 14px;
+      display: inline-block;
+      border-radius: 999px;
+      background: rgba(212, 175, 106, 0.12);
+      color: var(--gold);
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="user-badge" id="user-badge">Σύνδεση</div>
+
+  <main class="panel">
+    <section class="card">
+      <h1>Warehouse Out - Καφέ</h1>
+      <p>Ο επιλεγμένος χρήστης εμφανίζεται πάνω δεξιά και θα χρησιμοποιηθεί για τη συνέχεια.</p>
+      <div class="hint">Περισσότερη λειτουργία θα προστεθεί στο επόμενο βήμα</div>
+    </section>
+  </main>
+
+  <script>
+    const storageKey = 'barMGR.cafe.selectedUser';
+    const badge = document.getElementById('user-badge');
+    const selectedUser = localStorage.getItem(storageKey);
+
+    if (selectedUser) {
+      badge.textContent = `Σύνδεση: ${selectedUser}`;
+    }
+  </script>
+</body>
+</html>

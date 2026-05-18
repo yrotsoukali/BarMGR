@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+	<meta name="theme-color" content="#0a0906" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="description" content="BarMGR Cafe Warehouse login page." />
+	<title>Είσοδος Αποθήκης | BarMGR</title>
+
+	<style>
+		:root {
+			color-scheme: dark;
+			--bg: #0f0c08;
+			--panel: rgba(255, 255, 255, 0.06);
+			--panel-border: rgba(255, 255, 255, 0.12);
+			--text: #f5efe6;
+			--muted: #c8b9aa;
+			--accent: #d7a86e;
+			--danger: #ff7b7b;
+			--shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			display: grid;
+			grid-template-rows: auto 1fr;
+			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			background:
+				radial-gradient(circle at top, rgba(215, 168, 110, 0.2), transparent 42%),
+				linear-gradient(180deg, #19130d 0%, var(--bg) 100%);
+			color: var(--text);
+		}
+
+		.login-header {
+			padding: 32px 48px 0;
+		}
+
+		.back-link {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			color: #0a0906;
+			text-decoration: none;
+			font-weight: 700;
+			font-size: 15px;
+			padding: 14px 24px;
+			border-radius: 999px;
+			background: linear-gradient(135deg, #e8d5b7, #d4af6a);
+			box-shadow: 0 8px 20px rgba(212, 175, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+			transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+			letter-spacing: 0.5px;
+			border: none;
+			cursor: pointer;
+		}
+
+		.back-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+			line-height: 1;
+			transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+		}
+
+		.back-link:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 12px 28px rgba(212, 175, 106, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+		}
+
+		.back-link:hover .back-icon {
+			transform: translateX(-3px);
+		}
+
+		.back-link:active {
+			transform: translateY(0);
+		}
+
+		.page-wrap {
+			display: grid;
+			place-items: center;
+			padding: 24px;
+		}
+
+		.login-card {
+			width: min(100%, 420px);
+			padding: 32px;
+			border-radius: 24px;
+			background: var(--panel);
+			border: 1px solid var(--panel-border);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(18px);
+		}
+
+		.eyebrow {
+			margin: 0 0 12px;
+			text-transform: uppercase;
+			letter-spacing: 0.16em;
+			font-size: 0.78rem;
+			color: var(--muted);
+		}
+
+		h1 {
+			margin: 0 0 10px;
+			font-size: clamp(1.8rem, 4vw, 2.3rem);
+			line-height: 1.1;
+		}
+
+		p {
+			margin: 0 0 24px;
+			color: var(--muted);
+			line-height: 1.6;
+		}
+
+		form {
+			display: grid;
+			gap: 14px;
+		}
+
+		label {
+			font-size: 0.95rem;
+			color: var(--text);
+		}
+
+		input {
+			width: 100%;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			background: rgba(255, 255, 255, 0.05);
+			color: var(--text);
+			border-radius: 16px;
+			padding: 15px 16px;
+			font-size: 1rem;
+			outline: none;
+		}
+
+		input:focus {
+			border-color: rgba(215, 168, 110, 0.7);
+			box-shadow: 0 0 0 4px rgba(215, 168, 110, 0.15);
+		}
+
+		button {
+			border: 0;
+			border-radius: 16px;
+			padding: 14px 16px;
+			font-size: 1rem;
+			font-weight: 700;
+			color: #1a1209;
+			background: linear-gradient(135deg, #f0c58b, var(--accent));
+			cursor: pointer;
+		}
+
+		button:hover {
+			filter: brightness(1.02);
+		}
+
+		.message {
+			min-height: 1.4em;
+			margin: 0;
+			font-weight: 600;
+		}
+
+		.message.error {
+			color: var(--danger);
+		}
+
+		.message.success {
+			color: #87e6a3;
+		}
+	</style>
+</head>
+<body>
+	<header class="login-header">
+		<a href="settings-cafe.html" class="back-link">
+			<span class="back-icon">←</span>
+			<span>Επιστροφή</span>
+		</a>
+	</header>
+
+	<div class="page-wrap">
+		<main class="login-card" aria-labelledby="login-title">
+			<p class="eyebrow">Καφέ · Αποθήκη</p>
+			<h1 id="login-title">Εισαγωγή κωδικού</h1>
+			<p>Πληκτρολόγησε μόνο τον κωδικό πρόσβασης για να ανοίξει η αποθήκη.</p>
+
+			<form id="login-form" autocomplete="off" novalidate>
+				<label for="password">Κωδικός</label>
+				<input
+					id="password"
+					name="password"
+					type="password"
+					inputmode="numeric"
+					placeholder="••••"
+					autofocus
+					aria-describedby="message"
+				/>
+				<button type="submit">Είσοδος</button>
+				<p id="message" class="message" role="status" aria-live="polite"></p>
+			</form>
+		</main>
+	</div>
+
+	<script>
+		const form = document.getElementById('login-form');
+		const passwordInput = document.getElementById('password');
+		const message = document.getElementById('message');
+		const warehousePage = './warehouse-cafe.html';
+		const secretKey = '1989';
+
+		function showMessage(text, type) {
+			message.textContent = text;
+			message.className = `message ${type}`;
+		}
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			if (passwordInput.value === secretKey) {
+				showMessage('Σωστός κωδικός. Άνοιγμα αποθήκης...', 'success');
+				window.location.href = warehousePage;
+				return;
+			}
+
+			showMessage('Ο κωδικός είναι λάθος.', 'error');
+			passwordInput.select();
+			passwordInput.focus();
+		});
+	</script>
+</body>
+</html>

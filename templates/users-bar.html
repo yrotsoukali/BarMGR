@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="BarMGR - Select a bar user before opening the cellar warehouse." />
+  <meta name="theme-color" content="#0a0906" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Επιλογή Χρήστη | BarMGR</title>
+
+  <link rel="stylesheet" href="../static/settings.css">
+
+  <style>
+    .user-card {
+      cursor: pointer;
+      user-select: none;
+      width: 100%;
+      border: 0;
+      font: inherit;
+    }
+
+    .user-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      width: 100%;
+      align-items: stretch;
+      animation: fadeInStagger 0.8s ease-out 0.2s both;
+    }
+
+    .user-card .shop-icon {
+      margin-bottom: 24px;
+    }
+
+    .user-card .user-name {
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .user-card .user-note {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+      font-family: "Noto Serif", serif;
+    }
+
+    @media (max-width: 1200px) {
+      .user-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .user-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .user-grid {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="settings-header">
+    <a href="settings-bar.html" class="back-link">
+      <span class="back-icon">←</span>
+      <span>Επιστροφή</span>
+    </a>
+  </header>
+
+  <main class="settings-page">
+
+    <h1>Επιλογή Χρήστη</h1>
+
+    <section class="user-grid" aria-label="Επιλογή χρήστη">
+
+      <button type="button" class="shop-card user-card" data-user="Σπύρος">
+        <div class="shop-icon">
+          <img src="../icons/boy.png" alt="User Icon">
+        </div>
+        <div class="user-name">Σπύρος</div>
+        <p class="user-note">Είσοδος στην αποθήκη του μπαρ με αυτόν τον χρήστη.</p>
+      </button>
+
+      <button type="button" class="shop-card user-card" data-user="Φαίη">
+        <div class="shop-icon">
+          <img src="../icons/girl.png" alt="User Icon">
+        </div>
+        <div class="user-name">Φαίη</div>
+        <p class="user-note">Είσοδος στην αποθήκη του μπαρ με αυτόν τον χρήστη.</p>
+      </button>
+
+      <button type="button" class="shop-card user-card" data-user="Κώστας">
+        <div class="shop-icon">
+          <img src="../icons/boy.png" alt="User Icon">
+        </div>
+        <div class="user-name">Κώστας</div>
+        <p class="user-note">Είσοδος στην αποθήκη του μπαρ με αυτόν τον χρήστη.</p>
+      </button>
+
+    </section>
+
+  </main>
+
+  <script>
+    const storageKey = 'barMGR.bar.selectedUser';
+    const targetPage = 'warehouse-out-bar.html';
+
+    document.querySelectorAll('[data-user]').forEach((button) => {
+      button.addEventListener('click', () => {
+        localStorage.setItem(storageKey, button.dataset.user);
+        window.location.href = targetPage;
+      });
+    });
+  </script>
+
+</body>
+</html>
