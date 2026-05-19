@@ -178,7 +178,7 @@
       font-size: 0.88rem;
     }
 
-    .field, .select, .number, .note {
+    .field, .select, .number {
       width: 100%;
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -189,7 +189,7 @@
       padding: 13px 14px;
     }
 
-    .field:focus, .select:focus, .number:focus, .note:focus {
+    .field:focus, .select:focus, .number:focus {
       border-color: rgba(212, 175, 106, 0.65);
       box-shadow: 0 0 0 4px rgba(212, 175, 106, 0.12);
     }
@@ -332,7 +332,7 @@
 
     .adjust-form {
       display: grid;
-      grid-template-columns: 110px minmax(0, 1fr) auto;
+      grid-template-columns: 110px auto;
       gap: 10px;
       align-items: end;
     }
@@ -638,10 +638,6 @@
               <label>Προσθήκη</label>
               <input class="number" name="quantity" type="number" min="1" step="1" value="1" required />
             </div>
-            <div>
-              <label>Σημείωση</label>
-              <input class="note" name="note" type="text" placeholder="π.χ. νέα παρτίδα" />
-            </div>
             <button class="action-btn" type="submit">+ Προσθήκη</button>
           </form>
         </article>
@@ -732,7 +728,7 @@
       }
     }
 
-    async function commitInventoryAdjustment(category, item, quantityDelta, note) {
+    async function commitInventoryAdjustment(category, item, quantityDelta) {
       ensureTokenConfigured();
 
       for (let attempt = 1; attempt <= 3; attempt++) {
@@ -762,7 +758,7 @@
           const result = await saveFile(
             WAREHOUSE_FILE_PATH,
             inventory,
-            `Update warehouse: ${item} ${quantityDelta >= 0 ? '+' : ''}${quantityDelta}${note ? ` (${note})` : ''}`,
+            `Update warehouse: ${item} ${quantityDelta >= 0 ? '+' : ''}${quantityDelta}`,
             latest.sha,
           );
 
@@ -779,7 +775,6 @@
             quantity: quantityDelta,
             old_quantity: oldQuantity,
             new_quantity: newQuantity,
-            note,
             user: 'Web',
           });
 
@@ -803,7 +798,6 @@
       const item = form.dataset.item;
       const formData = new FormData(form);
       const quantity = Number(formData.get('quantity'));
-      const note = String(formData.get('note') || '').trim();
 
       if (!Number.isInteger(quantity) || quantity <= 0) {
         setStatus('Η ποσότητα πρέπει να είναι ακέραιος αριθμός.', 'error');
@@ -813,11 +807,12 @@
       setStatus(`Ενημέρωση για ${item}...`, '');
 
       try {
-        const result = await commitInventoryAdjustment(category, item, quantity, note);
+        const result = await commitInventoryAdjustment(category, item, quantity);
         await loadInventory();
         renderAll();
         form.reset();
         form.querySelector('[name="quantity"]').value = 1;
+        try { localStorage.setItem('bar_mgr_inventory_updated', String(Date.now())); } catch (e) { /* ignore */ }
         setStatus(`✓ ${item}: ${result.oldQuantity} → ${result.newQuantity}`, 'success');
       } catch (error) {
         setStatus(error.message, 'error');
@@ -833,6 +828,29 @@
     els.refreshBtn.addEventListener('click', async () => {
       await refresh();
     });
+
+    // Listen for storage events from other tabs to refresh the inventory
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'bar_mgr_inventory_updated') {
+        refresh('Αποθήκη ενημερώθηκε.');
+      }
+    });
+
+    // Periodically poll GitHub for external changes and refresh if the file SHA changed
+    setInterval(async () => {
+      try {
+        const data = await loadFile(WAREHOUSE_FILE_PATH);
+        if (data.sha && data.sha !== state.sha) {
+          state.inventory = data.json || {};
+          state.sha = data.sha;
+          state.categories = Object.keys(state.inventory).sort();
+          renderAll();
+          setStatus('Αποθήκη ενημερώθηκε (εξωτερική αλλαγή).', 'success');
+        }
+      } catch (e) {
+        // ignore polling errors
+      }
+    }, 30000);
 
     (async () => {
       await refresh('Αποθήκη έτοιμη.');
