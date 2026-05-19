@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="BarMGR cafe warehouse-out page." />
+  <meta name="description" content="BarMGR cafe warehouse census dashboard." />
   <meta name="theme-color" content="#0a0906" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -13,115 +13,709 @@
     :root {
       color-scheme: dark;
       --bg: #0a0906;
-      --card: rgba(255, 248, 238, 0.06);
-      --card-border: rgba(205, 180, 140, 0.12);
+      --panel: rgba(255, 248, 238, 0.06);
+      --panel-strong: rgba(255, 248, 238, 0.09);
+      --panel-border: rgba(205, 180, 140, 0.12);
       --text: #faf7f2;
       --muted: #a89a8a;
       --gold: #d4af6a;
+      --gold-soft: rgba(212, 175, 106, 0.12);
+      --success: #8fe8ad;
+      --danger: #ff8b8b;
       --shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
       --shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       min-height: 100vh;
-      font-family: "Noto Serif", Georgia, serif;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(212, 175, 106, 0.12), transparent 35%),
         radial-gradient(circle at bottom right, rgba(101, 75, 45, 0.1), transparent 40%),
         linear-gradient(135deg, #0a0906 0%, #13100c 50%, #0a0906 100%);
-      padding: 32px 48px;
+      padding: 28px;
       line-height: 1.6;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
     }
 
-    .user-badge {
-      position: fixed;
-      top: 32px;
-      right: 48px;
-      z-index: 10;
+    .layout {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .back-link,
+    .action-btn,
+    .tab-btn {
+      border: 0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease, border-color 0.18s ease;
+    }
+
+    .back-link {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 24px;
+      padding: 13px 18px;
       border-radius: 999px;
       background: linear-gradient(135deg, #e8d5b7, #d4af6a);
       color: #0a0906;
-      font-family: "Noto Sans", sans-serif;
-      font-weight: 700;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(212, 175, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .back-link:hover,
+    .action-btn:hover,
+    .tab-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    .user-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e8d5b7, #d4af6a);
+      color: #0a0906;
+      font-weight: 800;
       box-shadow: 0 8px 20px rgba(212, 175, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
     .panel {
-      min-height: calc(100vh - 64px);
-      display: grid;
-      place-items: center;
-    }
-
-    .card {
-      width: min(100%, 720px);
-      padding: 56px 42px;
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--panel-border);
       border-radius: 28px;
       background:
         linear-gradient(180deg, rgba(255, 248, 238, 0.08), rgba(255, 248, 238, 0.02)),
         rgba(255, 255, 255, 0.032);
       box-shadow: var(--shadow-sm);
       backdrop-filter: blur(20px);
-      text-align: center;
+    }
+
+    .hero {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 18px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .controls,
+    .category,
+    .item-card {
+      padding: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
     }
 
     h1 {
-      font-size: clamp(34px, 3.4vw, 54px);
-      line-height: 1.1;
-      font-family: "Playfair Display", Georgia, serif;
-      font-weight: 700;
-      margin-bottom: 16px;
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.9rem);
+      line-height: 1.02;
     }
 
-    p {
+    .lead,
+    .muted,
+    .status {
       color: var(--muted);
-      font-family: "Noto Serif", serif;
-      font-size: 16px;
+      margin: 0;
     }
 
-    .hint {
-      margin-top: 24px;
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 900;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.6fr) auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field-group label {
+      display: block;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .field,
+    .select,
+    .number,
+    .note {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      outline: none;
+      font-size: 1rem;
+      padding: 13px 14px;
+    }
+
+    .field:focus,
+    .select:focus,
+    .number:focus,
+    .note:focus {
+      border-color: rgba(212, 175, 106, 0.65);
+      box-shadow: 0 0 0 4px rgba(212, 175, 106, 0.12);
+    }
+
+    .action-btn {
+      padding: 13px 18px;
+      border-radius: 16px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f0c58b, var(--gold));
+      color: #1a1209;
+      box-shadow: 0 8px 20px rgba(212, 175, 106, 0.16);
+    }
+
+    .action-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: none;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tab-btn {
       padding: 10px 14px;
-      display: inline-block;
       border-radius: 999px;
-      background: rgba(212, 175, 106, 0.12);
-      color: var(--gold);
-      font-family: "Noto Sans", sans-serif;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       font-weight: 700;
+    }
+
+    .tab-btn.active {
+      background: var(--gold-soft);
+      border-color: rgba(212, 175, 106, 0.4);
+      color: #f1c28b;
+    }
+
+    .status {
+      min-height: 1.4em;
+      margin-top: 14px;
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .categories {
+      display: grid;
+      gap: 18px;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .category-header h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.5rem;
+    }
+
+    .category-count {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .item-card {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .item-name {
+      margin: 0;
+      font-size: 1.04rem;
+    }
+
+    .item-meta {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .quantity-badge {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: #f1c28b;
+      font-weight: 900;
+    }
+
+    .adjust-form {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .adjust-form .span-all {
+      grid-column: 1 / -1;
+    }
+
+    .adjust-form label {
+      display: block;
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .empty-state {
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px dashed rgba(255, 255, 255, 0.14);
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .hero,
+      .controls,
+      .category,
+      .item-card {
+        padding: 18px;
+      }
+
+      .adjust-form {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="user-badge" id="user-badge">Σύνδεση</div>
+  <div class="layout">
+    <div class="topbar">
+      <a class="back-link" href="settings-cafe.html">← Επιστροφή</a>
+      <div class="user-badge" id="user-badge">Σύνδεση</div>
+    </div>
 
-  <main class="panel">
-    <section class="card">
-      <h1>Warehouse Out - Καφέ</h1>
-      <p>Ο επιλεγμένος χρήστης εμφανίζεται πάνω δεξιά και θα χρησιμοποιηθεί για τη συνέχεια.</p>
-      <div class="hint">Περισσότερη λειτουργία θα προστεθεί στο επόμενο βήμα</div>
+    <section class="panel hero">
+      <div class="hero-main">
+        <p class="eyebrow">Καφέ · Αποθήκη</p>
+        <h1>Γρήγορη καταμέτρηση αποθήκης με αναζήτηση και προσθήκη ποσοτήτων</h1>
+        <p class="lead">
+          Δες όλα τα είδη της αποθήκης του καφέ ομαδοποιημένα σε κατηγορίες,
+          αναζήτησε εύκολα ένα προϊόν και πρόσθεσε νέα ποσότητα απευθείας στο σύστημα.
+        </p>
+        <p class="muted" style="margin-top: 10px;">
+          Τα δεδομένα διαβάζονται από το warehouse-cafe.json και οι αλλαγές γράφονται πίσω μέσω του API.
+        </p>
+      </div>
+      <div class="hero-side">
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">Κατηγορίες</span>
+            <div class="stat-value" id="stat-categories">0</div>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Είδη</span>
+            <div class="stat-value" id="stat-items">0</div>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Σύνολο τεμαχίων</span>
+            <div class="stat-value" id="stat-quantity">0</div>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Χρήστης</span>
+            <div class="stat-value" id="stat-user">-</div>
+          </div>
+        </div>
+      </div>
     </section>
-  </main>
+
+    <section class="panel controls">
+      <div class="field-group">
+        <label for="search">Αναζήτηση</label>
+        <input id="search" class="field" type="search" placeholder="Αναζήτηση σε κατηγορία, είδος ή ποσότητα" autocomplete="off" />
+      </div>
+
+      <div class="field-group">
+        <label for="user-select">Χρήστης</label>
+        <select id="user-select" class="select"></select>
+      </div>
+
+      <div class="field-group">
+        <label>&nbsp;</label>
+        <button id="refresh-btn" class="action-btn secondary" type="button">Ανανέωση</button>
+      </div>
+    </section>
+
+    <section class="panel" style="padding-bottom: 8px;">
+      <div class="tabs" id="tabs"></div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="categories" id="categories" aria-live="polite"></section>
+  </div>
 
   <script>
-    const storageKey = 'barMGR.cafe.selectedUser';
-    const badge = document.getElementById('user-badge');
-    const selectedUser = localStorage.getItem(storageKey);
+    const SHOP = 'cafe';
+    const LOCATION = 'warehouse';
+    const STORAGE_KEY = 'barMGR.cafe.selectedUser';
 
-    if (selectedUser) {
-      badge.textContent = `Σύνδεση: ${selectedUser}`;
+    const state = {
+      inventory: {},
+      categories: [],
+      search: '',
+      activeCategory: 'all',
+      users: [],
+    };
+
+    const els = {
+      badge: document.getElementById('user-badge'),
+      userSelect: document.getElementById('user-select'),
+      search: document.getElementById('search'),
+      refreshBtn: document.getElementById('refresh-btn'),
+      tabs: document.getElementById('tabs'),
+      categories: document.getElementById('categories'),
+      status: document.getElementById('status'),
+      statCategories: document.getElementById('stat-categories'),
+      statItems: document.getElementById('stat-items'),
+      statQuantity: document.getElementById('stat-quantity'),
+      statUser: document.getElementById('stat-user'),
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
     }
+
+    function normalize(value) {
+      return String(value || '').toLowerCase();
+    }
+
+    function setStatus(text, type = '') {
+      els.status.textContent = text;
+      els.status.className = type ? `status ${type}` : 'status';
+    }
+
+    function getSelectedUser() {
+      return els.userSelect.value || localStorage.getItem(STORAGE_KEY) || state.users[0] || '';
+    }
+
+    function updateUserBadge() {
+      const user = getSelectedUser();
+      els.badge.textContent = user ? `Σύνδεση: ${user}` : 'Σύνδεση';
+      els.statUser.textContent = user || '-';
+      if (user) localStorage.setItem(STORAGE_KEY, user);
+    }
+
+    function renderUserOptions(users) {
+      els.userSelect.innerHTML = users.map((user) => `<option value="${escapeHtml(user)}">${escapeHtml(user)}</option>`).join('');
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored && users.includes(stored)) {
+        els.userSelect.value = stored;
+      }
+      updateUserBadge();
+    }
+
+    function computeStats() {
+      const categories = Object.entries(state.inventory);
+      const items = categories.flatMap(([, list]) => list);
+      const totalQuantity = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+
+      els.statCategories.textContent = String(categories.length);
+      els.statItems.textContent = String(items.length);
+      els.statQuantity.textContent = String(totalQuantity);
+    }
+
+    function matchesSearch(category, item) {
+      if (!state.search) return true;
+      return normalize(`${category} ${item.name} ${item.quantity}`).includes(state.search);
+    }
+
+    function renderTabs() {
+      const buttons = [
+        `<button type="button" class="tab-btn ${state.activeCategory === 'all' ? 'active' : ''}" data-category="all">Όλα</button>`,
+        ...state.categories.map((category) => {
+          const count = (state.inventory[category] || []).filter((item) => matchesSearch(category, item)).length;
+          return `<button type="button" class="tab-btn ${state.activeCategory === category ? 'active' : ''}" data-category="${escapeHtml(category)}">${escapeHtml(category)} (${count})</button>`;
+        }),
+      ];
+
+      els.tabs.innerHTML = buttons.join('');
+      els.tabs.querySelectorAll('[data-category]').forEach((button) => {
+        button.addEventListener('click', () => {
+          state.activeCategory = button.dataset.category;
+          renderTabs();
+          renderCategories();
+        });
+      });
+    }
+
+    function renderItem(category, item) {
+      return `
+        <article class="item-card">
+          <div class="item-top">
+            <div>
+              <h3 class="item-name">${escapeHtml(item.name)}</h3>
+              <p class="item-meta">Κατηγορία: ${escapeHtml(category)}</p>
+            </div>
+            <div class="quantity-badge">${Number(item.quantity || 0)} τεμ.</div>
+          </div>
+
+          <form class="adjust-form" data-category="${escapeHtml(category)}" data-item="${escapeHtml(item.name)}">
+            <div>
+              <label>Προσθήκη</label>
+              <input class="number" name="quantity" type="number" min="1" step="1" value="1" required />
+            </div>
+            <div>
+              <label>Σημείωση</label>
+              <input class="note" name="note" type="text" placeholder="π.χ. νέα παλέτα" />
+            </div>
+            <button class="action-btn" type="submit">+ Προσθήκη</button>
+          </form>
+        </article>
+      `;
+    }
+
+    function renderCategories() {
+      const visibleCategories = state.categories.filter((category) => {
+        if (state.activeCategory !== 'all' && state.activeCategory !== category) return false;
+        return (state.inventory[category] || []).some((item) => matchesSearch(category, item));
+      });
+
+      if (!visibleCategories.length) {
+        els.categories.innerHTML = '<div class="panel empty-state">Δεν βρέθηκαν προϊόντα με τα τρέχοντα φίλτρα.</div>';
+        return;
+      }
+
+      els.categories.innerHTML = visibleCategories.map((category) => {
+        const items = (state.inventory[category] || []).filter((item) => matchesSearch(category, item));
+        return `
+          <section class="panel category">
+            <div class="category-header">
+              <h2>${escapeHtml(category)}</h2>
+              <div class="category-count">${items.length} είδη</div>
+            </div>
+            <div class="items-grid">
+              ${items.map((item) => renderItem(category, item)).join('')}
+            </div>
+          </section>
+        `;
+      }).join('');
+
+      els.categories.querySelectorAll('form.adjust-form').forEach((form) => {
+        form.addEventListener('submit', onAdjustSubmit);
+      });
+    }
+
+    function renderAll() {
+      computeStats();
+      renderUserOptions(state.users);
+      renderTabs();
+      renderCategories();
+      updateUserBadge();
+    }
+
+    async function loadUsers() {
+      const response = await fetch('/api/users');
+      if (!response.ok) throw new Error('Δεν φορτώθηκαν οι χρήστες');
+      const data = await response.json();
+      state.users = Array.isArray(data.users) ? data.users : [];
+    }
+
+    async function loadInventory() {
+      const response = await fetch(`/api/inventory/${SHOP}/${LOCATION}`);
+      if (!response.ok) throw new Error('Δεν φορτώθηκε η αποθήκη');
+      const data = await response.json();
+      state.inventory = data.inventory || {};
+      state.categories = Object.keys(state.inventory);
+    }
+
+    async function refresh(message = 'Η αποθήκη ανανεώθηκε.') {
+      setStatus('Φόρτωση δεδομένων...', '');
+      await Promise.all([loadUsers(), loadInventory()]);
+      renderAll();
+      setStatus(message, 'success');
+    }
+
+    async function onAdjustSubmit(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const category = form.dataset.category;
+      const item = form.dataset.item;
+      const user = getSelectedUser();
+      const formData = new FormData(form);
+      const quantity = Number(formData.get('quantity'));
+      const note = String(formData.get('note') || '').trim();
+
+      if (!user) {
+        setStatus('Επίλεξε χρήστη πριν κάνεις προσθήκη ποσότητας.', 'error');
+        return;
+      }
+
+      if (!Number.isInteger(quantity) || quantity <= 0) {
+        setStatus('Η ποσότητα πρέπει να είναι μεγαλύτερη από το μηδέν.', 'error');
+        return;
+      }
+
+      setStatus(`Ενημέρωση για ${item}...`, '');
+
+      const response = await fetch(`/api/inventory/${SHOP}/${LOCATION}/adjust`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          category,
+          item,
+          quantity,
+          user,
+          note,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setStatus(data.error || 'Η ενημέρωση απέτυχε.', 'error');
+        return;
+      }
+
+      const entry = (state.inventory[category] || []).find((x) => x.name === item);
+      if (entry) {
+        entry.quantity = Number(entry.quantity || 0) + quantity;
+      }
+
+      form.reset();
+      form.querySelector('[name="quantity"]').value = 1;
+      renderAll();
+      setStatus(`Η ποσότητα του ${item} αυξήθηκε κατά ${quantity}.`, 'success');
+    }
+
+    els.userSelect.addEventListener('change', updateUserBadge);
+
+    els.search.addEventListener('input', () => {
+      state.search = normalize(els.search.value.trim());
+      renderTabs();
+      renderCategories();
+    });
+
+    els.refreshBtn.addEventListener('click', async () => {
+      try {
+        await refresh();
+      } catch (error) {
+        setStatus(error.message || 'Αποτυχία ανανέωσης.', 'error');
+      }
+    });
+
+    (async () => {
+      try {
+        await refresh('Η αποθήκη φορτώθηκε επιτυχώς.');
+      } catch (error) {
+        setStatus(error.message || 'Δεν ήταν δυνατή η φόρτωση της αποθήκης.', 'error');
+      }
+    })();
   </script>
 </body>
 </html>

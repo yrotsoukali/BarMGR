@@ -1,0 +1,340 @@
+{
+  "Beers": [
+    {
+      "name": "NYMFI draft 400ml",
+      "quantity": 0
+    },
+    {
+      "name": "MAMOS 330ml",
+      "quantity": 0
+    },
+    {
+      "name": "Fischer 330ml",
+      "quantity": 0
+    },
+    {
+      "name": "Sol 330ml",
+      "quantity": 0
+    },
+    {
+      "name": "IPA Lagunitas 330ml",
+      "quantity": 0
+    },
+    {
+      "name": "Moretti 330ml",
+      "quantity": 0
+    },
+    {
+      "name": "Noam 340ml",
+      "quantity": 0
+    }
+  ],
+  "Whiskey (700ml)": [
+    {
+      "name": "Johnnie Walker Red Label",
+      "quantity": 0
+    },
+    {
+      "name": "Haig Gold Label",
+      "quantity": 0
+    },
+    {
+      "name": "Jack Daniels",
+      "quantity": 0
+    },
+    {
+      "name": "Four Roses Bourbon",
+      "quantity": 0
+    },
+    {
+      "name": "Jameson Irish",
+      "quantity": 0
+    },
+    {
+      "name": "Cardhu 12 y.o.",
+      "quantity": 0
+    },
+    {
+      "name": "Glenfiddich 12 y.o.",
+      "quantity": 0
+    },
+    {
+      "name": "Macallan 12 y.o.",
+      "quantity": 0
+    }
+  ],
+  "Vodka (700ml)": [
+    {
+      "name": "Five Lakes",
+      "quantity": 0
+    },
+    {
+      "name": "Stolichnaya",
+      "quantity": 0
+    },
+    {
+      "name": "Grey Goose",
+      "quantity": 0
+    },
+    {
+      "name": "Belvedere",
+      "quantity": 0
+    },
+    {
+      "name": "Crystal Head",
+      "quantity": 0
+    }
+  ],
+  "Gin (700ml)": [
+    {
+      "name": "MG",
+      "quantity": 0
+    },
+    {
+      "name": "Beefeater",
+      "quantity": 0
+    },
+    {
+      "name": "Tanqueray",
+      "quantity": 0
+    },
+    {
+      "name": "Bombay Sapphire",
+      "quantity": 0
+    },
+    {
+      "name": "Grace",
+      "quantity": 0
+    },
+    {
+      "name": "Votanikon",
+      "quantity": 0
+    },
+    {
+      "name": "Hendricks",
+      "quantity": 0
+    },
+    {
+      "name": "Gin Mare",
+      "quantity": 0
+    },
+    {
+      "name": "Etsu",
+      "quantity": 0
+    },
+    {
+      "name": "Monkey 47",
+      "quantity": 0
+    }
+  ],
+  "Rum (700ml)": [
+    {
+      "name": "Bacardi",
+      "quantity": 0
+    },
+    {
+      "name": "Havana Reserva",
+      "quantity": 0
+    },
+    {
+      "name": "Plantation 3 Stars",
+      "quantity": 0
+    },
+    {
+      "name": "Plantation Dark",
+      "quantity": 0
+    },
+    {
+      "name": "Plantation Grand Reserve 5 years",
+      "quantity": 0
+    },
+    {
+      "name": "Sailor Jerry Spiced",
+      "quantity": 0
+    },
+    {
+      "name": "Chairman's Reserve Spiced",
+      "quantity": 0
+    },
+    {
+      "name": "Diplomatico Reserva Exclusiva",
+      "quantity": 0
+    },
+    {
+      "name": "Ron Santisima Trinidad 15 y.o",
+      "quantity": 0
+    }
+  ],
+  "Tequila & Mezcal (700ml)": [
+    {
+      "name": "Buen Amigo Blanco",
+      "quantity": 0
+    },
+    {
+      "name": "Buen Amigo Reposado",
+      "quantity": 0
+    },
+    {
+      "name": "Corralejo Blanco",
+      "quantity": 0
+    },
+    {
+      "name": "Corralejo Reposado",
+      "quantity": 0
+    },
+    {
+      "name": "Verde Momento Mezcal",
+      "quantity": 0
+    },
+    {
+      "name": "Patron Silver",
+      "quantity": 0
+    },
+    {
+      "name": "Patron Reposado",
+      "quantity": 0
+    }
+  ],
+  "Aperitif (700ml)": [
+    {
+      "name": "Veroni Dry Vermouth",
+      "quantity": 0
+    },
+    {
+      "name": "Veroni Rosso Vermouth",
+      "quantity": 0
+    },
+    {
+      "name": "Campari",
+      "quantity": 0
+    },
+    {
+      "name": "Aperol",
+      "quantity": 0
+    }
+  ],
+  "Liqueurs (700ml)": [
+    {
+      "name": "Disaronno",
+      "quantity": 0
+    },
+    {
+      "name": "Jagermeister",
+      "quantity": 0
+    },
+    {
+      "name": "Kahlua",
+      "quantity": 0
+    },
+    {
+      "name": "Baileys",
+      "quantity": 0
+    },
+    {
+      "name": "Mastic Roots",
+      "quantity": 0
+    },
+    {
+      "name": "Limoncello",
+      "quantity": 0
+    }
+  ],
+  "Greek Selections": [
+    {
+      "name": "Ouzo Avantis 200ml",
+      "quantity": 0
+    },
+    {
+      "name": "Ouzo Avantis 100% 200ml",
+      "quantity": 0
+    },
+    {
+      "name": "Tsipouro Avantis 200ml",
+      "quantity": 0
+    }
+  ],
+  "Wine - White": [
+    {
+      "name": "Juicy",
+      "quantity": 0
+    },
+    {
+      "name": "Vina Esmeralda",
+      "quantity": 0
+    },
+    {
+      "name": "Tselepou Mantineia",
+      "quantity": 0
+    },
+    {
+      "name": "Domaine Costa Lazaridi",
+      "quantity": 0
+    },
+    {
+      "name": "Tesseris Limnes Kyr Gianni",
+      "quantity": 0
+    },
+    {
+      "name": "Ovilos Vivlia Chora",
+      "quantity": 0
+    },
+    {
+      "name": "Nyhte Chatzidakti",
+      "quantity": 0
+    }
+  ],
+  "Wine - Rose": [
+    {
+      "name": "Juicy",
+      "quantity": 0
+    },
+    {
+      "name": "Domaine Costa Lazaridi",
+      "quantity": 0
+    },
+    {
+      "name": "Amuse Ktima Mouswn",
+      "quantity": 0
+    },
+    {
+      "name": "Ktima Alfa",
+      "quantity": 0
+    },
+    {
+      "name": "Chateau Miraval",
+      "quantity": 0
+    },
+    {
+      "name": "Whispering Angel",
+      "quantity": 0
+    }
+  ],
+  "Wine - Red": [
+    {
+      "name": "Lalari Nikolaou Skyros",
+      "quantity": 0
+    },
+    {
+      "name": "Nemea Skouras",
+      "quantity": 0
+    },
+    {
+      "name": "Ktima Alfa Xinomavro Reserve",
+      "quantity": 0
+    }
+  ],
+  "Champagne & Sparkling": [
+    {
+      "name": "Zonin Prosecco 1821",
+      "quantity": 0
+    },
+    {
+      "name": "Braida Braschetto D' Acqui 750ml",
+      "quantity": 0
+    },
+    {
+      "name": "Veuve Clicquot Brut 750ml",
+      "quantity": 0
+    }
+  ]
+}
