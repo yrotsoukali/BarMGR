@@ -33,7 +33,7 @@
     "timestamp": "2026-05-19T20:15:38+03:00",
     "date": "2026-05-19",
     "time": "20:15:38",
-    "user": "Αποθήκη",
+    "user": "ÎÏÎ¿Î¸Î®ÎºÎ·",
     "shop": "cafe",
     "action": "adjust",
     "location": "warehouse",
@@ -43,5 +43,18 @@
     "old_quantity": 0,
     "new_quantity": 10,
     "note": ""
+  },
+  {
+    "timestamp": "2026-05-19T18:16:24.934Z",
+    "shop": "cafe",
+    "location": "warehouse",
+    "action": "adjust",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 8,
+    "old_quantity": 0,
+    "new_quantity": 8,
+    "note": "",
+    "user": "Web"
   }
 ]
