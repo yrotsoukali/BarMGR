@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "timestamp": "2026-05-19T20:08:32+03:00",
+    "date": "2026-05-19",
+    "time": "20:08:32",
+    "user": "test-user",
+    "shop": "cafe",
+    "action": "adjust",
+    "location": "warehouse",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 10,
+    "old_quantity": 0,
+    "new_quantity": 10,
+    "note": "Test add"
+  },
+  {
+    "timestamp": "2026-05-19T20:08:56+03:00",
+    "date": "2026-05-19",
+    "time": "20:08:56",
+    "user": "test-user",
+    "shop": "cafe",
+    "action": "adjust",
+    "location": "warehouse",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 5,
+    "old_quantity": 10,
+    "new_quantity": 15,
+    "note": "Test add more"
+  },
+  {
+    "timestamp": "2026-05-19T20:15:38+03:00",
+    "date": "2026-05-19",
+    "time": "20:15:38",
+    "user": "Αποθήκη",
+    "shop": "cafe",
+    "action": "adjust",
+    "location": "warehouse",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 10,
+    "old_quantity": 0,
+    "new_quantity": 10,
+    "note": ""
+  }
+]
