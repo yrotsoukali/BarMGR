@@ -1,14 +1,18 @@
 from __future__ import annotations
 
+import base64
 import copy
 import importlib.util
 import json
+import os
 from datetime import datetime
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
-from urllib.parse import unquote, urlparse
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote, unquote, urlparse
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
@@ -32,6 +36,20 @@ WAREHOUSE_FILES = {
 
 VALID_SHOPS = {"cafe", "bar"}
 VALID_LOCATIONS = {"warehouse", "cellar"}
+
+GITHUB_OWNER = os.environ.get("BARMGR_GITHUB_OWNER", "yrotsoukali")
+GITHUB_REPO = os.environ.get("BARMGR_GITHUB_REPO", "BarMGR")
+GITHUB_BRANCH = os.environ.get("BARMGR_GITHUB_BRANCH", "main")
+GITHUB_TOKEN = os.environ.get("BARMGR_GITHUB_TOKEN", "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").strip()
+ALLOWED_ORIGIN = os.environ.get("BARMGR_ALLOWED_ORIGIN", "*").strip() or "*"
+
+GITHUB_INVENTORY_FILES = {
+    ("cafe", "warehouse"): "data/warehouse-cafe.json",
+    ("cafe", "cellar"): "data/cellar-cafe.json",
+    ("bar", "warehouse"): "data/warehouse-bar.json",
+    ("bar", "cellar"): "data/cellar-bar.json",
+}
+GITHUB_HISTORY_FILE = "data/history.json"
 
 
 def load_python_seed(file_path: Path, attribute: str) -> Dict[str, List[Dict[str, Any]]]:
@@ -74,6 +92,71 @@ def write_json(file_path: Path, payload: Any) -> None:
         json.dump(payload, handle, ensure_ascii=False, indent=2)
 
 
+def github_enabled() -> bool:
+    return bool(GITHUB_TOKEN)
+
+
+def github_headers() -> Dict[str, str]:
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "BarMGR/1.0",
+    }
+    if GITHUB_TOKEN:
+        headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+    return headers
+
+
+def github_contents_url(repo_path: str) -> str:
+    return f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/contents/{quote(repo_path)}?ref={quote(GITHUB_BRANCH)}"
+
+
+def github_request_json(method: str, url: str, payload: Dict[str, Any] | None = None) -> Dict[str, Any]:
+    body = None
+    headers = github_headers()
+    if payload is not None:
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        headers["Content-Type"] = "application/json"
+
+    request = Request(url, data=body, headers=headers, method=method)
+    try:
+        with urlopen(request, timeout=30) as response:
+            raw = response.read().decode("utf-8")
+            return json.loads(raw) if raw else {}
+    except HTTPError as exc:
+        raw = exc.read().decode("utf-8", errors="replace")
+        try:
+            data = json.loads(raw) if raw else {}
+        except json.JSONDecodeError:
+            data = {"message": raw or str(exc)}
+        raise RuntimeError(data.get("message", str(exc))) from exc
+    except URLError as exc:
+        raise RuntimeError(f"GitHub connection failed: {exc.reason}") from exc
+
+
+def github_load_json(repo_path: str, default: Any) -> tuple[Any, str | None]:
+    data = github_request_json("GET", github_contents_url(repo_path))
+    content = data.get("content")
+    if not content:
+        return copy.deepcopy(default), data.get("sha")
+    decoded = base64.b64decode(content.replace("\n", ""))
+    return json.loads(decoded.decode("utf-8")), data.get("sha")
+
+
+def github_save_json(repo_path: str, payload: Any, message: str, sha: str | None = None) -> str:
+    encoded = base64.b64encode(json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")).decode("ascii")
+    request_payload: Dict[str, Any] = {
+        "message": message,
+        "content": encoded,
+        "branch": GITHUB_BRANCH,
+    }
+    if sha:
+        request_payload["sha"] = sha
+    data = github_request_json("PUT", github_contents_url(repo_path), request_payload)
+    content = data.get("content") or {}
+    return content.get("sha", "")
+
+
 def ensure_data_files() -> None:
     ensure_directory()
 
@@ -113,19 +196,46 @@ def inventory_file(shop: str, location: str) -> Path:
     return WAREHOUSE_FILES[shop] if location == "warehouse" else CELLAR_FILES[shop]
 
 
+def inventory_repo_path(shop: str, location: str) -> str:
+    shop = normalize_shop(shop)
+    location = normalize_location(location)
+    return GITHUB_INVENTORY_FILES[(shop, location)]
+
+
 def load_inventory(shop: str, location: str) -> Dict[str, List[Dict[str, Any]]]:
+    if github_enabled():
+        try:
+            data, _sha = github_load_json(inventory_repo_path(shop, location), {})
+            return data
+        except RuntimeError:
+            pass
     return read_json(inventory_file(shop, location), {})
 
 
 def save_inventory(shop: str, location: str, inventory: Dict[str, List[Dict[str, Any]]]) -> None:
+    if github_enabled():
+        repo_path = inventory_repo_path(shop, location)
+        _current, sha = github_load_json(repo_path, {})
+        github_save_json(repo_path, inventory, f"Update {shop} {location} inventory", sha)
+        return
     write_json(inventory_file(shop, location), inventory)
 
 
 def load_history() -> List[Dict[str, Any]]:
+    if github_enabled():
+        try:
+            data, _sha = github_load_json(GITHUB_HISTORY_FILE, [])
+            return data if isinstance(data, list) else []
+        except RuntimeError:
+            pass
     return read_json(HISTORY_FILE, [])
 
 
 def save_history(history: List[Dict[str, Any]]) -> None:
+    if github_enabled():
+        _current, sha = github_load_json(GITHUB_HISTORY_FILE, [])
+        github_save_json(GITHUB_HISTORY_FILE, history, "Update BarMGR history", sha)
+        return
     write_json(HISTORY_FILE, history)
 
 
@@ -170,6 +280,9 @@ def load_users() -> List[str]:
 def json_response(handler: BaseHTTPRequestHandler, payload: Any, status: int = HTTPStatus.OK) -> None:
     data = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
     handler.send_response(status)
+    handler.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
+    handler.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    handler.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Content-Length", str(len(data)))
     handler.end_headers()
@@ -178,6 +291,9 @@ def json_response(handler: BaseHTTPRequestHandler, payload: Any, status: int = H
 
 def text_response(handler: BaseHTTPRequestHandler, data: bytes, content_type: str, status: int = HTTPStatus.OK) -> None:
     handler.send_response(status)
+    handler.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
+    handler.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    handler.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
     handler.send_header("Content-Type", content_type)
     handler.send_header("Content-Length", str(len(data)))
     handler.end_headers()
@@ -215,6 +331,14 @@ def safe_serve_file(handler: BaseHTTPRequestHandler, directory: Path, relative_p
 class BarMGRHandler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args: Any) -> None:
         return
+
+    def do_OPTIONS(self) -> None:
+        self.send_response(HTTPStatus.NO_CONTENT)
+        self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
@@ -271,7 +395,7 @@ class BarMGRHandler(BaseHTTPRequestHandler):
             category = payload["category"]
             item_name = payload["item"]
             quantity_delta = int(payload["quantity"])
-            user = payload["user"]
+            user = payload.get("user", "Web")
             note = payload.get("note", "")
             location = normalize_location(location)
             shop = normalize_shop(shop)
@@ -332,7 +456,7 @@ class BarMGRHandler(BaseHTTPRequestHandler):
             category = payload["category"]
             item_name = payload["item"]
             quantity = parse_quantity(payload["quantity"])
-            user = payload["user"]
+            user = payload.get("user", "Web")
             note = payload.get("note", "")
         except (KeyError, TypeError, ValueError, json.JSONDecodeError):
             return json_response(self, {"error": "Invalid request"}, HTTPStatus.BAD_REQUEST)
@@ -396,7 +520,8 @@ class BarMGRHandler(BaseHTTPRequestHandler):
 def run_server(host: str = "127.0.0.1", port: int = 8000) -> None:
     ensure_data_files()
     server = ThreadingHTTPServer((host, port), BarMGRHandler)
-    print(f"BarMGR running on http://{host}:{port}")
+    mode = "GitHub" if github_enabled() else "local"
+    print(f"BarMGR running on http://{host}:{port} ({mode} storage)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
