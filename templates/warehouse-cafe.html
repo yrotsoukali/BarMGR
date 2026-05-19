@@ -825,9 +825,19 @@
       renderCategories();
     });
 
-    els.refreshBtn.addEventListener('click', async () => {
-      await refresh();
-    });
+    if (els.refreshBtn) {
+      els.refreshBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        els.refreshBtn.disabled = true;
+        try {
+          await refresh();
+        } finally {
+          els.refreshBtn.disabled = false;
+        }
+      });
+    } else {
+      console.error('Refresh button not found in DOM');
+    }
 
     // Listen for storage events from other tabs to refresh the inventory
     window.addEventListener('storage', (e) => {
