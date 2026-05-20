@@ -1154,7 +1154,9 @@
 		}
 
 		function decodeContent(content) {
-			return JSON.parse(atob(String(content || '').replace(/\s+/g, '')));
+			const binary = atob(String(content || '').replace(/\s+/g, ''));
+			const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+			return JSON.parse(new TextDecoder('utf-8').decode(bytes));
 		}
 
 		function encodeContent(payload) {
