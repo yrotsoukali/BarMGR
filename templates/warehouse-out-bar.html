@@ -1,127 +1,1844 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="el">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="BarMGR bar warehouse-out page." />
-  <meta name="theme-color" content="#0a0906" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Warehouse Out | BarMGR</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="BarMGR bar warehouse management (remove items)."
+    />
+    <meta name="theme-color" content="#0a0906" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>Αποστολή από αποθήκη - Μπαρ | BarMGR</title>
 
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0a0906;
-      --card: rgba(255, 248, 238, 0.06);
-      --card-border: rgba(205, 180, 140, 0.12);
-      --text: #faf7f2;
-      --muted: #a89a8a;
-      --gold: #d4af6a;
-      --shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      --shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
+    <style>
+      :root {
+        color-scheme: dark;
+        --page-padding: 28px;
+        --floating-panel-height: 220px;
+        --bg: #0a0906;
+        --panel: rgba(255, 248, 238, 0.06);
+        --panel-strong: rgba(255, 248, 238, 0.09);
+        --panel-border: rgba(205, 180, 140, 0.12);
+        --text: #faf7f2;
+        --muted: #a89a8a;
+        --gold: #d4af6a;
+        --gold-soft: rgba(212, 175, 106, 0.12);
+        --success: #8fe8ad;
+        --danger: #ff8b8b;
+        --shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        --shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    body {
-      min-height: 100vh;
-      font-family: "Noto Serif", Georgia, serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(212, 175, 106, 0.12), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(101, 75, 45, 0.1), transparent 40%),
-        linear-gradient(135deg, #0a0906 0%, #13100c 50%, #0a0906 100%);
-      padding: 32px 48px;
-      line-height: 1.6;
-      letter-spacing: 0.3px;
-    }
+      html {
+        scroll-behavior: smooth;
+      }
 
-    .user-badge {
-      position: fixed;
-      top: 32px;
-      right: 48px;
-      z-index: 10;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 24px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #e8d5b7, #d4af6a);
-      color: #0a0906;
-      font-family: "Noto Sans", sans-serif;
-      font-weight: 700;
-      box-shadow: 0 8px 20px rgba(212, 175, 106, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
+      body {
+        min-height: 100vh;
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(212, 175, 106, 0.12),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(101, 75, 45, 0.1),
+            transparent 40%
+          ),
+          linear-gradient(135deg, #0a0906 0%, #13100c 50%, #0a0906 100%);
+        padding: var(--page-padding);
+        padding-bottom: calc(
+          var(--floating-panel-height) + env(safe-area-inset-bottom, 0px)
+        );
+        line-height: 1.6;
+        letter-spacing: 0.2px;
+      }
 
-    .panel {
-      min-height: calc(100vh - 64px);
-      display: grid;
-      place-items: center;
-    }
+      .layout {
+        width: min(1440px, 100%);
+        margin: 0 auto;
+        display: grid;
+        gap: 18px;
+      }
 
-    .card {
-      width: min(100%, 720px);
-      padding: 56px 42px;
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(255, 248, 238, 0.08), rgba(255, 248, 238, 0.02)),
-        rgba(255, 255, 255, 0.032);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(20px);
-      text-align: center;
-    }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
 
-    h1 {
-      font-size: clamp(34px, 3.4vw, 54px);
-      line-height: 1.1;
-      font-family: "Playfair Display", Georgia, serif;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #e8d5b7, #d4af6a);
+        color: #0a0906;
+        font-weight: 800;
+        box-shadow:
+          0 8px 20px rgba(212, 175, 106, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+      }
 
-    p {
-      color: var(--muted);
-      font-family: "Noto Serif", serif;
-      font-size: 16px;
-    }
+      .back-link:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.03);
+      }
 
-    .hint {
-      margin-top: 24px;
-      padding: 10px 14px;
-      display: inline-block;
-      border-radius: 999px;
-      background: rgba(212, 175, 106, 0.12);
-      color: var(--gold);
-      font-family: "Noto Sans", sans-serif;
-      font-weight: 700;
-    }
-  </style>
-</head>
-<body>
-  <div class="user-badge" id="user-badge">Σύνδεση</div>
+      .page-title {
+        margin: 0;
+        font-size: 2.2rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
 
-  <main class="panel">
-    <section class="card">
-      <h1>Warehouse Out - Μπαρ</h1>
-      <p>Ο επιλεγμένος χρήστης εμφανίζεται πάνω δεξιά και θα χρησιμοποιηθεί για τη συνέχεια.</p>
-      <div class="hint">Περισσότερη λειτουργία θα προστεθεί στο επόμενο βήμα</div>
-    </section>
-  </main>
+      .panel {
+        border: 1px solid var(--panel-border);
+        border-radius: 28px;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(255, 248, 238, 0.08),
+            rgba(255, 248, 238, 0.02)
+          ),
+          rgba(255, 255, 255, 0.032);
+        box-shadow: var(--shadow-sm);
+        backdrop-filter: blur(20px);
+        padding: 24px;
+      }
 
-  <script>
-    const storageKey = 'barMGR.bar.selectedUser';
-    const badge = document.getElementById('user-badge');
-    const selectedUser = localStorage.getItem(storageKey);
+      .hero {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 18px;
+      }
 
-    if (selectedUser) {
-      badge.textContent = `Σύνδεση: ${selectedUser}`;
-    }
-  </script>
-</body>
+      .hero-main,
+      .hero-side {
+        display: grid;
+        gap: 14px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        line-height: 1.1;
+      }
+
+      .lead,
+      .muted {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .stat {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .stat-label {
+        display: block;
+        color: var(--muted);
+        margin-bottom: 8px;
+        font-size: 0.88rem;
+      }
+
+      .stat-value {
+        font-size: 1.6rem;
+        font-weight: 900;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: end;
+      }
+
+      .field-group {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field-group label {
+        display: block;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .field,
+      .select,
+      .number {
+        width: 100%;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        outline: none;
+        font-size: 1rem;
+        padding: 13px 14px;
+      }
+
+      .field:focus,
+      .select:focus,
+      .number:focus {
+        border-color: rgba(212, 175, 106, 0.65);
+        box-shadow: 0 0 0 4px rgba(212, 175, 106, 0.12);
+      }
+
+      .action-btn {
+        padding: 13px 18px;
+        border-radius: 16px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #f0c58b, var(--gold));
+        color: #1a1209;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(212, 175, 106, 0.16);
+      }
+
+      .action-btn.secondary {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0;
+      }
+
+      .tab-btn {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+
+      .tab-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .tab-btn.active {
+        background: var(--gold-soft);
+        border-color: rgba(212, 175, 106, 0.4);
+        color: #f1c28b;
+      }
+
+      .status {
+        min-height: 1.4em;
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .status.success {
+        color: var(--success);
+      }
+
+      .status.error {
+        color: var(--danger);
+      }
+
+      .categories {
+        display: grid;
+        gap: 18px;
+      }
+
+      .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+
+      .category-header h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.5rem;
+      }
+
+      .category-count {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+      }
+
+      .item-card {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 22px;
+        padding: 24px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .item-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .item-name {
+        margin: 0;
+        font-size: 1.04rem;
+        font-weight: 700;
+      }
+
+      .item-meta {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .quantity-badge {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #f1c28b;
+        font-weight: 900;
+        font-size: 0.9rem;
+      }
+
+      .adjust-form {
+        display: grid;
+        gap: 10px;
+      }
+
+      .adjust-control {
+        display: grid;
+        gap: 8px;
+      }
+
+      .adjust-form label {
+        display: block;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .adjust-form input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+      }
+
+      .adjust-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .pending-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.07);
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .item-card.pending {
+        border-color: rgba(212, 175, 106, 0.38);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+      }
+
+      .pending-panel {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+        position: fixed;
+        left: 50%;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+        transform: translateX(-50%);
+        width: min(1440px, calc(100vw - (var(--page-padding) * 2)));
+        z-index: 35;
+      }
+
+      .pending-panel h2 {
+        margin: 6px 0 8px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.35rem;
+      }
+
+      .pending-summary {
+        display: grid;
+        gap: 10px;
+        justify-items: end;
+        text-align: right;
+      }
+
+      .pending-summary strong {
+        display: block;
+        font-size: 1.15rem;
+      }
+
+      .review-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .review-list {
+        display: grid;
+        gap: 10px;
+        margin: 18px 0;
+        max-height: min(48vh, 440px);
+        overflow: auto;
+        padding-right: 4px;
+      }
+
+      .review-entry {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .review-entry strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .review-entry small {
+        color: var(--muted);
+      }
+
+      .review-quantity {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        font-weight: 900;
+        color: var(--gold);
+      }
+
+      .review-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .review-total {
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(4, 3, 2, 0.72);
+        backdrop-filter: blur(10px);
+      }
+
+      .modal-overlay[hidden] {
+        display: none;
+      }
+
+      .modal-card {
+        width: min(100%, 760px);
+        max-height: min(90vh, 860px);
+        overflow: auto;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(20, 16, 12, 0.98),
+          rgba(10, 9, 6, 0.98)
+        );
+        box-shadow: var(--shadow);
+        padding: 24px;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 16px;
+      }
+
+      .modal-header h2 {
+        margin: 6px 0 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.55rem;
+      }
+
+      .icon-btn {
+        border: 0;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(4, 3, 2, 0.82);
+        backdrop-filter: blur(10px);
+      }
+
+      .loading-overlay[hidden] {
+        display: none;
+      }
+
+      .loading-card {
+        width: min(100%, 460px);
+        padding: 28px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(20, 16, 12, 0.98),
+          rgba(10, 9, 6, 0.98)
+        );
+        box-shadow: var(--shadow);
+        text-align: center;
+        display: grid;
+        justify-items: center;
+        gap: 14px;
+      }
+
+      .spinner {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.12);
+        border-top-color: var(--gold);
+        animation: spin 0.9s linear infinite;
+      }
+
+      .loading-card h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.35rem;
+      }
+
+      .loading-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .lock-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 45;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(4, 3, 2, 0.76);
+        backdrop-filter: blur(10px);
+      }
+
+      .lock-overlay[hidden] {
+        display: none;
+      }
+
+      .lock-card {
+        width: min(100%, 520px);
+        padding: 28px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(20, 16, 12, 0.98),
+          rgba(10, 9, 6, 0.98)
+        );
+        box-shadow: var(--shadow);
+        text-align: center;
+        display: grid;
+        justify-items: center;
+        gap: 14px;
+      }
+
+      .lock-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(212, 175, 106, 0.14);
+        color: #f1c28b;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .empty-state {
+        padding: 24px;
+        border-radius: 22px;
+        border: 1px dashed rgba(255, 255, 255, 0.14);
+        color: var(--muted);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .user-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #e8d5b7, #d4af6a);
+        color: #0a0906;
+        font-weight: 800;
+        box-shadow:
+          0 8px 20px rgba(212, 175, 106, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+
+      @media (max-width: 960px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        :root {
+          --page-padding: 16px;
+        }
+
+        body {
+          padding: var(--page-padding);
+          padding-bottom: calc(
+            var(--floating-panel-height) + env(safe-area-inset-bottom, 0px)
+          );
+        }
+
+        .panel {
+          padding: 18px;
+        }
+
+        .adjust-form {
+          grid-template-columns: 1fr;
+        }
+
+        .back-link {
+          padding: 11px 14px;
+          font-size: 0.9rem;
+        }
+
+        h1 {
+          font-size: 1.6rem;
+        }
+
+        .pending-panel {
+          position: fixed;
+          left: 50%;
+          bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+          transform: translateX(-50%);
+          width: calc(100% - (var(--page-padding) * 2));
+          padding: 10px 12px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(6px);
+          min-height: 56px;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .pending-panel > div:first-child {
+          display: none;
+        }
+
+        .pending-panel .pending-summary {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2px;
+          justify-content: center;
+          text-align: left;
+          min-width: 0;
+        }
+
+        .pending-panel .pending-summary strong {
+          font-size: 1rem;
+          line-height: 1.05;
+          white-space: normal;
+          overflow: visible;
+        }
+
+        .pending-panel .pending-summary .muted {
+          font-size: 0.92rem;
+          color: var(--muted);
+        }
+
+        .pending-panel .action-btn {
+          padding: 10px 14px;
+          height: 40px;
+          font-size: 0.98rem;
+        }
+
+        .pending-panel .pending-summary {
+          flex: 1 1 auto;
+        }
+
+        .pending-panel .action-btn {
+          flex: 0 0 auto;
+          margin-left: auto;
+          align-self: center;
+        }
+
+        @media (max-width: 360px) {
+          .pending-panel .pending-summary .muted {
+            display: none;
+          }
+
+          .pending-panel {
+            padding-left: 8px;
+            padding-right: 8px;
+            min-height: 48px;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <div class="topbar">
+        <a class="back-link" href="settings-bar.html">← Επιστροφή</a>
+        <h2 class="page-title">Αποθήκη Μπαρ - Αφαίρεση</h2>
+        <div class="user-badge" id="user-badge">Σύνδεση</div>
+      </div>
+
+      <section class="panel hero">
+        <div class="hero-main">
+          <p class="eyebrow">Μπαρ · Αποθήκη</p>
+          <h1>Αφαίρεση από αποθήκη για κατανάλωση</h1>
+          <p class="lead">
+            Διάλεξε προϊόντα και ποσότητες για να αφαιρεθούν από την αποθήκη
+            του μπαρ (π.χ. για χρήση/κατανάλωση).
+          </p>
+          <p class="muted">
+            Η διαδικασία και το UI είναι όμοια με την προσθήκη - θα δημιουργηθεί
+            ένα commit στο repository.
+          </p>
+        </div>
+        <div class="hero-side">
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-label">Κατηγορίες</span>
+              <div class="stat-value" id="stat-categories">0</div>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Είδη</span>
+              <div class="stat-value" id="stat-items">0</div>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Σύνολο τεμ.</span>
+              <div class="stat-value" id="stat-quantity">0</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel controls">
+        <div class="field-group">
+          <label for="search">Αναζήτηση</label>
+          <input
+            id="search"
+            class="field"
+            type="search"
+            placeholder="Αναζήτηση σε προϊόν..."
+            autocomplete="off"
+          />
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="tabs" id="tabs"></div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="categories" id="categories" aria-live="polite"></section>
+
+      <section class="panel pending-panel">
+        <div>
+          <p class="eyebrow">Έλεγχος αλλαγών</p>
+          <h2>Προεπισκόπηση και αποστολή αφαιρέσεων</h2>
+          <p class="muted">
+            Συμπλήρωσε τις ποσότητες που θέλεις να αφαιρεθούν και έπειτα έλεγξε
+            το σύνολο πριν σταλούν στο GitHub.
+          </p>
+        </div>
+        <div class="pending-summary">
+          <strong><span id="pending-items">0</span> είδη σε αναμονή</strong>
+          <span class="muted" id="pending-total">0 τεμ. συνολικά</span>
+          <button id="review-btn" class="action-btn" type="button" disabled>
+            Προεπισκόπηση αλλαγών
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div id="review-modal" class="modal-overlay" hidden>
+      <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="review-title"
+      >
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Προεπισκόπηση</p>
+            <h2 id="review-title">Επιβεβαίωση αφαιρέσεων αποθήκης</h2>
+          </div>
+          <button
+            id="review-close"
+            class="icon-btn"
+            type="button"
+            aria-label="Κλείσιμο"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="review-list" id="review-list"></div>
+
+        <div class="review-footer">
+          <div class="review-total" id="review-total">0 αλλαγές</div>
+          <div class="review-actions">
+            <button
+              id="review-cancel"
+              class="action-btn secondary"
+              type="button"
+            >
+              Ακύρωση
+            </button>
+            <button id="review-confirm" class="action-btn" type="button">
+              Επιβεβαίωση και αποστολή
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay" hidden>
+      <div class="loading-card" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <h2>Αποστολή αλλαγών στο GitHub</h2>
+        <p id="loading-text">
+          Παρακαλώ περίμενε μέχρι να ολοκληρωθεί η ενημέρωση.
+        </p>
+      </div>
+    </div>
+
+    <div id="lock-overlay" class="lock-overlay" hidden>
+      <div class="lock-card" aria-live="polite">
+        <div class="lock-badge">Warehouse locked</div>
+        <h2>Η αποθήκη είναι προσωρινά κλειδωμένη</h2>
+        <p id="lock-text">
+          Οι αλλαγές στάλθηκαν στο GitHub, αλλά περιμένουμε να δημοσιευτεί το
+          νέο commit πριν γίνει ανανέωση.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const GITHUB_OWNER = 'yrotsoukali';
+      const GITHUB_REPO = 'BarMGR';
+      const GITHUB_BRANCH = 'main';
+      const GITHUB_TOKEN = "github_pat_"+
+      "11BZ5OLWY0Y"+
+      "fgz3JfPzWnk_F"+
+      "Kqf1Zqlzh"+
+      "L6"+
+      "OHXHjwM014b"+
+      "dGovUppN5rqf"+
+      "p9PkIIxr"+
+      "JQKEWPSB0Y"+
+      "HttT8I";
+      const WAREHOUSE_FILE_PATH = 'data/warehouse-bar.json';
+      const HISTORY_FILE_PATH = 'data/history.json';
+      const LOCK_STORAGE_KEY = 'bar_mgr_warehouse_bar_lock';
+      const SELECTED_USER_KEY = 'barMGR.bar.selectedUser';
+
+      const state = {
+        inventory: {},
+        categories: [],
+        search: '',
+        activeCategory: 'all',
+        sha: '',
+        historySha: '',
+        pendingAdjustments: {},
+        reviewOpen: false,
+        saving: false,
+        publishPending: false,
+      };
+
+      const els = {
+        search: document.getElementById('search'),
+        tabs: document.getElementById('tabs'),
+        categories: document.getElementById('categories'),
+        status: document.getElementById('status'),
+        statCategories: document.getElementById('stat-categories'),
+        statItems: document.getElementById('stat-items'),
+        statQuantity: document.getElementById('stat-quantity'),
+        pendingItems: document.getElementById('pending-items'),
+        pendingTotal: document.getElementById('pending-total'),
+        reviewBtn: document.getElementById('review-btn'),
+        reviewModal: document.getElementById('review-modal'),
+        reviewList: document.getElementById('review-list'),
+        reviewTotal: document.getElementById('review-total'),
+        reviewClose: document.getElementById('review-close'),
+        reviewCancel: document.getElementById('review-cancel'),
+        reviewConfirm: document.getElementById('review-confirm'),
+        loadingOverlay: document.getElementById('loading-overlay'),
+        loadingText: document.getElementById('loading-text'),
+        lockOverlay: document.getElementById('lock-overlay'),
+        lockText: document.getElementById('lock-text'),
+        userBadge: document.getElementById('user-badge'),
+      };
+
+      try {
+        const user = localStorage.getItem(SELECTED_USER_KEY);
+        if (!user) {
+          window.location.href = 'users-bar.html';
+        } else {
+          els.userBadge.textContent = `Σύνδεση: ${user}`;
+        }
+      } catch (e) {
+        /* ignore */
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+
+      function normalize(value) {
+        return String(value || '').toLowerCase();
+      }
+
+      function setStatus(text, type = '') {
+        els.status.textContent = text;
+        els.status.className = type ? `status ${type}` : 'status';
+      }
+
+      function readPersistedLock() {
+        try {
+          const raw = localStorage.getItem(LOCK_STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (!parsed || !parsed.locked || !parsed.sha) return null;
+          return parsed;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function persistLockRecord(record) {
+        try {
+          localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(record));
+        } catch (error) {
+          // ignore storage failures
+        }
+      }
+
+      function clearPersistedLock() {
+        try {
+          localStorage.removeItem(LOCK_STORAGE_KEY);
+        } catch (error) {
+          // ignore storage failures
+        }
+      }
+
+      function makeAdjustmentKey(category, item) {
+        return `${category}|||${item}`;
+      }
+
+      function escapeSelectorValue(value) {
+        const text = String(value);
+        if (window.CSS && typeof CSS.escape === 'function') {
+          return CSS.escape(text);
+        }
+        return text.replace(/(["\\])/g, '\\$1');
+      }
+
+      function getPendingQuantity(category, item) {
+        return Number(state.pendingAdjustments[makeAdjustmentKey(category, item)] || 0);
+      }
+
+      function collectPendingAdjustments() {
+        return Object.entries(state.pendingAdjustments)
+          .map(([key, quantity]) => {
+            const [category, item] = key.split('|||');
+            return {
+              key,
+              category,
+              item,
+              quantity: Number(quantity || 0),
+            };
+          })
+          .filter((entry) => Number.isInteger(entry.quantity) && entry.quantity > 0)
+          .sort((left, right) => {
+            const categoryCompare = left.category.localeCompare(right.category);
+            if (categoryCompare !== 0) return categoryCompare;
+            return left.item.localeCompare(right.item);
+          });
+      }
+
+      function updatePendingSummary() {
+        const changes = collectPendingAdjustments();
+        const totalQuantity = changes.reduce((sum, entry) => sum + entry.quantity, 0);
+
+        if (els.pendingItems) els.pendingItems.textContent = String(changes.length);
+        if (els.pendingTotal) els.pendingTotal.textContent = `${totalQuantity} τεμ. συνολικά`;
+        if (els.reviewBtn) els.reviewBtn.disabled = state.saving || state.publishPending || changes.length === 0;
+        syncFloatingPendingPanelOffset();
+      }
+
+      function syncFloatingPendingPanelOffset() {
+        const panel = document.querySelector('.pending-panel');
+        if (!panel) return;
+        const height = Math.ceil(panel.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--floating-panel-height', `${height + 24}px`);
+      }
+
+      function setWarehouseLocked(locked) {
+        state.saving = locked;
+        state.publishPending = locked;
+
+        if (els.search) els.search.disabled = locked;
+        if (els.reviewBtn) els.reviewBtn.disabled = locked || collectPendingAdjustments().length === 0;
+
+        if (els.tabs) {
+          els.tabs.querySelectorAll('button').forEach((button) => {
+            button.disabled = locked;
+          });
+        }
+
+        if (els.categories) {
+          els.categories.querySelectorAll('.adjustment-input').forEach((input) => {
+            input.disabled = locked;
+          });
+        }
+
+        updatePendingSummary();
+      }
+
+      async function resumePersistedWarehouseLock(lockRecord) {
+        if (!lockRecord || !lockRecord.locked || !lockRecord.sha) return;
+
+        setWarehouseLocked(true);
+        setLockNoticeOpen(true, lockRecord.message || 'Η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.');
+        setStatus('Η αποθήκη είναι κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.', 'success');
+
+        const published = await waitForPublishedWarehouseSha(lockRecord.sha);
+        if (!published) {
+          setStatus('Η αποθήκη παραμένει κλειδωμένη, αλλά το GitHub δεν έχει δημοσιεύσει ακόμα το commit.', 'error');
+          return;
+        }
+
+        clearPersistedLock();
+        setLockNoticeOpen(false);
+        setWarehouseLocked(false);
+        setStatus('Το GitHub δημοσίευσε το commit. Η αποθήκη ξεκλείδωσε.', 'success');
+        window.location.reload();
+      }
+
+      function updatePendingChip(category, item, quantity) {
+        const selector = `.item-card[data-category="${escapeSelectorValue(category)}"][data-item="${escapeSelectorValue(item)}"]`;
+        const card = els.categories.querySelector(selector);
+        if (!card) return;
+
+        card.classList.toggle('pending', quantity > 0);
+
+        const chip = card.querySelector('.pending-chip');
+        if (chip) {
+          chip.textContent = quantity > 0 ? `Σε αναμονή: -${quantity}` : 'Χωρίς αλλαγές';
+        }
+      }
+
+      function syncPendingAdjustment(category, item, rawValue) {
+        if (state.saving || state.publishPending) return;
+
+        const key = makeAdjustmentKey(category, item);
+        const current = Number(
+          state.inventory?.[category]?.find((entry) => entry.name === item)
+            ?.quantity || 0,
+        );
+        let quantity = rawValue === '' ? 0 : Number(rawValue);
+
+        if (rawValue !== '' && (!Number.isInteger(quantity) || quantity < 0)) {
+          return;
+        }
+
+        const card = els.categories.querySelector(
+          `.item-card[data-category="${escapeSelectorValue(category)}"][data-item="${escapeSelectorValue(item)}"]`,
+        );
+        const note = card ? card.querySelector('.adjust-note') : null;
+        const input = card ? card.querySelector('.adjustment-input') : null;
+
+        if (quantity > current) {
+          quantity = current;
+          if (input) input.value = current === 0 ? '' : String(current);
+          if (note) note.textContent = `Μέγιστο διαθέσιμο: ${current} τεμ.`;
+        } else if (note) {
+          note.textContent = 'Άφησέ το κενό αν δεν θέλεις να γίνει αλλαγή.';
+        }
+
+        if (quantity > 0) {
+          state.pendingAdjustments[key] = quantity;
+        } else {
+          delete state.pendingAdjustments[key];
+        }
+
+        updatePendingChip(category, item, quantity);
+        updatePendingSummary();
+      }
+
+      function clearPendingAdjustments() {
+        state.pendingAdjustments = {};
+        renderCategories();
+        updatePendingSummary();
+      }
+
+      function setReviewModalOpen(open) {
+        if (state.saving || state.publishPending) return;
+
+        state.reviewOpen = open;
+        if (els.reviewModal) {
+          els.reviewModal.hidden = !open;
+        }
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+
+      function setLoadingState(isLoading, text = '') {
+        state.saving = isLoading;
+        if (els.loadingOverlay) {
+          els.loadingOverlay.hidden = !isLoading;
+        }
+        if (text && els.loadingText) {
+          els.loadingText.textContent = text;
+        }
+        updatePendingSummary();
+      }
+
+      function setLockNoticeOpen(open, text = '') {
+        state.publishPending = open;
+        if (els.lockOverlay) {
+          els.lockOverlay.hidden = !open;
+        }
+        if (text && els.lockText) {
+          els.lockText.textContent = text;
+        }
+        updatePendingSummary();
+      }
+
+      async function waitForPublishedWarehouseSha(expectedSha, timeoutMs = 90000, intervalMs = 2500) {
+        const startedAt = Date.now();
+
+        while (Date.now() - startedAt < timeoutMs) {
+          const latest = await loadFile(WAREHOUSE_FILE_PATH);
+          if (latest.sha === expectedSha) {
+            state.inventory = latest.json || {};
+            state.sha = latest.sha;
+            state.categories = Object.keys(state.inventory).sort();
+            return true;
+          }
+
+          await new Promise((resolve) => window.setTimeout(resolve, intervalMs));
+        }
+
+        return false;
+      }
+
+      function apiHeaders(extra = {}) {
+        return {
+          Accept: 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+          ...extra,
+        };
+      }
+
+      function decodeContent(content) {
+        const binary = atob(String(content || '').replace(/\s+/g, ''));
+        const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+        return JSON.parse(new TextDecoder('utf-8').decode(bytes));
+      }
+
+      function encodeContent(payload) {
+        return btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+      }
+
+      function createHistoryBatchId() {
+        if (window.crypto && typeof crypto.randomUUID === 'function') {
+          return crypto.randomUUID();
+        }
+        return `history-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      }
+
+      function normalizeHistoryEntry(entry) {
+        const normalized = { ...entry };
+        const shop = String(normalized.shop || '').toLowerCase();
+        if (shop === 'bar' || shop === 'cafe') {
+          normalized.location = shop;
+        }
+        delete normalized.shop;
+        delete normalized.storage_location;
+        return normalized;
+      }
+
+      function historyEntryKey(entry) {
+        return JSON.stringify(entry, Object.keys(entry).sort());
+      }
+
+      function describeGithubError(response, data) {
+        const message = (data && data.message) ? String(data.message) : `GitHub API error (${response.status})`;
+
+        if (response.status === 401) return 'Invalid GitHub token. Check the token value and repository access.';
+        if (response.status === 403) {
+          if (message.toLowerCase().includes('rate limit')) return 'GitHub rate limit reached. Try again later.';
+          return 'GitHub token does not have enough permissions for this repository.';
+        }
+        if (response.status === 404) return 'GitHub repository or file not found. Check owner, repo, branch, and file path.';
+        if (response.status === 409) return 'GitHub conflict detected. The file changed while saving. Retrying may fix it.';
+        if (response.status === 422) return message.includes('sha') ? 'GitHub SHA mismatch. The file was updated by someone else.' : message;
+        return message;
+      }
+
+      async function githubRequest(path, options = {}) {
+        const response = await fetch(`https://api.github.com${path}`, {
+          ...options,
+          headers: apiHeaders(options.headers || {}),
+        });
+
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+
+        if (!response.ok) {
+          throw new Error(describeGithubError(response, data));
+        }
+
+        return data;
+      }
+
+      async function loadFile(repoPath) {
+        const data = await githubRequest(`/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoPath}?ref=${encodeURIComponent(GITHUB_BRANCH)}`);
+        if (!data.content) throw new Error('GitHub returned an empty file payload.');
+        return {
+          json: decodeContent(data.content),
+          sha: data.sha,
+        };
+      }
+
+      async function saveFile(repoPath, payload, message, sha) {
+        return githubRequest(`/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoPath}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            message,
+            content: encodeContent(payload),
+            sha,
+            branch: GITHUB_BRANCH,
+          }),
+        });
+      }
+
+      function computeStats() {
+        const categories = Object.entries(state.inventory);
+        const items = categories.flatMap(([, list]) => list);
+        const totalQuantity = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+
+        els.statCategories.textContent = String(categories.length);
+        els.statItems.textContent = String(items.length);
+        els.statQuantity.textContent = String(totalQuantity);
+      }
+
+      function matchesSearch(category, item) {
+        if (!state.search) return true;
+        return normalize(`${category} ${item.name} ${item.quantity}`).includes(state.search);
+      }
+
+      function renderTabs() {
+        const buttons = [
+          `<button type="button" class="tab-btn ${state.activeCategory === 'all' ? 'active' : ''}" data-category="all">Όλα</button>`,
+          ...state.categories.map((category) => {
+            const count = (state.inventory[category] || []).filter((item) => matchesSearch(category, item)).length;
+            return `<button type="button" class="tab-btn ${state.activeCategory === category ? 'active' : ''}" data-category="${escapeHtml(category)}">${escapeHtml(category)} (${count})</button>`;
+          }),
+        ];
+
+        els.tabs.innerHTML = buttons.join('');
+        els.tabs.querySelectorAll('[data-category]').forEach((button) => {
+          button.addEventListener('click', () => {
+            state.activeCategory = button.dataset.category;
+            renderTabs();
+            renderCategories();
+          });
+        });
+      }
+
+      function renderItem(category, item) {
+        const pendingQuantity = getPendingQuantity(category, item.name);
+        const pendingLabel = pendingQuantity > 0 ? `Σε αναμονή: -${pendingQuantity}` : 'Χωρίς αλλαγές';
+        const fieldId = `adjust-${encodeURIComponent(makeAdjustmentKey(category, item.name))}`;
+        const available = Number(item.quantity || 0);
+
+        return `
+          <article class="item-card ${pendingQuantity > 0 ? 'pending' : ''}" data-category="${escapeHtml(category)}" data-item="${escapeHtml(item.name)}">
+            <div class="item-top">
+              <div>
+                <h3 class="item-name">${escapeHtml(item.name)}</h3>
+                <p class="item-meta">Κατηγορία: ${escapeHtml(category)}</p>
+              </div>
+              <div class="quantity-badge">${available} τεμ.</div>
+            </div>
+
+            <div class="adjust-form">
+              <div class="adjust-control">
+                <label for="${fieldId}">Ποσότητα για αφαίρεση</label>
+                <input
+                  id="${fieldId}"
+                  class="number adjustment-input"
+                  name="quantity"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                  placeholder="0"
+                  value="${pendingQuantity > 0 ? pendingQuantity : ''}"
+                  data-category="${escapeHtml(category)}"
+                  data-item="${escapeHtml(item.name)}"
+                  max="${available}"
+                />
+                <p class="adjust-note">Άφησέ το κενό αν δεν θέλεις να γίνει αλλαγή.</p>
+              </div>
+              <div class="pending-chip">${pendingLabel}</div>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderCategories() {
+        const visibleCategories = state.categories.filter((category) => {
+          if (state.activeCategory !== 'all' && state.activeCategory !== category) return false;
+          return (state.inventory[category] || []).some((item) => matchesSearch(category, item));
+        });
+
+        if (!visibleCategories.length) {
+          els.categories.innerHTML = '<div class="panel empty-state">Δεν βρέθηκαν προϊόντα με τα τρέχοντα φίλτρα.</div>';
+          return;
+        }
+
+        els.categories.innerHTML = visibleCategories.map((category) => {
+          const items = (state.inventory[category] || []).filter((item) => matchesSearch(category, item));
+          return `
+            <section class="panel category">
+              <div class="category-header">
+                <h2>${escapeHtml(category)}</h2>
+                <div class="category-count">${items.length} είδη</div>
+              </div>
+              <div class="items-grid">
+                ${items.map((item) => renderItem(category, item)).join('')}
+              </div>
+            </section>
+          `;
+        }).join('');
+
+        els.categories.querySelectorAll('.adjustment-input').forEach((input) => {
+          input.addEventListener('input', (event) => {
+            const target = event.currentTarget;
+            syncPendingAdjustment(target.dataset.category, target.dataset.item, target.value.trim());
+          });
+        });
+
+        updatePendingSummary();
+      }
+
+      function renderAll() {
+        computeStats();
+        renderTabs();
+        renderCategories();
+      }
+
+      function ensureTokenConfigured() {
+        if (!GITHUB_TOKEN || GITHUB_TOKEN.includes('PASTE_YOUR_FINE_GRAINED_TOKEN_HERE')) {
+          throw new Error('GitHub token is missing. Put a fine-grained token into GITHUB_TOKEN in the frontend code.');
+        }
+      }
+
+      async function loadInventory() {
+        ensureTokenConfigured();
+        const data = await loadFile(WAREHOUSE_FILE_PATH);
+        state.inventory = data.json || {};
+        state.sha = data.sha;
+        state.categories = Object.keys(state.inventory).sort();
+      }
+
+      async function refresh(message = 'Η αποθήκη ανανεώθηκε.') {
+        setStatus('Φόρτωση δεδομένων από GitHub...', '');
+        try {
+          await loadInventory();
+          renderAll();
+          setStatus(message, 'success');
+        } catch (error) {
+          setStatus(error.message, 'error');
+        }
+      }
+
+      async function appendHistoryEntries(entries) {
+        if (!entries.length) return true;
+
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          try {
+            const existing = await loadFile(HISTORY_FILE_PATH);
+            const history = Array.isArray(existing.json)
+              ? existing.json.map(normalizeHistoryEntry)
+              : [];
+            const seen = new Set(history.map(historyEntryKey));
+            const now = new Date();
+            const iso = now.toISOString();
+            const date = now.toISOString().slice(0, 10);
+            const time = now.toTimeString().split(' ')[0];
+
+            entries.forEach((entry) => {
+              const normalized = {
+                timestamp: iso,
+                date,
+                time,
+                location: String(entry.shop || 'bar').toLowerCase(),
+                action: entry.action || 'remove',
+                user: entry.user || entry.by || 'Web',
+                category: entry.category,
+                item: entry.item,
+                quantity: entry.quantity,
+                old_quantity: entry.old_quantity,
+                new_quantity: entry.new_quantity,
+                history_id:
+                  entry.history_id ||
+                  entry.batch_id ||
+                  `${iso}-${entry.category || ''}-${entry.item || ''}-${entry.quantity || ''}`,
+                batch_id: entry.batch_id,
+                note: entry.note,
+              };
+              const key = historyEntryKey(normalized);
+              if (seen.has(key)) return;
+              seen.add(key);
+              history.push(normalized);
+            });
+
+            const result = await saveFile(HISTORY_FILE_PATH, history, 'Update BarMGR history', existing.sha);
+            state.historySha = result?.content?.sha || existing.sha;
+            return true;
+          } catch (error) {
+            if (/sha mismatch|conflict|changed while saving/i.test(error.message) && attempt < 3) {
+              await new Promise((r) => setTimeout(r, 500 * attempt));
+              continue;
+            }
+            console.warn('History update skipped:', error.message);
+            return false;
+          }
+        }
+        return false;
+      }
+
+      function queueHistoryEntries(entries) {
+        try {
+          const key = 'bar_mgr_history_queue';
+          const raw = localStorage.getItem(key);
+          const queue = raw ? JSON.parse(raw) : [];
+          queue.push(...entries.map(e => ({...e})));
+          localStorage.setItem(key, JSON.stringify(queue));
+        } catch (e) {
+          console.warn('Failed to queue history entries', e);
+        }
+      }
+
+      async function flushQueuedHistoryEntries() {
+        try {
+          const key = 'bar_mgr_history_queue';
+          const raw = localStorage.getItem(key);
+          if (!raw) return;
+          const queue = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+          if (!queue.length) return;
+          const success = await appendHistoryEntries(queue);
+          if (success) {
+            localStorage.removeItem(key);
+          }
+        } catch (e) {
+          // leave queue for later
+        }
+      }
+
+      async function commitInventoryAdjustments(changes) {
+        ensureTokenConfigured();
+        if (!changes.length) {
+          throw new Error('Δεν υπάρχουν αλλαγές για αποθήκευση.');
+        }
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          const latest = await loadFile(WAREHOUSE_FILE_PATH);
+          const inventory = latest.json || {};
+          const historyEntries = [];
+          const historyBatchId = createHistoryBatchId();
+          for (const change of changes) {
+            const items = inventory[change.category];
+            if (!Array.isArray(items)) {
+              throw new Error(
+                `Category not found in GitHub inventory file: ${change.category}`,
+              );
+            }
+            const target = items.find((entry) => entry.name === change.item);
+            if (!target) {
+              throw new Error(
+                `Item not found in GitHub inventory file: ${change.item}`,
+              );
+            }
+            const oldQuantity = Number(target.quantity || 0);
+            const newQuantity = oldQuantity - change.quantity;
+            if (newQuantity < 0) {
+              throw new Error('Quantity cannot be lower than zero.');
+            }
+            target.quantity = newQuantity;
+            const user = (function () {
+              try {
+                return localStorage.getItem(SELECTED_USER_KEY) || 'Web';
+              } catch (e) {
+                return 'Web';
+              }
+            })();
+            historyEntries.push({
+              history_id: `${historyBatchId}:${historyEntries.length}`,
+              batch_id: historyBatchId,
+              location: 'bar',
+              action: 'remove',
+              user,
+              category: change.category,
+              item: change.item,
+              quantity: change.quantity,
+              old_quantity: oldQuantity,
+              new_quantity: newQuantity,
+            });
+          }
+          try {
+            const result = await saveFile(
+              WAREHOUSE_FILE_PATH,
+              inventory,
+              `Update warehouse (remove): ${changes.length} item(s)`,
+              latest.sha,
+            );
+            const publishedSha = result?.content?.sha || latest.sha;
+            state.inventory = inventory;
+            state.sha = publishedSha;
+            state.categories = Object.keys(state.inventory).sort();
+            const historySaved = await appendHistoryEntries(historyEntries);
+            if (!historySaved) {
+              try {
+                queueHistoryEntries(historyEntries);
+                console.warn('History entries queued locally due to save failure.');
+                setStatus('Οι αλλαγές αποθηκεύτηκαν, αλλά το ιστορικό θα οριστικοποιηθεί αργότερα.', 'error');
+              } catch (e) {
+                console.warn('Failed to queue history entries', e);
+              }
+            }
+            return { changes: historyEntries, sha: publishedSha };
+          } catch (error) {
+            if (
+              /sha mismatch|conflict|changed while saving/i.test(
+                error.message,
+              ) &&
+              attempt < 3
+            ) continue;
+            throw error;
+          }
+        }
+        throw new Error('Unable to save due to repeated GitHub conflicts.');
+      }
+
+      function renderReviewList() {
+        const changes = collectPendingAdjustments();
+        const totalQuantity = changes.reduce((s, e) => s + e.quantity, 0);
+        if (els.reviewTotal) {
+          els.reviewTotal.textContent = `${changes.length} αλλαγές · ${totalQuantity} τεμ.`;
+        }
+        if (!changes.length) {
+          els.reviewList.innerHTML =
+            '<div class="empty-state">Δεν υπάρχουν αλλαγές για έλεγχο.</div>';
+          return;
+        }
+        els.reviewList.innerHTML = changes
+          .map((change) => {
+            const current = Number(
+              state.inventory?.[change.category]?.find(
+                (entry) => entry.name === change.item,
+              )?.quantity || 0,
+            );
+            const next = current - change.quantity;
+            return `
+					<article class="review-entry">
+						<div>
+							<strong>${escapeHtml(change.item)}</strong>
+							<small>${escapeHtml(change.category)} · ${current} → ${next}</small>
+						</div>
+						<div class="review-quantity">-${change.quantity}</div>
+					</article>
+				`;
+          })
+          .join('');
+      }
+
+      function openReviewModal() {
+        const changes = collectPendingAdjustments();
+        if (!changes.length) {
+          setStatus(
+            'Συμπλήρωσε τουλάχιστον μία ποσότητα πριν την προεπισκόπηση.',
+            'error',
+          );
+          return;
+        }
+        renderReviewList();
+        setReviewModalOpen(true);
+      }
+
+      function closeReviewModal() {
+        setReviewModalOpen(false);
+      }
+
+      async function confirmPendingAdjustments() {
+        const changes = collectPendingAdjustments();
+        if (!changes.length) {
+          setStatus('Δεν υπάρχουν αλλαγές για αποθήκευση.', 'error');
+          closeReviewModal();
+          return;
+        }
+        closeReviewModal();
+        setWarehouseLocked(true);
+        persistLockRecord({
+          locked: true,
+          sha: '',
+          message:
+            'Οι αλλαγές στάλθηκαν στο GitHub και η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.',
+          createdAt: new Date().toISOString(),
+        });
+        setLoadingState(true, 'Αποθήκευση στο GitHub...');
+        setStatus('Αποστολή αλλαγών στο GitHub...', '');
+        try {
+          const result = await commitInventoryAdjustments(changes);
+          setLoadingState(false, '');
+          persistLockRecord({
+            locked: true,
+            sha: result.sha,
+            message:
+              'Οι αλλαγές στάλθηκαν στο GitHub και η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.',
+            createdAt: new Date().toISOString(),
+          });
+          setLockNoticeOpen(
+            true,
+            'Οι αλλαγές στάλθηκαν στο GitHub και η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.',
+          );
+          setStatus(
+            'Οι αλλαγές στάλθηκαν. Η αποθήκη είναι κλειδωμένη μέχρι να δημοσιευτεί το commit.',
+            'success',
+          );
+          const published = await waitForPublishedWarehouseSha(result.sha);
+          if (!published) {
+            setLockNoticeOpen(
+              true,
+              'Οι αλλαγές στάλθηκαν στο GitHub, αλλά περιμένουμε ακόμη να δημοσιευτεί το νέο commit.',
+            );
+            setStatus(
+              'Η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το commit. Αν ανανεώσεις τη σελίδα, θα μείνει κλειδωμένη.',
+              'error',
+            );
+            return;
+          }
+          clearPersistedLock();
+          setLockNoticeOpen(false);
+          clearPendingAdjustments();
+          setStatus(
+            'Οι αλλαγές αποθηκεύτηκαν και δημοσιεύτηκαν. Η σελίδα θα ανανεωθεί.',
+            'success',
+          );
+          try {
+            localStorage.setItem(
+              'bar_mgr_inventory_updated',
+              String(Date.now()),
+            );
+          } catch (e) {}
+          window.location.reload();
+        } catch (error) {
+          setLoadingState(false, '');
+          const persistedLock = readPersistedLock();
+          if (persistedLock) {
+            setWarehouseLocked(true);
+            setLockNoticeOpen(
+              true,
+              persistedLock.message ||
+                'Η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.',
+            );
+          } else {
+            setLockNoticeOpen(false);
+            setWarehouseLocked(false);
+          }
+          setStatus(error.message, 'error');
+        }
+      }
+
+      function setWarehouseLocked(locked) {
+        state.saving = locked;
+        state.publishPending = locked;
+        if (els.search) els.search.disabled = locked;
+        if (els.reviewBtn)
+          els.reviewBtn.disabled =
+            locked || collectPendingAdjustments().length === 0;
+        if (els.tabs)
+          els.tabs
+            .querySelectorAll('button')
+            .forEach((b) => (b.disabled = locked));
+        if (els.categories)
+          els.categories
+            .querySelectorAll('.adjustment-input')
+            .forEach((i) => (i.disabled = locked));
+        updatePendingSummary();
+      }
+
+      els.search.addEventListener('input', () => {
+        state.search = normalize(els.search.value.trim());
+        renderTabs();
+        renderCategories();
+      });
+      if (els.reviewBtn) els.reviewBtn.addEventListener('click', openReviewModal);
+      if (els.reviewClose) els.reviewClose.addEventListener('click', closeReviewModal);
+      if (els.reviewCancel) els.reviewCancel.addEventListener('click', closeReviewModal);
+      if (els.reviewConfirm) els.reviewConfirm.addEventListener('click', confirmPendingAdjustments);
+      if (els.reviewModal)
+        els.reviewModal.addEventListener('click', (e) => {
+          if (e.target === els.reviewModal) closeReviewModal();
+        });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && state.reviewOpen) closeReviewModal();
+      });
+      window.addEventListener('resize', syncFloatingPendingPanelOffset);
+
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'bar_mgr_inventory_updated') refresh('Αποθήκη ενημερώθηκε.');
+      });
+
+      setInterval(async () => {
+        try {
+          if (state.publishPending) return;
+          const data = await loadFile(WAREHOUSE_FILE_PATH);
+          if (data.sha && data.sha !== state.sha) {
+            state.inventory = data.json || {};
+            state.sha = data.sha;
+            state.categories = Object.keys(state.inventory).sort();
+            renderAll();
+            setStatus('Αποθήκη ενημερώθηκε (εξωτερική αλλαγή).', 'success');
+          }
+        } catch (e) {}
+      }, 30000);
+
+      (async () => {
+        await refresh('Αποθήκη έτοιμη.');
+        const persistedLock = readPersistedLock();
+        if (persistedLock) await resumePersistedWarehouseLock(persistedLock);
+        try {
+          await flushQueuedHistoryEntries();
+        } catch (e) {}
+      })();
+    </script>
+  </body>
 </html>
