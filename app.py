@@ -5,6 +5,7 @@ import copy
 import importlib.util
 import json
 import os
+import uuid
 from datetime import datetime
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -225,13 +226,16 @@ def load_history() -> List[Dict[str, Any]]:
     if github_enabled():
         try:
             data, _sha = github_load_json(GITHUB_HISTORY_FILE, [])
-            return data if isinstance(data, list) else []
+            if not isinstance(data, list):
+                return []
+            return dedupe_history_entries(data)
         except RuntimeError:
             pass
-    return read_json(HISTORY_FILE, [])
+    return dedupe_history_entries(read_json(HISTORY_FILE, []))
 
 
 def save_history(history: List[Dict[str, Any]]) -> None:
+    history = dedupe_history_entries(history)
     if github_enabled():
         _current, sha = github_load_json(GITHUB_HISTORY_FILE, [])
         github_save_json(GITHUB_HISTORY_FILE, history, "Update BarMGR history", sha)
@@ -266,9 +270,52 @@ def history_timestamp() -> Dict[str, str]:
     }
 
 
+def normalize_history_entry(entry: Dict[str, Any]) -> Dict[str, Any]:
+    normalized = copy.deepcopy(entry)
+    shop = normalized.get("shop")
+    if isinstance(shop, str):
+        try:
+            normalized["shop"] = normalize_shop(shop)
+        except ValueError:
+            normalized["shop"] = shop.strip().lower()
+
+    location = normalized.get("location")
+    if isinstance(location, str):
+        normalized_location = location.strip().lower()
+        if normalized_location in VALID_LOCATIONS:
+            normalized.setdefault("storage_location", normalized_location)
+            if normalized.get("shop") in VALID_SHOPS:
+                normalized["location"] = normalized["shop"]
+            else:
+                normalized["location"] = normalized_location
+
+    return normalized
+
+
+def history_entry_signature(entry: Dict[str, Any]) -> str:
+    return json.dumps(entry, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def dedupe_history_entries(history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    deduped: List[Dict[str, Any]] = []
+    seen_signatures: set[str] = set()
+
+    for entry in history:
+        if not isinstance(entry, dict):
+            continue
+        normalized = normalize_history_entry(entry)
+        signature = history_entry_signature(normalized)
+        if signature in seen_signatures:
+            continue
+        seen_signatures.add(signature)
+        deduped.append(normalized)
+
+    return deduped
+
+
 def append_history_entry(entry: Dict[str, Any]) -> None:
     history = load_history()
-    history.append({**history_timestamp(), **entry})
+    history.append({**history_timestamp(), "history_id": uuid.uuid4().hex, **entry})
     save_history(history)
 
 

@@ -1154,6 +1154,30 @@
       return btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
     }
 
+    function createHistoryBatchId() {
+      if (window.crypto && typeof crypto.randomUUID === 'function') {
+        return crypto.randomUUID();
+      }
+      return `history-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function normalizeHistoryEntry(entry) {
+      const normalized = { ...entry };
+      const shop = String(normalized.shop || '').toLowerCase();
+      if (shop === 'bar' || shop === 'cafe') {
+        normalized.shop = shop;
+        normalized.location = shop;
+      }
+      if (normalized.storage_location == null && normalized.location) {
+        normalized.storage_location = normalized.location;
+      }
+      return normalized;
+    }
+
+    function historyEntryKey(entry) {
+      return JSON.stringify(entry, Object.keys(entry).sort());
+    }
+
     function describeGithubError(response, data) {
       const message = (data && data.message) ? String(data.message) : `GitHub API error (${response.status})`;
 
@@ -1351,12 +1375,38 @@
       for (let attempt = 1; attempt <= 3; attempt++) {
         try {
           const existing = await loadFile(HISTORY_FILE_PATH);
-          const history = Array.isArray(existing.json) ? existing.json : [];
+          const history = Array.isArray(existing.json)
+            ? existing.json.map(normalizeHistoryEntry)
+            : [];
+          const seen = new Set(history.map(historyEntryKey));
+          const now = new Date();
+          const timestamp = now.toISOString();
           entries.forEach((entry) => {
-            history.push({
-              timestamp: new Date().toISOString(),
-              ...entry,
-            });
+            const normalized = {
+              timestamp,
+              date: timestamp.slice(0, 10),
+              time: now.toTimeString().split(' ')[0],
+              history_id:
+                entry.history_id ||
+                entry.batch_id ||
+                `${timestamp}-${entry.category || ''}-${entry.item || ''}-${entry.quantity || ''}`,
+              batch_id: entry.batch_id,
+              shop: entry.shop || 'cafe',
+              location: String(entry.shop || 'cafe').toLowerCase(),
+              storage_location: entry.location || 'warehouse',
+              action: entry.action || 'adjust',
+              user: entry.user || entry.by || 'Web',
+              category: entry.category,
+              item: entry.item,
+              quantity: entry.quantity,
+              old_quantity: entry.old_quantity,
+              new_quantity: entry.new_quantity,
+              note: entry.note,
+            };
+            const key = historyEntryKey(normalized);
+            if (seen.has(key)) return;
+            seen.add(key);
+            history.push(normalized);
           });
           const result = await saveFile(HISTORY_FILE_PATH, history, 'Update BarMGR history', existing.sha);
           state.historySha = result?.content?.sha || existing.sha;
@@ -1381,6 +1431,7 @@
         const latest = await loadFile(WAREHOUSE_FILE_PATH);
         const inventory = latest.json || {};
         const historyEntries = [];
+        const historyBatchId = createHistoryBatchId();
 
         for (const change of changes) {
           const items = inventory[change.category];
@@ -1403,8 +1454,11 @@
 
           target.quantity = newQuantity;
           historyEntries.push({
+            history_id: `${historyBatchId}:${historyEntries.length}`,
+            batch_id: historyBatchId,
             shop: 'cafe',
-            location: 'warehouse',
+            location: 'cafe',
+            storage_location: 'warehouse',
             action: 'adjust',
             category: change.category,
             item: change.item,
