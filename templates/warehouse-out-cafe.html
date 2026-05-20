@@ -1375,13 +1375,35 @@
 
       async function appendHistoryEntries(entries) {
         if (!entries.length) return;
+
         for (let attempt = 1; attempt <= 3; attempt++) {
           try {
             const existing = await loadFile(HISTORY_FILE_PATH);
             const history = Array.isArray(existing.json) ? existing.json : [];
-            entries.forEach((entry) =>
-              history.push({ timestamp: new Date().toISOString(), ...entry }),
-            );
+            const now = new Date();
+            const iso = now.toISOString();
+            const date = now.toISOString().slice(0, 10);
+            const time = now.toTimeString().split(" ")[0];
+
+            entries.forEach((entry) => {
+              // Ensure expected fields exist and normalize naming
+              const normalized = {
+                timestamp: iso,
+                date,
+                time,
+                shop: entry.shop || "cafe",
+                location: entry.location || "warehouse",
+                action: entry.action || "remove",
+                user: entry.user || entry.by || "Web",
+                category: entry.category,
+                item: entry.item,
+                quantity: entry.quantity,
+                old_quantity: entry.old_quantity,
+                new_quantity: entry.new_quantity,
+              };
+              history.push(normalized);
+            });
+
             const result = await saveFile(
               HISTORY_FILE_PATH,
               history,
@@ -1391,13 +1413,9 @@
             state.historySha = result?.content?.sha || existing.sha;
             return;
           } catch (error) {
-            if (
-              /sha mismatch|conflict|changed while saving/i.test(
-                error.message,
-              ) &&
-              attempt < 3
-            )
+            if (/sha mismatch|conflict|changed while saving/i.test(error.message) && attempt < 3) {
               continue;
+            }
             console.warn("History update skipped:", error.message);
             return;
           }
@@ -1439,12 +1457,12 @@
               shop: "cafe",
               location: "warehouse",
               action: "remove",
+              user,
               category: change.category,
               item: change.item,
               quantity: change.quantity,
               old_quantity: oldQuantity,
               new_quantity: newQuantity,
-              user,
             });
           }
           try {
