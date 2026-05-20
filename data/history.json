@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "timestamp": "2026-05-20T20:55:36.122Z",
+    "date": "2026-05-20",
+    "time": "23:55:36",
+    "history_id": "8e7fc9ab-800b-40f4-87e6-4ead2085004d:0",
+    "batch_id": "8e7fc9ab-800b-40f4-87e6-4ead2085004d",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 5,
+    "old_quantity": 10,
+    "new_quantity": 15
+  }
+]
