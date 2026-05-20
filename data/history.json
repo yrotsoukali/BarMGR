@@ -88,5 +88,20 @@
     "new_quantity": 0,
     "history_id": "caeaf6b5-2c6b-47cb-afb1-652a016d0c17:0",
     "batch_id": "caeaf6b5-2c6b-47cb-afb1-652a016d0c17"
+  },
+  {
+    "timestamp": "2026-05-20T21:19:57.679Z",
+    "date": "2026-05-20",
+    "time": "00:19:57",
+    "location": "bar",
+    "action": "remove",
+    "user": "Φαίη",
+    "category": "Aperitif (700ml)",
+    "item": "Veroni Rosso Vermouth",
+    "quantity": 5,
+    "old_quantity": 14,
+    "new_quantity": 9,
+    "history_id": "02f9f5ff-46f6-446c-9dea-b57d2d8add19:0",
+    "batch_id": "02f9f5ff-46f6-446c-9dea-b57d2d8add19"
   }
 ]
