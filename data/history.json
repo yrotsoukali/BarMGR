@@ -58,5 +58,20 @@
     "new_quantity": 0,
     "history_id": "2d561c90-907b-4103-aa18-80d629332cb8:0",
     "batch_id": "2d561c90-907b-4103-aa18-80d629332cb8"
+  },
+  {
+    "timestamp": "2026-05-20T21:08:43.226Z",
+    "date": "2026-05-20",
+    "time": "00:08:43",
+    "history_id": "698a9616-31a3-42c3-be48-52c1be43479b:0",
+    "batch_id": "698a9616-31a3-42c3-be48-52c1be43479b",
+    "location": "bar",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Aperitif (700ml)",
+    "item": "Veroni Dry Vermouth",
+    "quantity": 5,
+    "old_quantity": 30,
+    "new_quantity": 35
   }
 ]
