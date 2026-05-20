@@ -2,11 +2,11 @@
   "Coffee": [
     {
       "name": "Greek coffee",
-      "quantity": 9
+      "quantity": 13
     },
     {
       "name": "Espresso",
-      "quantity": 1
+      "quantity": 9
     },
     {
       "name": "Frappe",
