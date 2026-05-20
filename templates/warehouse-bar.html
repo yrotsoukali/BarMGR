@@ -699,13 +699,37 @@
 			.pending-panel .pending-summary {
 				display: flex;
 				align-items: center;
-				gap: 10px;
+				gap: 8px;
 				justify-content: flex-end;
 				text-align: right;
+				min-width: 0;
 			}
 
-			.pending-panel .pending-summary strong {
-				font-size: 0.95rem;
+			/* Allow labels to truncate instead of overflowing */
+			.pending-panel .pending-summary strong,
+			.pending-panel .pending-summary .muted {
+				min-width: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				font-size: 0.92rem;
+			}
+
+			/* On very small screens hide the secondary total to save space */
+			@media (max-width: 380px) {
+				.pending-panel .pending-summary .muted {
+					display: none;
+				}
+				.pending-panel .action-btn {
+					padding: 6px 8px;
+					height: 32px;
+					font-size: 0.88rem;
+				}
+				.pending-panel {
+					height: 40px;
+					padding-left: 8px;
+					padding-right: 8px;
+				}
 			}
 
 			.pending-panel .action-btn {
