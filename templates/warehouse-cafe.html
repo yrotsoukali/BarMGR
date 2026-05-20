@@ -12,6 +12,8 @@
   <style>
     :root {
       color-scheme: dark;
+      --page-padding: 28px;
+      --floating-panel-height: 220px;
       --bg: #0a0906;
       --panel: rgba(255, 248, 238, 0.06);
       --panel-strong: rgba(255, 248, 238, 0.09);
@@ -43,7 +45,8 @@
         radial-gradient(circle at top left, rgba(212, 175, 106, 0.12), transparent 35%),
         radial-gradient(circle at bottom right, rgba(101, 75, 45, 0.1), transparent 40%),
         linear-gradient(135deg, #0a0906 0%, #13100c 50%, #0a0906 100%);
-      padding: 28px;
+      padding: var(--page-padding);
+      padding-bottom: calc(var(--floating-panel-height) + env(safe-area-inset-bottom, 0px));
       line-height: 1.6;
       letter-spacing: 0.2px;
     }
@@ -161,7 +164,7 @@
 
     .controls {
       display: grid;
-      grid-template-columns: 1.1fr 0.6fr auto;
+      grid-template-columns: 1fr;
       gap: 12px;
       align-items: end;
     }
@@ -382,6 +385,12 @@
       gap: 16px;
       align-items: center;
       flex-wrap: wrap;
+      position: fixed;
+      left: 50%;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+      transform: translateX(-50%);
+      width: min(1440px, calc(100vw - (var(--page-padding) * 2)));
+      z-index: 35;
     }
 
     .pending-panel h2 {
@@ -637,8 +646,13 @@
     }
 
     @media (max-width: 640px) {
+      :root {
+        --page-padding: 16px;
+      }
+
       body {
-        padding: 16px;
+        padding: var(--page-padding);
+        padding-bottom: calc(var(--floating-panel-height) + env(safe-area-inset-bottom, 0px));
       }
 
       .panel {
@@ -701,11 +715,6 @@
       <div class="field-group">
         <label for="search">Αναζήτηση</label>
         <input id="search" class="field" type="search" placeholder="Αναζήτηση σε προϊόν..." autocomplete="off" />
-      </div>
-
-      <div class="field-group">
-        <label>&nbsp;</label>
-        <button id="refresh-btn" class="action-btn secondary" type="button">⟳ Ανανέωση</button>
       </div>
     </section>
 
@@ -801,7 +810,6 @@
 
     const els = {
       search: document.getElementById('search'),
-      refreshBtn: document.getElementById('refresh-btn'),
       tabs: document.getElementById('tabs'),
       categories: document.getElementById('categories'),
       status: document.getElementById('status'),
@@ -911,6 +919,14 @@
       if (els.pendingItems) els.pendingItems.textContent = String(changes.length);
       if (els.pendingTotal) els.pendingTotal.textContent = `${totalQuantity} τεμ. συνολικά`;
       if (els.reviewBtn) els.reviewBtn.disabled = state.saving || state.publishPending || changes.length === 0;
+      syncFloatingPendingPanelOffset();
+    }
+
+    function syncFloatingPendingPanelOffset() {
+      const panel = document.querySelector('.pending-panel');
+      if (!panel) return;
+      const height = Math.ceil(panel.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--floating-panel-height', `${height + 24}px`);
     }
 
     function setWarehouseLocked(locked) {
@@ -918,7 +934,6 @@
       state.publishPending = locked;
 
       if (els.search) els.search.disabled = locked;
-      if (els.refreshBtn) els.refreshBtn.disabled = locked;
       if (els.reviewBtn) els.reviewBtn.disabled = locked || collectPendingAdjustments().length === 0;
 
       if (els.tabs) {
@@ -1013,7 +1028,6 @@
       if (text && els.loadingText) {
         els.loadingText.textContent = text;
       }
-      if (els.refreshBtn) els.refreshBtn.disabled = isLoading || state.publishPending;
       updatePendingSummary();
     }
 
@@ -1025,7 +1039,6 @@
       if (text && els.lockText) {
         els.lockText.textContent = text;
       }
-      if (els.refreshBtn) els.refreshBtn.disabled = state.saving || open;
       updatePendingSummary();
     }
 
@@ -1492,20 +1505,7 @@
       }
     });
 
-    if (els.refreshBtn) {
-      els.refreshBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        if (state.saving || state.publishPending) return;
-        els.refreshBtn.disabled = true;
-        try {
-          await refresh();
-        } finally {
-          els.refreshBtn.disabled = false;
-        }
-      });
-    } else {
-      console.error('Refresh button not found in DOM');
-    }
+    window.addEventListener('resize', syncFloatingPendingPanelOffset);
 
     // Listen for storage events from other tabs to refresh the inventory
     window.addEventListener('storage', (e) => {
