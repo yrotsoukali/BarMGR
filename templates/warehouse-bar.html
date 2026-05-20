@@ -1377,7 +1377,7 @@
 		}
 
 		async function appendHistoryEntries(entries) {
-			if (!entries.length) return;
+			if (!entries.length) return true;
 
 			for (let attempt = 1; attempt <= 3; attempt++) {
 				try {
@@ -1415,14 +1415,43 @@
 					});
 					const result = await saveFile(HISTORY_FILE_PATH, history, 'Update BarMGR history', existing.sha);
 					state.historySha = result?.content?.sha || existing.sha;
-					return;
+					return true;
 				} catch (error) {
 					if (/sha mismatch|conflict|changed while saving/i.test(error.message) && attempt < 3) {
 						continue;
 					}
 					console.warn('History update skipped:', error.message);
-					return;
+					return false;
 				}
+			}
+			return false;
+		}
+
+		function queueHistoryEntries(entries) {
+			try {
+				const key = 'bar_mgr_bar_history_queue';
+				const raw = localStorage.getItem(key);
+				const queue = raw ? JSON.parse(raw) : [];
+				queue.push(...entries.map((entry) => ({ ...entry })));
+				localStorage.setItem(key, JSON.stringify(queue));
+			} catch (error) {
+				console.warn('Failed to queue bar history entries', error);
+			}
+		}
+
+		async function flushQueuedHistoryEntries() {
+			try {
+				const key = 'bar_mgr_bar_history_queue';
+				const raw = localStorage.getItem(key);
+				if (!raw) return;
+				const queue = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+				if (!queue.length) return;
+				const success = await appendHistoryEntries(queue);
+				if (success) {
+					localStorage.removeItem(key);
+				}
+			} catch (error) {
+				// keep queue for a later retry
 			}
 		}
 
@@ -1485,7 +1514,10 @@
 					state.sha = publishedSha;
 					state.categories = Object.keys(state.inventory).sort();
 
-					await appendHistoryEntries(historyEntries);
+					const historySaved = await appendHistoryEntries(historyEntries);
+					if (!historySaved) {
+						queueHistoryEntries(historyEntries);
+					}
 
 					return { changes: historyEntries, sha: publishedSha };
 				} catch (error) {
@@ -1671,6 +1703,7 @@
 			if (persistedLock) {
 				await resumePersistedWarehouseLock(persistedLock);
 			}
+			await flushQueuedHistoryEntries();
 		})();
 	</script>
 </body>
