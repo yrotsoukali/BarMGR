@@ -726,6 +726,16 @@
 				font-size: 0.98rem;
 			}
 
+			/* Ensure the labels use available space and the button stays right-aligned */
+			.pending-panel .pending-summary {
+				flex: 1 1 auto;
+			}
+
+			.pending-panel .action-btn {
+				flex: 0 0 auto;
+				margin-left: 12px;
+			}
+
 			/* Very narrow phones: hide secondary text if necessary */
 			@media (max-width: 360px) {
 				.pending-panel .pending-summary .muted {
