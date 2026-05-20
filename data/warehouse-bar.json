@@ -2,7 +2,7 @@
   "Beers": [
     {
       "name": "NYMFI draft 400ml",
-      "quantity": 5
+      "quantity": 9
     },
     {
       "name": "MAMOS 330ml",
@@ -10,19 +10,19 @@
     },
     {
       "name": "Fischer 330ml",
-      "quantity": 5
+      "quantity": 9
     },
     {
       "name": "Sol 330ml",
-      "quantity": 5
+      "quantity": 9
     },
     {
       "name": "IPA Lagunitas 330ml",
-      "quantity": 0
+      "quantity": 4
     },
     {
       "name": "Moretti 330ml",
-      "quantity": 0
+      "quantity": 4
     },
     {
       "name": "Noam 340ml",
@@ -206,7 +206,7 @@
     },
     {
       "name": "Campari",
-      "quantity": 4
+      "quantity": 7
     },
     {
       "name": "Aperol",
