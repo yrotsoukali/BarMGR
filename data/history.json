@@ -43,5 +43,20 @@
     "new_quantity": 5,
     "history_id": "f868ce85-4c8f-4d7d-baf7-a66b6b281595:0",
     "batch_id": "f868ce85-4c8f-4d7d-baf7-a66b6b281595"
+  },
+  {
+    "timestamp": "2026-05-20T21:05:18.288Z",
+    "date": "2026-05-20",
+    "time": "00:05:18",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 5,
+    "old_quantity": 5,
+    "new_quantity": 0,
+    "history_id": "2d561c90-907b-4103-aa18-80d629332cb8:0",
+    "batch_id": "2d561c90-907b-4103-aa18-80d629332cb8"
   }
 ]
