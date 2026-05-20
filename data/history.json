@@ -20,7 +20,7 @@
     "location": "cafe",
     "storage_location": "cafe",
     "action": "remove",
-    "user": "Σπύρος",
+    "user": "Î£ÏÏÏÎ¿Ï",
     "category": "Coffee",
     "item": "Greek coffee",
     "quantity": 5,
@@ -28,5 +28,22 @@
     "new_quantity": 10,
     "history_id": "b7811474-fe67-4b97-b62f-7a50e15a8a17:0",
     "batch_id": "b7811474-fe67-4b97-b62f-7a50e15a8a17"
+  },
+  {
+    "timestamp": "2026-05-20T20:49:33.252Z",
+    "date": "2026-05-20",
+    "time": "23:49:33",
+    "history_id": "ecc5e19e-f32c-4935-ba66-227ee4244ca0:0",
+    "batch_id": "ecc5e19e-f32c-4935-ba66-227ee4244ca0",
+    "shop": "cafe",
+    "location": "cafe",
+    "storage_location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 5,
+    "old_quantity": 10,
+    "new_quantity": 15
   }
 ]
