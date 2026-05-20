@@ -282,12 +282,12 @@ def normalize_history_entry(entry: Dict[str, Any]) -> Dict[str, Any]:
     location = normalized.get("location")
     if isinstance(location, str):
         normalized_location = location.strip().lower()
-        if normalized_location in VALID_LOCATIONS:
-            normalized.setdefault("storage_location", normalized_location)
-            if normalized.get("shop") in VALID_SHOPS:
-                normalized["location"] = normalized["shop"]
-            else:
-                normalized["location"] = normalized_location
+        normalized["location"] = normalized_location
+    elif isinstance(shop, str):
+        normalized["location"] = shop.strip().lower()
+
+    normalized.pop("shop", None)
+    normalized.pop("storage_location", None)
 
     return normalized
 

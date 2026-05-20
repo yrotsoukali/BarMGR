@@ -1164,12 +1164,10 @@
         const normalized = { ...entry };
         const shop = String(normalized.shop || "").toLowerCase();
         if (shop === "bar" || shop === "cafe") {
-          normalized.shop = shop;
           normalized.location = shop;
         }
-        if (normalized.storage_location == null && normalized.location) {
-          normalized.storage_location = normalized.location;
-        }
+        delete normalized.shop;
+        delete normalized.storage_location;
         return normalized;
       }
 
@@ -1416,9 +1414,7 @@
                 timestamp: iso,
                 date,
                 time,
-                shop: entry.shop || "cafe",
                 location: String(entry.shop || "cafe").toLowerCase(),
-                storage_location: entry.location || "warehouse",
                 action: entry.action || "remove",
                 user: entry.user || entry.by || "Web",
                 category: entry.category,
@@ -1522,9 +1518,7 @@
             historyEntries.push({
               history_id: `${historyBatchId}:${historyEntries.length}`,
               batch_id: historyBatchId,
-              shop: "cafe",
               location: "cafe",
-              storage_location: "warehouse",
               action: "remove",
               user,
               category: change.category,
