@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "timestamp": "2026-05-20T20:24:20.805Z",
+    "shop": "cafe",
+    "location": "warehouse",
+    "action": "adjust",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 5,
+    "old_quantity": 10,
+    "new_quantity": 15,
+    "user": "Web"
+  }
+]
