@@ -2,19 +2,19 @@
   "Beers": [
     {
       "name": "NYMFI draft 400ml",
-      "quantity": 9
+      "quantity": 19
     },
     {
       "name": "MAMOS 330ml",
-      "quantity": 5
+      "quantity": 15
     },
     {
       "name": "Fischer 330ml",
-      "quantity": 9
+      "quantity": 19
     },
     {
       "name": "Sol 330ml",
-      "quantity": 9
+      "quantity": 19
     },
     {
       "name": "IPA Lagunitas 330ml",
