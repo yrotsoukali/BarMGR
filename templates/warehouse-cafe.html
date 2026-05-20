@@ -332,25 +332,277 @@
 
     .adjust-form {
       display: grid;
-      grid-template-columns: 110px auto;
       gap: 10px;
-      align-items: end;
     }
 
-    .adjust-form .span-all {
-      grid-column: 1 / -1;
+    .adjust-control {
+      display: grid;
+      gap: 8px;
     }
 
     .adjust-form label {
       display: block;
-      margin: 0 0 6px;
+      margin: 0;
       color: var(--muted);
       font-size: 0.84rem;
     }
 
     .adjust-form input {
-      padding: 8px 12px;
+      padding: 10px 12px;
       font-size: 0.95rem;
+    }
+
+    .adjust-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .pending-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .item-card.pending {
+      border-color: rgba(212, 175, 106, 0.38);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .pending-panel {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pending-panel h2 {
+      margin: 6px 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+    }
+
+    .pending-summary {
+      display: grid;
+      gap: 10px;
+      justify-items: end;
+      text-align: right;
+    }
+
+    .pending-summary strong {
+      display: block;
+      font-size: 1.15rem;
+    }
+
+    .review-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+      max-height: min(48vh, 440px);
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .review-entry {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .review-entry strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .review-entry small {
+      color: var(--muted);
+    }
+
+    .review-quantity {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .review-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .review-total {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(4, 3, 2, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-overlay[hidden] {
+      display: none;
+    }
+
+    .modal-card {
+      width: min(100%, 760px);
+      max-height: min(90vh, 860px);
+      overflow: auto;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(20, 16, 12, 0.98), rgba(10, 9, 6, 0.98));
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+    }
+
+    .modal-header h2 {
+      margin: 6px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.55rem;
+    }
+
+    .icon-btn {
+      border: 0;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(4, 3, 2, 0.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .loading-overlay[hidden] {
+      display: none;
+    }
+
+    .loading-card {
+      width: min(100%, 460px);
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(20, 16, 12, 0.98), rgba(10, 9, 6, 0.98));
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+    }
+
+    .spinner {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 4px solid rgba(255, 255, 255, 0.12);
+      border-top-color: var(--gold);
+      animation: spin 0.9s linear infinite;
+    }
+
+    .loading-card h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+    }
+
+    .loading-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lock-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(4, 3, 2, 0.76);
+      backdrop-filter: blur(10px);
+    }
+
+    .lock-overlay[hidden] {
+      display: none;
+    }
+
+    .lock-card {
+      width: min(100%, 520px);
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(20, 16, 12, 0.98), rgba(10, 9, 6, 0.98));
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+    }
+
+    .lock-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(212, 175, 106, 0.14);
+      color: #f1c28b;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .empty-state {
@@ -463,6 +715,57 @@
     </section>
 
     <section class="categories" id="categories" aria-live="polite"></section>
+
+    <section class="panel pending-panel">
+      <div>
+        <p class="eyebrow">Έλεγχος αλλαγών</p>
+        <h2>Προεπισκόπηση και αποθήκευση</h2>
+        <p class="muted">Συμπλήρωσε τις ποσότητες που θέλεις να προστεθούν και έπειτα έλεγξε το σύνολο πριν σταλούν στο GitHub.</p>
+      </div>
+      <div class="pending-summary">
+        <strong><span id="pending-items">0</span> είδη σε αναμονή</strong>
+        <span class="muted" id="pending-total">0 τεμ. συνολικά</span>
+        <button id="review-btn" class="action-btn" type="button" disabled>Προεπισκόπηση αλλαγών</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="review-modal" class="modal-overlay" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="review-title">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">Προεπισκόπηση</p>
+          <h2 id="review-title">Επιβεβαίωση αλλαγών αποθήκης</h2>
+        </div>
+        <button id="review-close" class="icon-btn" type="button" aria-label="Κλείσιμο">×</button>
+      </div>
+
+      <div class="review-list" id="review-list"></div>
+
+      <div class="review-footer">
+        <div class="review-total" id="review-total">0 αλλαγές</div>
+        <div class="review-actions">
+          <button id="review-cancel" class="action-btn secondary" type="button">Ακύρωση</button>
+          <button id="review-confirm" class="action-btn" type="button">Επιβεβαίωση και αποστολή</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading-overlay" class="loading-overlay" hidden>
+    <div class="loading-card" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <h2>Αποστολή αλλαγών στο GitHub</h2>
+      <p id="loading-text">Παρακαλώ περίμενε μέχρι να ολοκληρωθεί η ενημέρωση.</p>
+    </div>
+  </div>
+
+  <div id="lock-overlay" class="lock-overlay" hidden>
+    <div class="lock-card" aria-live="polite">
+      <div class="lock-badge">Warehouse locked</div>
+      <h2>Η αποθήκη είναι προσωρινά κλειδωμένη</h2>
+      <p id="lock-text">Οι αλλαγές στάλθηκαν στο GitHub, αλλά περιμένουμε να δημοσιευτεί το νέο commit πριν γίνει ανανέωση.</p>
+    </div>
   </div>
 
   <script>
@@ -481,6 +784,7 @@
     "HttT8I";
     const WAREHOUSE_FILE_PATH = 'data/warehouse-cafe.json';
     const HISTORY_FILE_PATH = 'data/history.json';
+    const LOCK_STORAGE_KEY = 'bar_mgr_warehouse_cafe_lock';
 
     const state = {
       inventory: {},
@@ -489,6 +793,10 @@
       activeCategory: 'all',
       sha: '',
       historySha: '',
+      pendingAdjustments: {},
+      reviewOpen: false,
+      saving: false,
+      publishPending: false,
     };
 
     const els = {
@@ -500,6 +808,19 @@
       statCategories: document.getElementById('stat-categories'),
       statItems: document.getElementById('stat-items'),
       statQuantity: document.getElementById('stat-quantity'),
+      pendingItems: document.getElementById('pending-items'),
+      pendingTotal: document.getElementById('pending-total'),
+      reviewBtn: document.getElementById('review-btn'),
+      reviewModal: document.getElementById('review-modal'),
+      reviewList: document.getElementById('review-list'),
+      reviewTotal: document.getElementById('review-total'),
+      reviewClose: document.getElementById('review-close'),
+      reviewCancel: document.getElementById('review-cancel'),
+      reviewConfirm: document.getElementById('review-confirm'),
+      loadingOverlay: document.getElementById('loading-overlay'),
+      loadingText: document.getElementById('loading-text'),
+      lockOverlay: document.getElementById('lock-overlay'),
+      lockText: document.getElementById('lock-text'),
     };
 
     function escapeHtml(value) {
@@ -518,6 +839,212 @@
     function setStatus(text, type = '') {
       els.status.textContent = text;
       els.status.className = type ? `status ${type}` : 'status';
+    }
+
+    function readPersistedLock() {
+      try {
+        const raw = localStorage.getItem(LOCK_STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.locked || !parsed.sha) return null;
+        return parsed;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function persistLockRecord(record) {
+      try {
+        localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(record));
+      } catch (error) {
+        // ignore storage failures
+      }
+    }
+
+    function clearPersistedLock() {
+      try {
+        localStorage.removeItem(LOCK_STORAGE_KEY);
+      } catch (error) {
+        // ignore storage failures
+      }
+    }
+
+    function makeAdjustmentKey(category, item) {
+      return `${category}|||${item}`;
+    }
+
+    function escapeSelectorValue(value) {
+      const text = String(value);
+      if (window.CSS && typeof CSS.escape === 'function') {
+        return CSS.escape(text);
+      }
+      return text.replace(/(["\\])/g, '\\$1');
+    }
+
+    function getPendingQuantity(category, item) {
+      return Number(state.pendingAdjustments[makeAdjustmentKey(category, item)] || 0);
+    }
+
+    function collectPendingAdjustments() {
+      return Object.entries(state.pendingAdjustments)
+        .map(([key, quantity]) => {
+          const [category, item] = key.split('|||');
+          return {
+            key,
+            category,
+            item,
+            quantity: Number(quantity || 0),
+          };
+        })
+        .filter((entry) => Number.isInteger(entry.quantity) && entry.quantity > 0)
+        .sort((left, right) => {
+          const categoryCompare = left.category.localeCompare(right.category);
+          if (categoryCompare !== 0) return categoryCompare;
+          return left.item.localeCompare(right.item);
+        });
+    }
+
+    function updatePendingSummary() {
+      const changes = collectPendingAdjustments();
+      const totalQuantity = changes.reduce((sum, entry) => sum + entry.quantity, 0);
+
+      if (els.pendingItems) els.pendingItems.textContent = String(changes.length);
+      if (els.pendingTotal) els.pendingTotal.textContent = `${totalQuantity} τεμ. συνολικά`;
+      if (els.reviewBtn) els.reviewBtn.disabled = state.saving || state.publishPending || changes.length === 0;
+    }
+
+    function setWarehouseLocked(locked) {
+      state.saving = locked;
+      state.publishPending = locked;
+
+      if (els.search) els.search.disabled = locked;
+      if (els.refreshBtn) els.refreshBtn.disabled = locked;
+      if (els.reviewBtn) els.reviewBtn.disabled = locked || collectPendingAdjustments().length === 0;
+
+      if (els.tabs) {
+        els.tabs.querySelectorAll('button').forEach((button) => {
+          button.disabled = locked;
+        });
+      }
+
+      if (els.categories) {
+        els.categories.querySelectorAll('.adjustment-input').forEach((input) => {
+          input.disabled = locked;
+        });
+      }
+
+      updatePendingSummary();
+    }
+
+    async function resumePersistedWarehouseLock(lockRecord) {
+      if (!lockRecord || !lockRecord.locked || !lockRecord.sha) return;
+
+      setWarehouseLocked(true);
+      setLockNoticeOpen(true, lockRecord.message || 'Η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.');
+      setStatus('Η αποθήκη είναι κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.', 'success');
+
+      const published = await waitForPublishedWarehouseSha(lockRecord.sha);
+      if (!published) {
+        setStatus('Η αποθήκη παραμένει κλειδωμένη, αλλά το GitHub δεν έχει δημοσιεύσει ακόμα το commit.', 'error');
+        return;
+      }
+
+      clearPersistedLock();
+      setLockNoticeOpen(false);
+      setWarehouseLocked(false);
+      setStatus('Το GitHub δημοσίευσε το commit. Η αποθήκη ξεκλείδωσε.', 'success');
+      window.location.reload();
+    }
+
+    function updatePendingChip(category, item, quantity) {
+      const selector = `.item-card[data-category="${escapeSelectorValue(category)}"][data-item="${escapeSelectorValue(item)}"]`;
+      const card = els.categories.querySelector(selector);
+      if (!card) return;
+
+      card.classList.toggle('pending', quantity > 0);
+
+      const chip = card.querySelector('.pending-chip');
+      if (chip) {
+        chip.textContent = quantity > 0 ? `Σε αναμονή: +${quantity}` : 'Χωρίς αλλαγές';
+      }
+    }
+
+    function syncPendingAdjustment(category, item, rawValue) {
+      if (state.saving || state.publishPending) return;
+
+      const key = makeAdjustmentKey(category, item);
+      const quantity = rawValue === '' ? 0 : Number(rawValue);
+
+      if (rawValue !== '' && (!Number.isInteger(quantity) || quantity < 0)) {
+        return;
+      }
+
+      if (quantity > 0) {
+        state.pendingAdjustments[key] = quantity;
+      } else {
+        delete state.pendingAdjustments[key];
+      }
+
+      updatePendingChip(category, item, quantity);
+      updatePendingSummary();
+    }
+
+    function clearPendingAdjustments() {
+      state.pendingAdjustments = {};
+      renderCategories();
+      updatePendingSummary();
+    }
+
+    function setReviewModalOpen(open) {
+      if (state.saving || state.publishPending) return;
+
+      state.reviewOpen = open;
+      if (els.reviewModal) {
+        els.reviewModal.hidden = !open;
+      }
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    function setLoadingState(isLoading, text = '') {
+      state.saving = isLoading;
+      if (els.loadingOverlay) {
+        els.loadingOverlay.hidden = !isLoading;
+      }
+      if (text && els.loadingText) {
+        els.loadingText.textContent = text;
+      }
+      if (els.refreshBtn) els.refreshBtn.disabled = isLoading || state.publishPending;
+      updatePendingSummary();
+    }
+
+    function setLockNoticeOpen(open, text = '') {
+      state.publishPending = open;
+      if (els.lockOverlay) {
+        els.lockOverlay.hidden = !open;
+      }
+      if (text && els.lockText) {
+        els.lockText.textContent = text;
+      }
+      if (els.refreshBtn) els.refreshBtn.disabled = state.saving || open;
+      updatePendingSummary();
+    }
+
+    async function waitForPublishedWarehouseSha(expectedSha, timeoutMs = 90000, intervalMs = 2500) {
+      const startedAt = Date.now();
+
+      while (Date.now() - startedAt < timeoutMs) {
+        const latest = await loadFile(WAREHOUSE_FILE_PATH);
+        if (latest.sha === expectedSha) {
+          state.inventory = latest.json || {};
+          state.sha = latest.sha;
+          state.categories = Object.keys(state.inventory).sort();
+          return true;
+        }
+
+        await new Promise((resolve) => window.setTimeout(resolve, intervalMs));
+      }
+
+      return false;
     }
 
     function apiHeaders(extra = {}) {
@@ -623,8 +1150,12 @@
     }
 
     function renderItem(category, item) {
+      const pendingQuantity = getPendingQuantity(category, item.name);
+      const pendingLabel = pendingQuantity > 0 ? `Σε αναμονή: +${pendingQuantity}` : 'Χωρίς αλλαγές';
+      const fieldId = `adjust-${encodeURIComponent(makeAdjustmentKey(category, item.name))}`;
+
       return `
-        <article class="item-card">
+        <article class="item-card ${pendingQuantity > 0 ? 'pending' : ''}" data-category="${escapeHtml(category)}" data-item="${escapeHtml(item.name)}">
           <div class="item-top">
             <div>
               <h3 class="item-name">${escapeHtml(item.name)}</h3>
@@ -633,13 +1164,26 @@
             <div class="quantity-badge">${Number(item.quantity || 0)} τεμ.</div>
           </div>
 
-          <form class="adjust-form" data-category="${escapeHtml(category)}" data-item="${escapeHtml(item.name)}">
-            <div>
-              <label>Προσθήκη</label>
-              <input class="number" name="quantity" type="number" min="1" step="1" value="1" required />
+          <div class="adjust-form">
+            <div class="adjust-control">
+              <label for="${fieldId}">Ποσότητα για προσθήκη</label>
+              <input
+                id="${fieldId}"
+                class="number adjustment-input"
+                name="quantity"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                placeholder="0"
+                value="${pendingQuantity > 0 ? pendingQuantity : ''}"
+                data-category="${escapeHtml(category)}"
+                data-item="${escapeHtml(item.name)}"
+              />
+              <p class="adjust-note">Άφησέ το κενό αν δεν θέλεις να γίνει αλλαγή.</p>
             </div>
-            <button class="action-btn" type="submit">+ Προσθήκη</button>
-          </form>
+            <div class="pending-chip">${pendingLabel}</div>
+          </div>
         </article>
       `;
     }
@@ -670,9 +1214,14 @@
         `;
       }).join('');
 
-      els.categories.querySelectorAll('form.adjust-form').forEach((form) => {
-        form.addEventListener('submit', onAdjustSubmit);
+      els.categories.querySelectorAll('.adjustment-input').forEach((input) => {
+        input.addEventListener('input', (event) => {
+          const target = event.currentTarget;
+          syncPendingAdjustment(target.dataset.category, target.dataset.item, target.value.trim());
+        });
       });
+
+      updatePendingSummary();
     }
 
     function renderAll() {
@@ -706,14 +1255,18 @@
       }
     }
 
-    async function appendHistoryEntry(entry) {
+    async function appendHistoryEntries(entries) {
+      if (!entries.length) return;
+
       for (let attempt = 1; attempt <= 3; attempt++) {
         try {
           const existing = await loadFile(HISTORY_FILE_PATH);
           const history = Array.isArray(existing.json) ? existing.json : [];
-          history.push({
-            timestamp: new Date().toISOString(),
-            ...entry,
+          entries.forEach((entry) => {
+            history.push({
+              timestamp: new Date().toISOString(),
+              ...entry,
+            });
           });
           const result = await saveFile(HISTORY_FILE_PATH, history, 'Update BarMGR history', existing.sha);
           state.historySha = result?.content?.sha || existing.sha;
@@ -728,57 +1281,66 @@
       }
     }
 
-    async function commitInventoryAdjustment(category, item, quantityDelta) {
+    async function commitInventoryAdjustments(changes) {
       ensureTokenConfigured();
+      if (!changes.length) {
+        throw new Error('Δεν υπάρχουν αλλαγές για αποθήκευση.');
+      }
 
       for (let attempt = 1; attempt <= 3; attempt++) {
         const latest = await loadFile(WAREHOUSE_FILE_PATH);
-        const inventory = latest.json;
-        const items = inventory[category];
+        const inventory = latest.json || {};
+        const historyEntries = [];
 
-        if (!Array.isArray(items)) {
-          throw new Error('Category not found in GitHub inventory file.');
+        for (const change of changes) {
+          const items = inventory[change.category];
+
+          if (!Array.isArray(items)) {
+            throw new Error(`Category not found in GitHub inventory file: ${change.category}`);
+          }
+
+          const target = items.find((entry) => entry.name === change.item);
+          if (!target) {
+            throw new Error(`Item not found in GitHub inventory file: ${change.item}`);
+          }
+
+          const oldQuantity = Number(target.quantity || 0);
+          const newQuantity = oldQuantity + change.quantity;
+
+          if (newQuantity < 0) {
+            throw new Error('Quantity cannot be lower than zero.');
+          }
+
+          target.quantity = newQuantity;
+          historyEntries.push({
+            shop: 'cafe',
+            location: 'warehouse',
+            action: 'adjust',
+            category: change.category,
+            item: change.item,
+            quantity: change.quantity,
+            old_quantity: oldQuantity,
+            new_quantity: newQuantity,
+            user: 'Web',
+          });
         }
-
-        const target = items.find((entry) => entry.name === item);
-        if (!target) {
-          throw new Error('Item not found in GitHub inventory file.');
-        }
-
-        const oldQuantity = Number(target.quantity || 0);
-        const newQuantity = oldQuantity + quantityDelta;
-
-        if (newQuantity < 0) {
-          throw new Error('Quantity cannot be lower than zero.');
-        }
-
-        target.quantity = newQuantity;
 
         try {
           const result = await saveFile(
             WAREHOUSE_FILE_PATH,
             inventory,
-            `Update warehouse: ${item} ${quantityDelta >= 0 ? '+' : ''}${quantityDelta}`,
+            `Update warehouse: ${changes.length} item(s)`,
             latest.sha,
           );
 
+          const publishedSha = result?.content?.sha || latest.sha;
           state.inventory = inventory;
-          state.sha = result?.content?.sha || latest.sha;
+          state.sha = publishedSha;
           state.categories = Object.keys(state.inventory).sort();
 
-          await appendHistoryEntry({
-            shop: 'cafe',
-            location: 'warehouse',
-            action: 'adjust',
-            category,
-            item,
-            quantity: quantityDelta,
-            old_quantity: oldQuantity,
-            new_quantity: newQuantity,
-            user: 'Web',
-          });
+          await appendHistoryEntries(historyEntries);
 
-          return { oldQuantity, newQuantity };
+          return { changes: historyEntries, sha: publishedSha };
         } catch (error) {
           if (/sha mismatch|conflict|changed while saving/i.test(error.message) && attempt < 3) {
             continue;
@@ -790,31 +1352,106 @@
       throw new Error('Unable to save due to repeated GitHub conflicts.');
     }
 
-    async function onAdjustSubmit(event) {
-      event.preventDefault();
+    function renderReviewList() {
+      const changes = collectPendingAdjustments();
+      const totalQuantity = changes.reduce((sum, entry) => sum + entry.quantity, 0);
 
-      const form = event.currentTarget;
-      const category = form.dataset.category;
-      const item = form.dataset.item;
-      const formData = new FormData(form);
-      const quantity = Number(formData.get('quantity'));
+      if (els.reviewTotal) {
+        els.reviewTotal.textContent = `${changes.length} αλλαγές · ${totalQuantity} τεμ.`;
+      }
 
-      if (!Number.isInteger(quantity) || quantity <= 0) {
-        setStatus('Η ποσότητα πρέπει να είναι ακέραιος αριθμός.', 'error');
+      if (!changes.length) {
+        els.reviewList.innerHTML = '<div class="empty-state">Δεν υπάρχουν αλλαγές για έλεγχο.</div>';
         return;
       }
 
-      setStatus(`Ενημέρωση για ${item}...`, '');
+      els.reviewList.innerHTML = changes.map((change) => {
+        const current = Number(state.inventory?.[change.category]?.find((entry) => entry.name === change.item)?.quantity || 0);
+        const next = current + change.quantity;
+        return `
+          <article class="review-entry">
+            <div>
+              <strong>${escapeHtml(change.item)}</strong>
+              <small>${escapeHtml(change.category)} · ${current} → ${next}</small>
+            </div>
+            <div class="review-quantity">+${change.quantity}</div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function openReviewModal() {
+      const changes = collectPendingAdjustments();
+      if (!changes.length) {
+        setStatus('Συμπλήρωσε τουλάχιστον μία ποσότητα πριν την προεπισκόπηση.', 'error');
+        return;
+      }
+
+      renderReviewList();
+      setReviewModalOpen(true);
+    }
+
+    function closeReviewModal() {
+      setReviewModalOpen(false);
+    }
+
+    async function confirmPendingAdjustments() {
+      const changes = collectPendingAdjustments();
+      if (!changes.length) {
+        setStatus('Δεν υπάρχουν αλλαγές για αποθήκευση.', 'error');
+        closeReviewModal();
+        return;
+      }
+
+      closeReviewModal();
+      setWarehouseLocked(true);
+      persistLockRecord({
+        locked: true,
+        sha: '',
+        message: 'Οι αλλαγές στάλθηκαν στο GitHub και η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.',
+        createdAt: new Date().toISOString(),
+      });
+      setLoadingState(true, 'Αποθήκευση στο GitHub...');
+      setStatus('Αποστολή αλλαγών στο GitHub...', '');
 
       try {
-        const result = await commitInventoryAdjustment(category, item, quantity);
-        await loadInventory();
-        renderAll();
-        form.reset();
-        form.querySelector('[name="quantity"]').value = 1;
+        const result = await commitInventoryAdjustments(changes);
+        setLoadingState(false, '');
+        persistLockRecord({
+          locked: true,
+          sha: result.sha,
+          message: 'Οι αλλαγές στάλθηκαν στο GitHub και η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.',
+          createdAt: new Date().toISOString(),
+        });
+        setLockNoticeOpen(true, 'Οι αλλαγές στάλθηκαν στο GitHub και η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.');
+        setStatus('Οι αλλαγές στάλθηκαν. Η αποθήκη είναι κλειδωμένη μέχρι να δημοσιευτεί το commit.', 'success');
+
+        const published = await waitForPublishedWarehouseSha(result.sha);
+
+        if (!published) {
+          setLockNoticeOpen(true, 'Οι αλλαγές στάλθηκαν στο GitHub, αλλά περιμένουμε ακόμη να δημοσιευτεί το νέο commit.');
+          setStatus('Η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το commit. Αν ανανεώσεις τη σελίδα, θα μείνει κλειδωμένη.', 'error');
+          return;
+        }
+
+        clearPersistedLock();
+        setLockNoticeOpen(false);
+        clearPendingAdjustments();
+        setStatus('Οι αλλαγές αποθηκεύτηκαν και δημοσιεύτηκαν. Η σελίδα θα ανανεωθεί.', 'success');
         try { localStorage.setItem('bar_mgr_inventory_updated', String(Date.now())); } catch (e) { /* ignore */ }
-        setStatus(`✓ ${item}: ${result.oldQuantity} → ${result.newQuantity}`, 'success');
+        window.location.reload();
       } catch (error) {
+        setLoadingState(false, '');
+        const persistedLock = readPersistedLock();
+
+        if (persistedLock) {
+          setWarehouseLocked(true);
+          setLockNoticeOpen(true, persistedLock.message || 'Η αποθήκη παραμένει κλειδωμένη μέχρι να δημοσιευτεί το νέο commit.');
+        } else {
+          setLockNoticeOpen(false);
+          setWarehouseLocked(false);
+        }
+
         setStatus(error.message, 'error');
       }
     }
@@ -825,9 +1462,40 @@
       renderCategories();
     });
 
+    if (els.reviewBtn) {
+      els.reviewBtn.addEventListener('click', openReviewModal);
+    }
+
+    if (els.reviewClose) {
+      els.reviewClose.addEventListener('click', closeReviewModal);
+    }
+
+    if (els.reviewCancel) {
+      els.reviewCancel.addEventListener('click', closeReviewModal);
+    }
+
+    if (els.reviewConfirm) {
+      els.reviewConfirm.addEventListener('click', confirmPendingAdjustments);
+    }
+
+    if (els.reviewModal) {
+      els.reviewModal.addEventListener('click', (event) => {
+        if (event.target === els.reviewModal) {
+          closeReviewModal();
+        }
+      });
+    }
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && state.reviewOpen) {
+        closeReviewModal();
+      }
+    });
+
     if (els.refreshBtn) {
       els.refreshBtn.addEventListener('click', async (e) => {
         e.preventDefault();
+        if (state.saving || state.publishPending) return;
         els.refreshBtn.disabled = true;
         try {
           await refresh();
@@ -849,6 +1517,7 @@
     // Periodically poll GitHub for external changes and refresh if the file SHA changed
     setInterval(async () => {
       try {
+        if (state.publishPending) return;
         const data = await loadFile(WAREHOUSE_FILE_PATH);
         if (data.sha && data.sha !== state.sha) {
           state.inventory = data.json || {};
@@ -864,6 +1533,10 @@
 
     (async () => {
       await refresh('Αποθήκη έτοιμη.');
+      const persistedLock = readPersistedLock();
+      if (persistedLock) {
+        await resumePersistedWarehouseLock(persistedLock);
+      }
     })();
   </script>
 </body>
