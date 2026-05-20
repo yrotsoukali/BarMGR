@@ -671,6 +671,49 @@
 			h1 {
 				font-size: 1.6rem;
 			}
+
+			/* Collapse the floating "pending" panel to a compact single-row bar on mobile */
+			.pending-panel {
+				position: fixed;
+				left: 50%;
+				bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+				transform: translateX(-50%);
+				width: calc(100% - (var(--page-padding) * 2));
+				padding: 6px 10px;
+				border-radius: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 8px;
+				box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+				backdrop-filter: blur(6px);
+				height: 44px;
+				overflow: visible;
+			}
+
+			/* Hide the large title block so the panel fits a single row */
+			.pending-panel > div:first-child {
+				display: none;
+			}
+
+			.pending-panel .pending-summary {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				justify-content: flex-end;
+				text-align: right;
+			}
+
+			.pending-panel .pending-summary strong {
+				font-size: 0.95rem;
+			}
+
+			.pending-panel .action-btn {
+				padding: 8px 10px;
+				font-size: 0.92rem;
+				height: 36px;
+				line-height: 1;
+			}
 		}
 	</style>
 </head>
