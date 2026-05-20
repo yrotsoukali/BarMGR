@@ -2,27 +2,27 @@
   "Beers": [
     {
       "name": "NYMFI draft 400ml",
-      "quantity": 0
+      "quantity": 19
     },
     {
       "name": "MAMOS 330ml",
-      "quantity": 0
+      "quantity": 15
     },
     {
       "name": "Fischer 330ml",
-      "quantity": 0
+      "quantity": 19
     },
     {
       "name": "Sol 330ml",
-      "quantity": 0
+      "quantity": 19
     },
     {
       "name": "IPA Lagunitas 330ml",
-      "quantity": 0
+      "quantity": 4
     },
     {
       "name": "Moretti 330ml",
-      "quantity": 0
+      "quantity": 4
     },
     {
       "name": "Noam 340ml",
@@ -198,19 +198,19 @@
   "Aperitif (700ml)": [
     {
       "name": "Veroni Dry Vermouth",
-      "quantity": 0
+      "quantity": 20
     },
     {
       "name": "Veroni Rosso Vermouth",
-      "quantity": 0
+      "quantity": 14
     },
     {
       "name": "Campari",
-      "quantity": 0
+      "quantity": 7
     },
     {
       "name": "Aperol",
-      "quantity": 0
+      "quantity": 4
     }
   ],
   "Liqueurs (700ml)": [
