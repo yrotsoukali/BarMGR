@@ -93,6 +93,10 @@ def write_json(file_path: Path, payload: Any) -> None:
         json.dump(payload, handle, ensure_ascii=False, indent=2)
 
 
+def read_text(file_path: Path) -> str:
+    return file_path.read_text(encoding="utf-8")
+
+
 def github_enabled() -> bool:
     return bool(GITHUB_TOKEN)
 
@@ -189,6 +193,12 @@ def normalize_location(location: str) -> str:
     if location not in VALID_LOCATIONS:
         raise ValueError("Invalid location")
     return location
+
+
+def render_history_page() -> bytes:
+    template = read_text(TEMPLATES_DIR / "history.html")
+    embedded_history = json.dumps(dedupe_history_entries(read_json(HISTORY_FILE, [])), ensure_ascii=False, indent=2)
+    return template.replace("__BARMGR_HISTORY_DATA__", embedded_history).encode("utf-8")
 
 
 def inventory_file(shop: str, location: str) -> Path:
@@ -394,6 +404,9 @@ class BarMGRHandler(BaseHTTPRequestHandler):
         if path == "/":
             return safe_serve_file(self, ROOT, "index.html")
 
+        if path in {"/history", "/history.html"}:
+            return text_response(self, render_history_page(), "text/html; charset=utf-8")
+
         if path.startswith("/templates/"):
             return safe_serve_file(self, TEMPLATES_DIR, path.removeprefix("/templates/"))
 
@@ -418,6 +431,9 @@ class BarMGRHandler(BaseHTTPRequestHandler):
 
         if path == "/api/history":
             return json_response(self, {"history": load_history()})
+
+        if path in {"/data/history.json", "/history.json"}:
+            return safe_serve_file(self, DATA_DIR, "history.json")
 
         self.send_error(HTTPStatus.NOT_FOUND, "Not found")
 

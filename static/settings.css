@@ -240,6 +240,59 @@ body::before {
   flex-grow: 0;
 }
 
+.history-cta {
+  margin: 34px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.history-button {
+  width: min(100%, 620px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(205, 180, 140, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 238, 0.08), rgba(255, 248, 238, 0.03)),
+    rgba(255, 255, 255, 0.03);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s ease, background 0.3s ease;
+}
+
+.shop-card.history-button {
+  min-height: 0;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 22px 24px;
+}
+
+.history-button:hover {
+  transform: translateY(-4px);
+  border-color: rgba(232, 201, 160, 0.3);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 238, 0.11), rgba(255, 248, 238, 0.05)),
+    rgba(255, 255, 255, 0.04);
+}
+
+.history-button strong {
+  display: block;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.history-button small {
+  display: block;
+  color: var(--muted);
+  font-family: "Noto Serif", serif;
+  font-size: 14px;
+}
+
 /* Tablet */
 @media (max-width: 1200px) {
   .shop-grid {
@@ -281,6 +334,27 @@ body::before {
     min-height: 300px;
     padding: 32px 24px;
     border-radius: 18px;
+  }
+
+  .history-cta {
+    margin-top: 24px;
+  }
+
+  .history-button {
+    padding: 16px 18px;
+    gap: 12px;
+  }
+
+  .shop-card.history-button {
+    padding: 18px 18px;
+  }
+
+  .history-button strong {
+    font-size: 18px;
+  }
+
+  .history-button small {
+    font-size: 12px;
   }
 
   .shop-icon {
@@ -340,5 +414,14 @@ body::before {
   .shop-card p {
     font-size: 12px;
     line-height: 1.5;
+  }
+
+  .history-button {
+    border-radius: 18px;
+    align-items: flex-start;
+  }
+
+  .shop-card.history-button {
+    padding: 16px 16px;
   }
 }

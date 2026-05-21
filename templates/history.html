@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="el">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="BarMGR history timeline and audit log." />
+    <meta name="theme-color" content="#0a0906" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Ιστορικό | BarMGR</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Noto+Serif:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700;800&display=swap&subset=greek,latin');
+
+      :root {
+        color-scheme: dark;
+        --page-padding: 28px;
+        --bg: #0a0906;
+        --panel: rgba(255, 248, 238, 0.06);
+        --panel-strong: rgba(255, 248, 238, 0.1);
+        --panel-border: rgba(205, 180, 140, 0.12);
+        --text: #faf7f2;
+        --muted: #a89a8a;
+        --gold: #d4af6a;
+        --gold-soft: rgba(212, 175, 106, 0.12);
+        --success: #8fe8ad;
+        --danger: #ff8b8b;
+        --info: #89b4ff;
+        --shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        --shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        font-family: "Noto Serif", Georgia, serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(212, 175, 106, 0.12), transparent 35%),
+          radial-gradient(circle at bottom right, rgba(101, 75, 45, 0.1), transparent 40%),
+          linear-gradient(135deg, #0a0906 0%, #13100c 50%, #0a0906 100%);
+        padding: var(--page-padding);
+        line-height: 1.6;
+        letter-spacing: 0.2px;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        background-size: 50px 50px;
+        mask-image: linear-gradient(to bottom, black, transparent 80%);
+        z-index: 0;
+      }
+
+      .layout {
+        position: relative;
+        z-index: 1;
+        width: min(1680px, 100%);
+        margin: 0 auto;
+        display: grid;
+        gap: 18px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .back-link,
+      .ghost-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #e8d5b7, #d4af6a);
+        color: #0a0906;
+        font-weight: 800;
+        box-shadow:
+          0 8px 20px rgba(212, 175, 106, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.18s ease, filter 0.18s ease;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .back-link:hover,
+      .ghost-link:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.03);
+      }
+
+      .page-title {
+        margin: 0;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 1.05;
+      }
+
+      .page-subtitle {
+        margin: 10px 0 0;
+        color: var(--muted);
+        max-width: 760px;
+        font-family: "Noto Serif", serif;
+      }
+
+      .panel {
+        border: 1px solid var(--panel-border);
+        border-radius: 28px;
+        background:
+          linear-gradient(180deg, rgba(255, 248, 238, 0.08), rgba(255, 248, 238, 0.02)),
+          rgba(255, 255, 255, 0.032);
+        box-shadow: var(--shadow-sm);
+        backdrop-filter: blur(20px);
+        padding: 24px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 18px;
+      }
+
+      .hero-copy,
+      .hero-stats {
+        display: grid;
+        gap: 14px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .stat-card {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .stat-label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .stat-value {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.7rem;
+        font-weight: 800;
+      }
+
+      .toolbar {
+        display: grid;
+        gap: 14px;
+      }
+
+      .field-group {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field-group label {
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-family: "Noto Sans", sans-serif;
+        font-weight: 700;
+      }
+
+      .field {
+        width: 100%;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        outline: none;
+        font-size: 1rem;
+        padding: 13px 14px;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .field:focus {
+        border-color: rgba(212, 175, 106, 0.65);
+        box-shadow: 0 0 0 4px rgba(212, 175, 106, 0.12);
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .chip:hover {
+        transform: translateY(-1px);
+      }
+
+      .chip.active {
+        background: var(--gold-soft);
+        border-color: rgba(212, 175, 106, 0.42);
+        color: #f1c28b;
+      }
+
+      .chip small {
+        color: inherit;
+        opacity: 0.8;
+      }
+
+      .meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .results-count {
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 18px;
+      }
+
+      .date-group {
+        display: grid;
+        gap: 12px;
+      }
+
+      .date-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 4px 4px 0;
+      }
+
+      .date-header h2 {
+        margin: 0;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.45rem;
+      }
+
+      .date-badge {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(212, 175, 106, 0.12);
+        color: #f1c28b;
+        font-family: "Noto Sans", sans-serif;
+        font-weight: 800;
+        font-size: 0.84rem;
+      }
+
+      .entry-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .entry-card {
+        display: grid;
+        gap: 14px;
+        padding: 18px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .entry-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .entry-title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .entry-title h3 {
+        margin: 0;
+        font-size: 1.08rem;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+
+      .entry-title p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .entry-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 11px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 800;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .badge.location {
+        background: rgba(212, 175, 106, 0.12);
+        color: #f1c28b;
+      }
+
+      .badge.action.adjust {
+        background: rgba(137, 180, 255, 0.12);
+        color: var(--info);
+      }
+
+      .badge.action.remove {
+        background: rgba(255, 139, 139, 0.12);
+        color: var(--danger);
+      }
+
+      .badge.action.transfer {
+        background: rgba(143, 232, 173, 0.12);
+        color: var(--success);
+      }
+
+      .entry-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .kv {
+        padding: 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .kv span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.82rem;
+        margin-bottom: 6px;
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .kv strong {
+        font-size: 0.98rem;
+      }
+
+      .delta {
+        font-family: "Noto Sans", sans-serif;
+        font-weight: 900;
+      }
+
+      .delta.positive {
+        color: var(--success);
+      }
+
+      .delta.negative {
+        color: var(--danger);
+      }
+
+      .note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-family: "Noto Sans", sans-serif;
+        line-height: 1.55;
+      }
+
+      .empty-state,
+      .error-state {
+        padding: 28px;
+        border-radius: 22px;
+        border: 1px dashed rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .error-state {
+        color: var(--danger);
+        border-color: rgba(255, 139, 139, 0.25);
+      }
+
+      .loading-state {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-family: "Noto Sans", sans-serif;
+      }
+
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.18);
+        border-top-color: var(--gold);
+        animation: spin 0.9s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .entry-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        :root {
+          --page-padding: 16px;
+        }
+
+        .panel {
+          padding: 18px;
+          border-radius: 22px;
+        }
+
+        .stat-grid,
+        .entry-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .date-header,
+        .entry-top,
+        .meta-row {
+          align-items: flex-start;
+        }
+
+        .entry-badges {
+          justify-content: flex-start;
+        }
+
+        .back-link,
+        .ghost-link {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <div class="topbar">
+        <a class="back-link" href="settings.html">← Ρυθμίσεις</a>
+        <a class="ghost-link" href="../index.html">Αρχική</a>
+      </div>
+
+      <section class="panel hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Audit trail</p>
+          <h1 class="page-title">Ιστορικό κινήσεων</h1>
+          <p class="page-subtitle">
+            Όλες οι αλλαγές αποθήκης, κάβας και μεταφορών εμφανίζονται εδώ με
+            χρονολογική σειρά, φίλτρα και σύνοψη ώστε να διαβάζεται εύκολα το
+            ιστορικό.
+          </p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-label">Εγγραφές</span>
+              <div class="stat-value" id="stat-total">0</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Χρήστες</span>
+              <div class="stat-value" id="stat-users">0</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Αφαιρέσεις</span>
+              <div class="stat-value" id="stat-removes">0</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Μεταφορές</span>
+              <div class="stat-value" id="stat-transfers">0</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel toolbar">
+        <div class="field-group">
+          <label for="search">Αναζήτηση</label>
+          <input id="search" class="field" type="search" placeholder="Χρήστης, προϊόν, κατηγορία ή σημείωση" autocomplete="off" />
+        </div>
+
+        <div class="meta-row">
+          <div class="filters" id="location-filters" aria-label="Φίλτρα περιοχής"></div>
+          <div class="filters" id="action-filters" aria-label="Φίλτρα ενέργειας"></div>
+        </div>
+
+        <div class="meta-row">
+          <div class="results-count" id="results-count">Φόρτωση ιστορικού...</div>
+          <button id="refresh-btn" class="back-link" type="button">Ανανέωση</button>
+        </div>
+      </section>
+
+      <section class="timeline" id="timeline" aria-live="polite"></section>
+    </div>
+
+    <script id="history-data" type="application/json">
+__BARMGR_HISTORY_DATA__
+    </script>
+
+    <script>
+      const state = {
+        history: [],
+        query: '',
+        location: 'all',
+        action: 'all',
+        loading: true,
+      };
+
+      const els = {
+        search: document.getElementById('search'),
+        locationFilters: document.getElementById('location-filters'),
+        actionFilters: document.getElementById('action-filters'),
+        timeline: document.getElementById('timeline'),
+        resultsCount: document.getElementById('results-count'),
+        statTotal: document.getElementById('stat-total'),
+        statUsers: document.getElementById('stat-users'),
+        statRemoves: document.getElementById('stat-removes'),
+        statTransfers: document.getElementById('stat-transfers'),
+        refreshBtn: document.getElementById('refresh-btn'),
+      };
+
+      function loadEmbeddedHistory() {
+        const source = document.getElementById('history-data');
+        if (!source) return [];
+        try {
+          const parsed = JSON.parse(source.textContent || '[]');
+          if (Array.isArray(parsed)) return parsed;
+          if (parsed && Array.isArray(parsed.history)) return parsed.history;
+          return [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      const LOCATION_OPTIONS = [
+        { value: 'all', label: 'Όλα' },
+        { value: 'bar', label: 'Μπαρ' },
+        { value: 'cafe', label: 'Καφέ' },
+      ];
+
+      const ACTION_OPTIONS = [
+        { value: 'all', label: 'Όλες' },
+        { value: 'adjust', label: 'Προσθήκες' },
+        { value: 'remove', label: 'Αφαιρέσεις' },
+        { value: 'transfer', label: 'Μεταφορές' },
+      ];
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+
+      function normalize(value) {
+        return String(value || '').toLowerCase();
+      }
+
+      function formatDate(value) {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return String(value || '');
+        return new Intl.DateTimeFormat('el-GR', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }).format(date);
+      }
+
+      function formatTime(value) {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return '';
+        return new Intl.DateTimeFormat('el-GR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }).format(date);
+      }
+
+      function actionLabel(action) {
+        if (action === 'remove') return 'Αφαίρεση';
+        if (action === 'adjust') return 'Προσθήκη';
+        if (action === 'transfer') return 'Μεταφορά';
+        return action || 'Κίνηση';
+      }
+
+      function locationLabel(location) {
+        if (location === 'bar') return 'Μπαρ';
+        if (location === 'cafe') return 'Καφέ';
+        return location || 'Άγνωστο';
+      }
+
+      function setLoading(isLoading, message = 'Φόρτωση ιστορικού...') {
+        state.loading = isLoading;
+        if (els.resultsCount) {
+          els.resultsCount.textContent = message;
+        }
+      }
+
+      function setFilters(kind, value) {
+        if (kind === 'location') state.location = value;
+        if (kind === 'action') state.action = value;
+        renderFilters();
+        renderTimeline();
+      }
+
+      function matchesEntry(entry) {
+        if (state.location !== 'all' && normalize(entry.location) !== state.location) return false;
+        if (state.action !== 'all' && normalize(entry.action) !== state.action) return false;
+
+        if (!state.query) return true;
+        const haystack = normalize([
+          entry.timestamp,
+          entry.date,
+          entry.time,
+          entry.location,
+          entry.action,
+          entry.user,
+          entry.category,
+          entry.item,
+          entry.quantity,
+          entry.old_quantity,
+          entry.new_quantity,
+          entry.note,
+          entry.from_location,
+          entry.to_location,
+        ].join(' '));
+        return haystack.includes(state.query);
+      }
+
+      function getFilteredHistory() {
+        return state.history
+          .slice()
+          .sort((left, right) => String(right.timestamp || '').localeCompare(String(left.timestamp || '')))
+          .filter(matchesEntry);
+      }
+
+      function renderFilters() {
+        els.locationFilters.innerHTML = LOCATION_OPTIONS.map((option) => `
+          <button type="button" class="chip ${state.location === option.value ? 'active' : ''}" data-kind="location" data-value="${option.value}">${option.label}</button>
+        `).join('');
+
+        els.actionFilters.innerHTML = ACTION_OPTIONS.map((option) => `
+          <button type="button" class="chip ${state.action === option.value ? 'active' : ''}" data-kind="action" data-value="${option.value}">${option.label}</button>
+        `).join('');
+
+        document.querySelectorAll('[data-kind]').forEach((button) => {
+          button.addEventListener('click', () => {
+            setFilters(button.dataset.kind, button.dataset.value);
+          });
+        });
+      }
+
+      function renderTimeline() {
+        const filtered = getFilteredHistory();
+        const uniqueUsers = new Set(filtered.map((entry) => entry.user).filter(Boolean));
+        const removeCount = filtered.filter((entry) => normalize(entry.action) === 'remove').length;
+        const transferCount = filtered.filter((entry) => normalize(entry.action) === 'transfer').length;
+
+        if (els.statTotal) els.statTotal.textContent = String(filtered.length);
+        if (els.statUsers) els.statUsers.textContent = String(uniqueUsers.size);
+        if (els.statRemoves) els.statRemoves.textContent = String(removeCount);
+        if (els.statTransfers) els.statTransfers.textContent = String(transferCount);
+        if (els.resultsCount) {
+          els.resultsCount.textContent = `${filtered.length} εγγραφές που ταιριάζουν`;
+        }
+
+        if (!filtered.length) {
+          els.timeline.innerHTML = '<div class="empty-state">Δεν βρέθηκαν εγγραφές με τα τρέχοντα φίλτρα.</div>';
+          return;
+        }
+
+        const groups = new Map();
+        filtered.forEach((entry) => {
+          const key = entry.date || String(entry.timestamp || '').slice(0, 10) || 'Άγνωστη ημερομηνία';
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(entry);
+        });
+
+        els.timeline.innerHTML = Array.from(groups.entries())
+          .map(([dateKey, entries]) => {
+            const label = formatDate(dateKey);
+            return `
+              <section class="date-group">
+                <div class="date-header">
+                  <h2>${escapeHtml(label)}</h2>
+                  <div class="date-badge">${entries.length} εγγραφές</div>
+                </div>
+                <div class="entry-list">
+                  ${entries.map(renderEntry).join('')}
+                </div>
+              </section>
+            `;
+          })
+          .join('');
+      }
+
+      function renderEntry(entry) {
+        const action = normalize(entry.action);
+        const location = normalize(entry.location);
+        const delta = Number(entry.quantity || 0);
+        const signedDelta = action === 'remove' ? `-${delta}` : action === 'transfer' ? `±${delta}` : `+${delta}`;
+        const deltaClass = action === 'remove' ? 'negative' : action === 'transfer' ? '' : 'positive';
+        const detailLine = action === 'transfer'
+          ? `${locationLabel(location)} · ${entry.from_location ? locationLabel(entry.from_location) : 'πηγή'} → ${entry.to_location ? locationLabel(entry.to_location) : 'στόχος'}`
+          : `${locationLabel(location)} · ${entry.category || 'Χωρίς κατηγορία'}`;
+        const note = entry.note ? `<p class="note">${escapeHtml(entry.note)}</p>` : '';
+
+        return `
+          <article class="entry-card">
+            <div class="entry-top">
+              <div class="entry-title">
+                <h3>${escapeHtml(entry.item || 'Άγνωστο προϊόν')}</h3>
+                <p>${escapeHtml(detailLine)}</p>
+              </div>
+              <div class="entry-badges">
+                <span class="badge location">${escapeHtml(locationLabel(location))}</span>
+                <span class="badge action ${action || 'adjust'}">${escapeHtml(actionLabel(action))}</span>
+              </div>
+            </div>
+
+            <div class="entry-grid">
+              <div class="kv">
+                <span>Χρήστης</span>
+                <strong>${escapeHtml(entry.user || 'Web')}</strong>
+              </div>
+              <div class="kv">
+                <span>Κατηγορία</span>
+                <strong>${escapeHtml(entry.category || '—')}</strong>
+              </div>
+              <div class="kv">
+                <span>Ποσότητα</span>
+                <strong class="delta ${deltaClass}">${escapeHtml(signedDelta)}</strong>
+              </div>
+              <div class="kv">
+                <span>Ώρα</span>
+                <strong>${escapeHtml(formatTime(entry.timestamp || `${entry.date || ''}T${entry.time || ''}`))}</strong>
+              </div>
+            </div>
+
+            <div class="entry-grid">
+              <div class="kv">
+                <span>Πριν</span>
+                <strong>${escapeHtml(String(entry.old_quantity ?? '—'))}</strong>
+              </div>
+              <div class="kv">
+                <span>Μετά</span>
+                <strong>${escapeHtml(String(entry.new_quantity ?? '—'))}</strong>
+              </div>
+              <div class="kv">
+                <span>Batch</span>
+                <strong>${escapeHtml(entry.batch_id || entry.history_id || '—')}</strong>
+              </div>
+              <div class="kv">
+                <span>Ημερομηνία</span>
+                <strong>${escapeHtml(entry.date || '—')}</strong>
+              </div>
+            </div>
+
+            ${note}
+          </article>
+        `;
+      }
+
+      async function loadHistory() {
+        setLoading(true, 'Φόρτωση ιστορικού...');
+        renderFilters();
+        try {
+          state.history = loadEmbeddedHistory();
+          if (!state.history || !state.history.length) {
+            try {
+              const resp = await fetch('/api/history');
+              if (resp.ok) {
+                const data = await resp.json();
+                state.history = Array.isArray(data.history) ? data.history : (Array.isArray(data) ? data : []);
+              }
+            } catch (e) {
+              // ignore fetch errors, we'll render empty state below
+            }
+          }
+          renderTimeline();
+        } catch (error) {
+          els.timeline.innerHTML = `<div class="error-state">${escapeHtml(error.message)}</div>`;
+          if (els.resultsCount) {
+            els.resultsCount.textContent = 'Το ιστορικό δεν φορτώθηκε.';
+          }
+        } finally {
+          state.loading = false;
+        }
+      }
+
+      els.search.addEventListener('input', () => {
+        state.query = normalize(els.search.value.trim());
+        renderTimeline();
+      });
+
+      els.refreshBtn.addEventListener('click', () => {
+        loadHistory();
+      });
+
+      loadHistory();
+    </script>
+  </body>
+</html>
