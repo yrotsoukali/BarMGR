@@ -265,9 +265,20 @@ body::before {
 
 .shop-card.history-button {
   min-height: 0;
+  /* default when an icon is present */
   justify-content: flex-start;
   text-align: left;
   padding: 22px 24px;
+}
+
+/* When there is no icon, center and tighten the button */
+.shop-card.history-button.no-icon {
+  min-height: 72px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 14px 20px;
+  gap: 8px;
 }
 
 .history-button:hover {
@@ -349,6 +360,13 @@ body::before {
     padding: 18px 18px;
   }
 
+  .shop-card.history-button.no-icon {
+    padding: 14px 18px;
+    min-height: 64px;
+    justify-content: center;
+    text-align: center;
+  }
+
   .history-button strong {
     font-size: 18px;
   }
@@ -423,5 +441,12 @@ body::before {
 
   .shop-card.history-button {
     padding: 16px 16px;
+  }
+
+  .shop-card.history-button.no-icon {
+    padding: 12px 14px;
+    min-height: 56px;
+    justify-content: center;
+    text-align: center;
   }
 }
