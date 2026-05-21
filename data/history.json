@@ -103,5 +103,35 @@
     "new_quantity": 9,
     "history_id": "02f9f5ff-46f6-446c-9dea-b57d2d8add19:0",
     "batch_id": "02f9f5ff-46f6-446c-9dea-b57d2d8add19"
+  },
+  {
+    "timestamp": "2026-05-21T18:43:53.152Z",
+    "date": "2026-05-21",
+    "time": "21:43:53",
+    "history_id": "8ce67836-4657-4816-b14f-48af3e50606c:0",
+    "batch_id": "8ce67836-4657-4816-b14f-48af3e50606c",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Juices & Refreshments",
+    "item": "Cherry juice",
+    "quantity": 10,
+    "old_quantity": 0,
+    "new_quantity": 10
+  },
+  {
+    "timestamp": "2026-05-21T18:43:53.152Z",
+    "date": "2026-05-21",
+    "time": "21:43:53",
+    "history_id": "8ce67836-4657-4816-b14f-48af3e50606c:1",
+    "batch_id": "8ce67836-4657-4816-b14f-48af3e50606c",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Juices & Refreshments",
+    "item": "Lemon juice",
+    "quantity": 10,
+    "old_quantity": 0,
+    "new_quantity": 10
   }
 ]
