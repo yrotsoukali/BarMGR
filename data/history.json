@@ -133,5 +133,20 @@
     "quantity": 10,
     "old_quantity": 0,
     "new_quantity": 10
+  },
+  {
+    "timestamp": "2026-05-21T18:46:56.282Z",
+    "date": "2026-05-21",
+    "time": "21:46:56",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Coffee",
+    "item": "Espresso",
+    "quantity": 10,
+    "old_quantity": 10,
+    "new_quantity": 0,
+    "history_id": "e2a17336-02b6-42c7-8d8f-b52723316f49:0",
+    "batch_id": "e2a17336-02b6-42c7-8d8f-b52723316f49"
   }
 ]
