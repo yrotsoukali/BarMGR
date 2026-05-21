@@ -32,7 +32,7 @@
   "Juices & Refreshments": [
     {
       "name": "Cherry juice",
-      "quantity": 0
+      "quantity": 10
     },
     {
       "name": "Orange juice",
@@ -44,7 +44,7 @@
     },
     {
       "name": "Lemon juice",
-      "quantity": 0
+      "quantity": 10
     },
     {
       "name": "Peach juice",
