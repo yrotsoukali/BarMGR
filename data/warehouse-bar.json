@@ -2,27 +2,27 @@
   "Beers": [
     {
       "name": "NYMFI draft 400ml",
-      "quantity": 19
+      "quantity": 0
     },
     {
       "name": "MAMOS 330ml",
-      "quantity": 15
+      "quantity": 0
     },
     {
       "name": "Fischer 330ml",
-      "quantity": 19
+      "quantity": 0
     },
     {
       "name": "Sol 330ml",
-      "quantity": 19
+      "quantity": 0
     },
     {
       "name": "IPA Lagunitas 330ml",
-      "quantity": 4
+      "quantity": 0
     },
     {
       "name": "Moretti 330ml",
-      "quantity": 4
+      "quantity": 0
     },
     {
       "name": "Noam 340ml",
@@ -168,7 +168,7 @@
   "Tequila & Mezcal (700ml)": [
     {
       "name": "Buen Amigo Blanco",
-      "quantity": 5
+      "quantity": 0
     },
     {
       "name": "Buen Amigo Reposado",
@@ -184,7 +184,7 @@
     },
     {
       "name": "Verde Momento Mezcal",
-      "quantity": 10
+      "quantity": 0
     },
     {
       "name": "Patron Silver",
@@ -192,7 +192,7 @@
     },
     {
       "name": "Patron Reposado",
-      "quantity": 9
+      "quantity": 0
     }
   ],
   "Aperitif (700ml)": [
@@ -202,15 +202,15 @@
     },
     {
       "name": "Veroni Rosso Vermouth",
-      "quantity": 9
+      "quantity": 0
     },
     {
       "name": "Campari",
-      "quantity": 7
+      "quantity": 0
     },
     {
       "name": "Aperol",
-      "quantity": 4
+      "quantity": 0
     }
   ],
   "Liqueurs (700ml)": [
