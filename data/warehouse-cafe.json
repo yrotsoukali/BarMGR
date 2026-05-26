@@ -2,11 +2,11 @@
   "Coffee": [
     {
       "name": "Greek coffee",
-      "quantity": 210
+      "quantity": 10
     },
     {
       "name": "Espresso",
-      "quantity": 20
+      "quantity": 11
     },
     {
       "name": "Frappe",
@@ -14,15 +14,15 @@
     },
     {
       "name": "Decaf",
-      "quantity": 12
+      "quantity": 3
     },
     {
       "name": "Chocolate",
-      "quantity": 300
+      "quantity": 200
     },
     {
       "name": "Brown sugar",
-      "quantity": 299
+      "quantity": 200
     },
     {
       "name": "White sugar",
