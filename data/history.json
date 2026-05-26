@@ -1,1 +1,77 @@
-[]
+[
+  {
+    "timestamp": "2026-05-26T17:55:15.787Z",
+    "date": "2026-05-26",
+    "time": "20:55:15",
+    "history_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110:0",
+    "batch_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Brown sugar",
+    "quantity": 299,
+    "old_quantity": 0,
+    "new_quantity": 299
+  },
+  {
+    "timestamp": "2026-05-26T17:55:15.787Z",
+    "date": "2026-05-26",
+    "time": "20:55:15",
+    "history_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110:1",
+    "batch_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Chocolate",
+    "quantity": 300,
+    "old_quantity": 0,
+    "new_quantity": 300
+  },
+  {
+    "timestamp": "2026-05-26T17:55:15.787Z",
+    "date": "2026-05-26",
+    "time": "20:55:15",
+    "history_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110:2",
+    "batch_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Decaf",
+    "quantity": 12,
+    "old_quantity": 0,
+    "new_quantity": 12
+  },
+  {
+    "timestamp": "2026-05-26T17:55:15.787Z",
+    "date": "2026-05-26",
+    "time": "20:55:15",
+    "history_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110:3",
+    "batch_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Espresso",
+    "quantity": 20,
+    "old_quantity": 0,
+    "new_quantity": 20
+  },
+  {
+    "timestamp": "2026-05-26T17:55:15.787Z",
+    "date": "2026-05-26",
+    "time": "20:55:15",
+    "history_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110:4",
+    "batch_id": "3b7d23a7-8621-4b43-baad-afa7f59a3110",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 210,
+    "old_quantity": 0,
+    "new_quantity": 210
+  }
+]
