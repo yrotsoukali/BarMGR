@@ -2,151 +2,187 @@
   "Coffee": [
     {
       "name": "Greek coffee",
-      "quantity": 10
+      "quantity": 10,
+      "alert": 2
     },
     {
       "name": "Espresso",
-      "quantity": 11
+      "quantity": 11,
+      "alert": 8
     },
     {
       "name": "Frappe",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 1
     },
     {
       "name": "Decaf",
-      "quantity": 3
+      "quantity": 3,
+      "alert": 4
     },
     {
       "name": "Chocolate",
-      "quantity": 200
+      "quantity": 200,
+      "alert": 1
     },
     {
       "name": "Brown sugar",
-      "quantity": 200
+      "quantity": 200,
+      "alert": 2
     },
     {
       "name": "White sugar",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 4
     }
   ],
   "Juices & Refreshments": [
     {
       "name": "Cherry juice",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 3
     },
     {
       "name": "Orange juice",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 3
     },
     {
       "name": "Mixed juice",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 3
     },
     {
       "name": "Lemon juice",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 3
     },
     {
       "name": "Peach juice",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 0
     },
     {
       "name": "Peach ice tea",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 5
     },
     {
       "name": "Lemon ice tea",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 5
     }
   ],
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 4
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 4
     },
     {
       "name": "Water 1lt (table)",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 4
     },
     {
       "name": "Coca Cola glass",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Coca Cola can",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Coca Cola bar",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Coca Cola Zero glass",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Coca Cola Zero can",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Soda glass",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Soda can",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Soda bar",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Tonic glass",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Tonic can",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Tonic bar",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Sprite glass",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Sprite can",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Sprite bar",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "Xino Nero Florinas 250ml",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "San Pellegrino 750ml",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 15
     },
     {
       "name": "3Cents Pink Grapefruit 250ml",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 20
     },
     {
       "name": "3Cents Ginger Beer 250ml",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 10
     },
     {
       "name": "3Cents Aegean Tonic 250ml",
-      "quantity": 0
+      "quantity": 0,
+      "alert": 20
     }
   ]
 }

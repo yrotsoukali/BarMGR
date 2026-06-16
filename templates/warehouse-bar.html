@@ -299,6 +299,8 @@
 			background: rgba(255, 255, 255, 0.05);
 			border-radius: 22px;
 			padding: 24px;
+			padding-bottom: 64px;
+			position: relative;
 			display: grid;
 			gap: 12px;
 		}
@@ -331,6 +333,24 @@
 			color: #f1c28b;
 			font-weight: 900;
 			font-size: 0.9rem;
+		}
+
+		.refill-badge {
+			position: absolute;
+			right: 18px;
+			bottom: 18px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 8px 12px;
+			border-radius: 999px;
+			background: rgba(255, 139, 139, 0.16);
+			border: 1px solid rgba(255, 139, 139, 0.35);
+			color: #ffd3d3;
+			font-size: 0.8rem;
+			font-weight: 900;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
 		}
 
 		.adjust-form {
@@ -928,6 +948,30 @@
 			return String(value || '').toLowerCase();
 		}
 
+		function toNonNegativeInteger(value, fallback = 0) {
+			const number = Number(value);
+			if (!Number.isInteger(number) || number < 0) {
+				return fallback;
+			}
+			return number;
+		}
+
+		function normalizeInventory(inventory) {
+			const normalized = {};
+			Object.entries(inventory || {}).forEach(([category, items]) => {
+				if (!Array.isArray(items)) return;
+				normalized[category] = items
+					.filter((item) => item && typeof item === 'object')
+					.map((item) => ({
+						...item,
+						name: String(item.name || ''),
+						quantity: toNonNegativeInteger(item.quantity, 0),
+						alert: toNonNegativeInteger(item.alert, 0),
+					}));
+			});
+			return normalized;
+		}
+
 		function setStatus(text, type = '') {
 			els.status.textContent = text;
 			els.status.className = type ? `status ${type}` : 'status';
@@ -977,6 +1021,23 @@
 			return Number(state.pendingAdjustments[makeAdjustmentKey(category, item)] || 0);
 		}
 
+		function getInventoryItem(category, itemName) {
+			return state.inventory?.[category]?.find((entry) => entry.name === itemName) || null;
+		}
+
+		function getAlert(category, item) {
+			return toNonNegativeInteger(getInventoryItem(category, item)?.alert, 0);
+		}
+
+		function getEffectiveQuantity(category, item) {
+			const currentQuantity = toNonNegativeInteger(getInventoryItem(category, item)?.quantity, 0);
+			return currentQuantity + getPendingQuantity(category, item);
+		}
+
+		function shouldShowRefillBadge(quantity, alert) {
+			return alert > 0 && quantity <= alert;
+		}
+
 		function collectPendingAdjustments() {
 			return Object.entries(state.pendingAdjustments)
 				.map(([key, quantity]) => {
@@ -1001,7 +1062,7 @@
 			const totalQuantity = changes.reduce((sum, entry) => sum + entry.quantity, 0);
 
 			if (els.pendingItems) els.pendingItems.textContent = String(changes.length);
-			if (els.pendingTotal) els.pendingTotal.textContent = `${totalQuantity} τεμ. συνολικά`;
+			if (els.pendingTotal) els.pendingTotal.textContent = totalQuantity > 0 ? `${totalQuantity} τεμ. συνολικά` : 'Χωρίς αλλαγές';
 			if (els.reviewBtn) els.reviewBtn.disabled = state.saving || state.publishPending || changes.length === 0;
 			syncFloatingPendingPanelOffset();
 		}
@@ -1065,6 +1126,11 @@
 			const chip = card.querySelector('.pending-chip');
 			if (chip) {
 				chip.textContent = quantity > 0 ? `Σε αναμονή: +${quantity}` : 'Χωρίς αλλαγές';
+			}
+
+			const refillBadge = card.querySelector('.refill-badge');
+			if (refillBadge) {
+				refillBadge.hidden = !shouldShowRefillBadge(getEffectiveQuantity(category, item), getAlert(category, item));
 			}
 		}
 
@@ -1132,7 +1198,7 @@
 			while (Date.now() - startedAt < timeoutMs) {
 				const latest = await loadFile(WAREHOUSE_FILE_PATH);
 				if (latest.sha === expectedSha) {
-					state.inventory = latest.json || {};
+					state.inventory = normalizeInventory(latest.json || {});
 					state.sha = latest.sha;
 					state.categories = Object.keys(state.inventory).sort();
 					return true;
@@ -1248,7 +1314,7 @@
 
 		function matchesSearch(category, item) {
 			if (!state.search) return true;
-			return normalize(`${category} ${item.name} ${item.quantity}`).includes(state.search);
+			return normalize(`${category} ${item.name} ${item.quantity} ${item.alert}`).includes(state.search);
 		}
 
 		function renderTabs() {
@@ -1274,6 +1340,7 @@
 			const pendingQuantity = getPendingQuantity(category, item.name);
 			const pendingLabel = pendingQuantity > 0 ? `Σε αναμονή: +${pendingQuantity}` : 'Χωρίς αλλαγές';
 			const fieldId = `adjust-${encodeURIComponent(makeAdjustmentKey(category, item.name))}`;
+			const refillVisible = shouldShowRefillBadge(getEffectiveQuantity(category, item.name), getAlert(category, item.name));
 
 			return `
 				<article class="item-card ${pendingQuantity > 0 ? 'pending' : ''}" data-category="${escapeHtml(category)}" data-item="${escapeHtml(item.name)}">
@@ -1305,6 +1372,7 @@
 						</div>
 						<div class="pending-chip">${pendingLabel}</div>
 					</div>
+					<div class="refill-badge" ${refillVisible ? '' : 'hidden'}>Refill</div>
 				</article>
 			`;
 		}
@@ -1360,7 +1428,7 @@
 		async function loadInventory() {
 			ensureTokenConfigured();
 			const data = await loadFile(WAREHOUSE_FILE_PATH);
-			state.inventory = data.json || {};
+			state.inventory = normalizeInventory(data.json || {});
 			state.sha = data.sha;
 			state.categories = Object.keys(state.inventory).sort();
 		}
@@ -1463,7 +1531,7 @@
 
 			for (let attempt = 1; attempt <= 3; attempt++) {
 				const latest = await loadFile(WAREHOUSE_FILE_PATH);
-				const inventory = latest.json || {};
+				const inventory = normalizeInventory(latest.json || {});
 				const historyEntries = [];
 				const historyBatchId = createHistoryBatchId();
 
@@ -1479,26 +1547,29 @@
 						throw new Error(`Item not found in GitHub inventory file: ${change.item}`);
 					}
 
-					const oldQuantity = Number(target.quantity || 0);
-					const newQuantity = oldQuantity + change.quantity;
+					const oldQuantity = toNonNegativeInteger(target.quantity, 0);
+					const newQuantity = oldQuantity + toNonNegativeInteger(change.quantity, 0);
 
 					if (newQuantity < 0) {
 						throw new Error('Quantity cannot be lower than zero.');
 					}
 
 					target.quantity = newQuantity;
-					historyEntries.push({
-						history_id: `${historyBatchId}:${historyEntries.length}`,
-						batch_id: historyBatchId,
-						location: 'bar',
-						action: 'adjust',
-						category: change.category,
-						item: change.item,
-						quantity: change.quantity,
-						old_quantity: oldQuantity,
-						new_quantity: newQuantity,
-						user: 'Web',
-					});
+					if (change.quantity > 0) {
+						historyEntries.push({
+							history_id: `${historyBatchId}:${historyEntries.length}`,
+							batch_id: historyBatchId,
+							location: 'bar',
+							action: 'adjust',
+							category: change.category,
+							item: change.item,
+							quantity: change.quantity,
+							old_quantity: oldQuantity,
+							new_quantity: newQuantity,
+							user: 'Web',
+						});
+					}
+
 				}
 
 				try {
@@ -1545,7 +1616,7 @@
 			}
 
 			els.reviewList.innerHTML = changes.map((change) => {
-				const current = Number(state.inventory?.[change.category]?.find((entry) => entry.name === change.item)?.quantity || 0);
+				const current = toNonNegativeInteger(getInventoryItem(change.category, change.item)?.quantity, 0);
 				const next = current + change.quantity;
 				return `
 					<article class="review-entry">
@@ -1686,7 +1757,7 @@
 				if (state.publishPending) return;
 				const data = await loadFile(WAREHOUSE_FILE_PATH);
 				if (data.sha && data.sha !== state.sha) {
-					state.inventory = data.json || {};
+					state.inventory = normalizeInventory(data.json || {});
 					state.sha = data.sha;
 					state.categories = Object.keys(state.inventory).sort();
 					renderAll();

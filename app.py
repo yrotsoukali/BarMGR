@@ -67,10 +67,42 @@ def load_python_seed(file_path: Path, attribute: str) -> Dict[str, List[Dict[str
     return seed
 
 
+def normalize_inventory_item(item: Dict[str, Any]) -> Dict[str, Any]:
+    normalized = dict(item)
+
+    try:
+        quantity = int(item.get("quantity", 0))
+    except (TypeError, ValueError):
+        quantity = 0
+
+    try:
+        alert = int(item.get("alert", 0))
+    except (TypeError, ValueError):
+        alert = 0
+
+    normalized["name"] = item.get("name", "")
+    normalized["quantity"] = max(0, quantity)
+    normalized["alert"] = max(0, alert)
+    return normalized
+
+
+def normalize_inventory_schema(inventory: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:
+    normalized: Dict[str, List[Dict[str, Any]]] = {}
+    for category, items in inventory.items():
+        if not isinstance(items, list):
+            continue
+        normalized[category] = [
+            normalize_inventory_item(item)
+            for item in items
+            if isinstance(item, dict)
+        ]
+    return normalized
+
+
 def build_empty_copy(source: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:
     return {
         category: [
-            {"name": item["name"], "quantity": 0}
+            {"name": item["name"], "quantity": 0, "alert": max(0, int(item.get("alert", 0) or 0))}
             for item in items
         ]
         for category, items in source.items()
@@ -166,7 +198,7 @@ def ensure_data_files() -> None:
     ensure_directory()
 
     for shop, seed_path in WAREHOUSE_SEED_FILES.items():
-        seed = load_python_seed(seed_path, f"WAREHOUSE_{shop.upper()}")
+        seed = normalize_inventory_schema(load_python_seed(seed_path, f"WAREHOUSE_{shop.upper()}"))
 
         warehouse_file = WAREHOUSE_FILES[shop]
         cellar_file = CELLAR_FILES[shop]
@@ -217,13 +249,14 @@ def load_inventory(shop: str, location: str) -> Dict[str, List[Dict[str, Any]]]:
     if github_enabled():
         try:
             data, _sha = github_load_json(inventory_repo_path(shop, location), {})
-            return data
+            return normalize_inventory_schema(data)
         except RuntimeError:
             pass
-    return read_json(inventory_file(shop, location), {})
+    return normalize_inventory_schema(read_json(inventory_file(shop, location), {}))
 
 
 def save_inventory(shop: str, location: str, inventory: Dict[str, List[Dict[str, Any]]]) -> None:
+    inventory = normalize_inventory_schema(inventory)
     if github_enabled():
         repo_path = inventory_repo_path(shop, location)
         _current, sha = github_load_json(repo_path, {})
