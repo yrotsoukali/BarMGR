@@ -353,6 +353,10 @@
       text-transform: uppercase;
     }
 
+    .refill-badge[hidden] {
+      display: none;
+    }
+
     .adjust-form {
       display: grid;
       gap: 10px;
@@ -804,6 +808,10 @@
             <span class="stat-label">Σύνολο τεμ.</span>
             <div class="stat-value" id="stat-quantity">0</div>
           </div>
+          <div class="stat">
+            <span class="stat-label">Σύνολο alerts</span>
+            <div class="stat-value" id="stat-alerts">0</div>
+          </div>
         </div>
       </div>
     </section>
@@ -913,6 +921,7 @@
       statCategories: document.getElementById('stat-categories'),
       statItems: document.getElementById('stat-items'),
       statQuantity: document.getElementById('stat-quantity'),
+      statAlerts: document.getElementById('stat-alerts'),
       pendingItems: document.getElementById('pending-items'),
       pendingTotal: document.getElementById('pending-total'),
       reviewBtn: document.getElementById('review-btn'),
@@ -1299,10 +1308,16 @@
       const categories = Object.entries(state.inventory);
       const items = categories.flatMap(([, list]) => list);
       const totalQuantity = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+      const totalAlerts = items.filter((item) => {
+        const quantity = toNonNegativeInteger(item.quantity, 0);
+        const alert = toNonNegativeInteger(item.alert, 0);
+        return shouldShowRefillBadge(quantity, alert);
+      }).length;
 
       els.statCategories.textContent = String(categories.length);
       els.statItems.textContent = String(items.length);
       els.statQuantity.textContent = String(totalQuantity);
+      if (els.statAlerts) els.statAlerts.textContent = String(totalAlerts);
     }
 
     function matchesSearch(category, item) {
