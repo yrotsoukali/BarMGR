@@ -943,5 +943,35 @@
     "quantity": 8,
     "old_quantity": 0,
     "new_quantity": 8
+  },
+  {
+    "timestamp": "2026-06-26T14:13:06.952Z",
+    "date": "2026-06-26",
+    "time": "17:13:06",
+    "history_id": "9216100e-ec28-47ec-81da-4713be850c70:0",
+    "batch_id": "9216100e-ec28-47ec-81da-4713be850c70",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Brown sugar",
+    "quantity": 2,
+    "old_quantity": 0,
+    "new_quantity": 2
+  },
+  {
+    "timestamp": "2026-06-26T14:13:06.952Z",
+    "date": "2026-06-26",
+    "time": "17:13:06",
+    "history_id": "9216100e-ec28-47ec-81da-4713be850c70:1",
+    "batch_id": "9216100e-ec28-47ec-81da-4713be850c70",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "White sugar",
+    "quantity": 3,
+    "old_quantity": 0,
+    "new_quantity": 3
   }
 ]
