@@ -17,7 +17,7 @@
     },
     {
       "name": "Decaf",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 4
     },
     {
@@ -39,7 +39,7 @@
   "Juices & Refreshments": [
     {
       "name": "Cherry juice",
-      "quantity": 0,
+      "quantity": 3,
       "alert": 3
     },
     {
@@ -49,12 +49,12 @@
     },
     {
       "name": "Mixed juice",
-      "quantity": 0,
+      "quantity": 10,
       "alert": 3
     },
     {
       "name": "Lemon juice",
-      "quantity": 0,
+      "quantity": 18,
       "alert": 3
     },
     {
@@ -76,27 +76,27 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 0,
+      "quantity": 240,
       "alert": 4
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 0,
+      "quantity": 18,
       "alert": 4
     },
     {
       "name": "Water 1lt (table)",
-      "quantity": 0,
+      "quantity": 40,
       "alert": 4
     },
     {
       "name": "Coca Cola glass",
-      "quantity": 0,
+      "quantity": 41,
       "alert": 15
     },
     {
       "name": "Coca Cola can",
-      "quantity": 0,
+      "quantity": 48,
       "alert": 15
     },
     {
@@ -106,7 +106,7 @@
     },
     {
       "name": "Coca Cola Zero glass",
-      "quantity": 0,
+      "quantity": 30,
       "alert": 15
     },
     {
@@ -116,12 +116,12 @@
     },
     {
       "name": "Soda glass",
-      "quantity": 0,
+      "quantity": 28,
       "alert": 15
     },
     {
       "name": "Soda can",
-      "quantity": 0,
+      "quantity": 18,
       "alert": 15
     },
     {
@@ -136,7 +136,7 @@
     },
     {
       "name": "Tonic can",
-      "quantity": 0,
+      "quantity": 24,
       "alert": 15
     },
     {
@@ -166,22 +166,22 @@
     },
     {
       "name": "San Pellegrino 750ml",
-      "quantity": 0,
+      "quantity": 12,
       "alert": 15
     },
     {
       "name": "3Cents Pink Grapefruit 250ml",
-      "quantity": 0,
+      "quantity": 24,
       "alert": 20
     },
     {
       "name": "3Cents Ginger Beer 250ml",
-      "quantity": 0,
+      "quantity": 51,
       "alert": 10
     },
     {
       "name": "3Cents Aegean Tonic 250ml",
-      "quantity": 0,
+      "quantity": 18,
       "alert": 20
     }
   ]
