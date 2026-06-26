@@ -973,5 +973,20 @@
     "quantity": 3,
     "old_quantity": 0,
     "new_quantity": 3
+  },
+  {
+    "timestamp": "2026-06-26T14:36:07.416Z",
+    "date": "2026-06-26",
+    "time": "17:36:07",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Water 1lt (personal)",
+    "quantity": 6,
+    "old_quantity": 18,
+    "new_quantity": 12,
+    "history_id": "ab1b7220-adc5-414b-b764-40c5f2e82cc5:0",
+    "batch_id": "ab1b7220-adc5-414b-b764-40c5f2e82cc5"
   }
 ]
