@@ -1048,5 +1048,50 @@
     "new_quantity": 12,
     "history_id": "6dcfa688-cdf0-4a90-ad54-01b5dc76869d:3",
     "batch_id": "6dcfa688-cdf0-4a90-ad54-01b5dc76869d"
+  },
+  {
+    "timestamp": "2026-06-26T20:18:19.677Z",
+    "date": "2026-06-26",
+    "time": "23:18:19",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Beers",
+    "item": "Fischer 330ml",
+    "quantity": 7,
+    "old_quantity": 46,
+    "new_quantity": 39,
+    "history_id": "cb8d0570-dbd6-4579-946c-db21de111898:0",
+    "batch_id": "cb8d0570-dbd6-4579-946c-db21de111898"
+  },
+  {
+    "timestamp": "2026-06-26T20:18:19.677Z",
+    "date": "2026-06-26",
+    "time": "23:18:19",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Beers",
+    "item": "MAMOS 330ml",
+    "quantity": 5,
+    "old_quantity": 31,
+    "new_quantity": 26,
+    "history_id": "cb8d0570-dbd6-4579-946c-db21de111898:1",
+    "batch_id": "cb8d0570-dbd6-4579-946c-db21de111898"
+  },
+  {
+    "timestamp": "2026-06-26T20:18:19.677Z",
+    "date": "2026-06-26",
+    "time": "23:18:19",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Beers",
+    "item": "Sol 330ml",
+    "quantity": 8,
+    "old_quantity": 44,
+    "new_quantity": 36,
+    "history_id": "cb8d0570-dbd6-4579-946c-db21de111898:2",
+    "batch_id": "cb8d0570-dbd6-4579-946c-db21de111898"
   }
 ]
