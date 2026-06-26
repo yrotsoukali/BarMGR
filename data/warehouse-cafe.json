@@ -27,12 +27,12 @@
     },
     {
       "name": "Brown sugar",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 2
     },
     {
       "name": "White sugar",
-      "quantity": 0,
+      "quantity": 3,
       "alert": 4
     }
   ],
