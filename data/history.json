@@ -148,5 +148,20 @@
     "new_quantity": 10,
     "history_id": "db39e56e-57e7-4974-b748-f7e31852ff41:4",
     "batch_id": "db39e56e-57e7-4974-b748-f7e31852ff41"
+  },
+  {
+    "timestamp": "2026-06-26T13:50:52.547Z",
+    "date": "2026-06-26",
+    "time": "16:50:52",
+    "history_id": "5d697c5c-462c-4209-9187-bb34ddde9805:0",
+    "batch_id": "5d697c5c-462c-4209-9187-bb34ddde9805",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Espresso",
+    "quantity": 4,
+    "old_quantity": 0,
+    "new_quantity": 4
   }
 ]
