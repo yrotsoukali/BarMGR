@@ -1093,5 +1093,20 @@
     "new_quantity": 36,
     "history_id": "cb8d0570-dbd6-4579-946c-db21de111898:2",
     "batch_id": "cb8d0570-dbd6-4579-946c-db21de111898"
+  },
+  {
+    "timestamp": "2026-06-26T20:19:29.850Z",
+    "date": "2026-06-26",
+    "time": "23:19:29",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Water 500ml",
+    "quantity": 48,
+    "old_quantity": 240,
+    "new_quantity": 192,
+    "history_id": "113a4712-be1c-4842-bf65-a2129b0b4e30:0",
+    "batch_id": "113a4712-be1c-4842-bf65-a2129b0b4e30"
   }
 ]
