@@ -91,7 +91,7 @@
     },
     {
       "name": "Coca Cola glass",
-      "quantity": 41,
+      "quantity": 36,
       "alert": 15
     },
     {
@@ -121,7 +121,7 @@
     },
     {
       "name": "Soda can",
-      "quantity": 18,
+      "quantity": 12,
       "alert": 15
     },
     {
@@ -171,7 +171,7 @@
     },
     {
       "name": "3Cents Pink Grapefruit 250ml",
-      "quantity": 24,
+      "quantity": 20,
       "alert": 20
     },
     {
@@ -181,7 +181,7 @@
     },
     {
       "name": "3Cents Aegean Tonic 250ml",
-      "quantity": 18,
+      "quantity": 14,
       "alert": 20
     }
   ]
