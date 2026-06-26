@@ -2,22 +2,22 @@
   "Beers": [
     {
       "name": "NYMFI draft 400ml",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 2
     },
     {
       "name": "MAMOS 330ml",
-      "quantity": 0,
+      "quantity": 31,
       "alert": 15
     },
     {
       "name": "Fischer 330ml",
-      "quantity": 0,
+      "quantity": 46,
       "alert": 15
     },
     {
       "name": "Sol 330ml",
-      "quantity": 0,
+      "quantity": 44,
       "alert": 15
     },
     {
@@ -39,7 +39,7 @@
   "Whiskey (700ml)": [
     {
       "name": "Johnnie Walker Red Label",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 1
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "name": "Jack Daniels",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 2
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "name": "Cardhu 12 y.o.",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 1
     },
     {
@@ -81,7 +81,7 @@
   "Vodka (700ml)": [
     {
       "name": "Five Lakes",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 4
     },
     {
@@ -91,34 +91,34 @@
     },
     {
       "name": "Grey Goose",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 2
     },
     {
       "name": "Belvedere",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 2
     },
     {
       "name": "Crystal Head",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 1
     }
   ],
   "Gin (700ml)": [
     {
       "name": "MG",
-      "quantity": 0,
+      "quantity": 4,
       "alert": 4
     },
     {
       "name": "Beefeater",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 4
     },
     {
       "name": "Tanqueray",
-      "quantity": 0,
+      "quantity": 4,
       "alert": 3
     },
     {
@@ -160,12 +160,12 @@
   "Rum (700ml)": [
     {
       "name": "Bacardi",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 3
     },
     {
       "name": "Havana Reserva",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 3
     },
     {
@@ -175,7 +175,7 @@
     },
     {
       "name": "Plantation Dark",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 4
     },
     {
@@ -185,7 +185,7 @@
     },
     {
       "name": "Sailor Jerry Spiced",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 2
     },
     {
@@ -207,12 +207,12 @@
   "Tequila & Mezcal (700ml)": [
     {
       "name": "Buen Amigo Blanco",
-      "quantity": 0,
+      "quantity": 3,
       "alert": 5
     },
     {
       "name": "Buen Amigo Reposado",
-      "quantity": 0,
+      "quantity": 3,
       "alert": 5
     },
     {
@@ -271,7 +271,7 @@
     },
     {
       "name": "Jagermeister",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 2
     },
     {
@@ -291,24 +291,24 @@
     },
     {
       "name": "Limoncello",
-      "quantity": 0,
+      "quantity": 1,
       "alert": 2
     }
   ],
   "Greek Selections": [
     {
       "name": "Ouzo Avantis 200ml",
-      "quantity": 0,
+      "quantity": 14,
       "alert": 15
     },
     {
       "name": "Ouzo Avantis 100% 200ml",
-      "quantity": 0,
+      "quantity": 24,
       "alert": 15
     },
     {
       "name": "Tsipouro Avantis 200ml",
-      "quantity": 0,
+      "quantity": 11,
       "alert": 15
     }
   ],
@@ -320,7 +320,7 @@
     },
     {
       "name": "Vina Esmeralda",
-      "quantity": 0,
+      "quantity": 8,
       "alert": 7
     },
     {
@@ -335,12 +335,12 @@
     },
     {
       "name": "Tesseris Limnes Kyr Gianni",
-      "quantity": 0,
+      "quantity": 12,
       "alert": 5
     },
     {
       "name": "Ovilos Vivlia Chora",
-      "quantity": 0,
+      "quantity": 3,
       "alert": 5
     },
     {
@@ -352,22 +352,22 @@
   "Wine - Rose": [
     {
       "name": "Juicy",
-      "quantity": 0,
+      "quantity": 34,
       "alert": 10
     },
     {
       "name": "Domaine Costa Lazaridi",
-      "quantity": 0,
+      "quantity": 6,
       "alert": 7
     },
     {
       "name": "Amuse Ktima Mouswn",
-      "quantity": 0,
+      "quantity": 6,
       "alert": 7
     },
     {
       "name": "Ktima Alfa",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 7
     },
     {
@@ -389,19 +389,19 @@
     },
     {
       "name": "Nemea Skouras",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 5
     },
     {
       "name": "Ktima Alfa Xinomavro Reserve",
-      "quantity": 0,
+      "quantity": 3,
       "alert": 5
     }
   ],
   "Champagne & Sparkling": [
     {
       "name": "Zonin Prosecco 1821",
-      "quantity": 0,
+      "quantity": 15,
       "alert": 10
     },
     {
