@@ -1273,5 +1273,20 @@
     "new_quantity": 9,
     "history_id": "7ce1b38b-490d-4c77-abbc-00223f40ac48:0",
     "batch_id": "7ce1b38b-490d-4c77-abbc-00223f40ac48"
+  },
+  {
+    "timestamp": "2026-06-27T19:14:44.218Z",
+    "date": "2026-06-27",
+    "time": "22:14:44",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Beers",
+    "item": "MAMOS 330ml",
+    "quantity": 4,
+    "old_quantity": 26,
+    "new_quantity": 22,
+    "history_id": "82a7c287-cc28-47cc-b3ea-eeee9ca8422b:0",
+    "batch_id": "82a7c287-cc28-47cc-b3ea-eeee9ca8422b"
   }
 ]
