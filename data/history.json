@@ -1258,5 +1258,20 @@
     "new_quantity": 24,
     "history_id": "fa1eecdd-92b8-4552-848d-0a8bc4f8de62:0",
     "batch_id": "fa1eecdd-92b8-4552-848d-0a8bc4f8de62"
+  },
+  {
+    "timestamp": "2026-06-27T19:14:24.674Z",
+    "date": "2026-06-27",
+    "time": "22:14:24",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Greek Selections",
+    "item": "Ouzo Avantis 200ml",
+    "quantity": 3,
+    "old_quantity": 12,
+    "new_quantity": 9,
+    "history_id": "7ce1b38b-490d-4c77-abbc-00223f40ac48:0",
+    "batch_id": "7ce1b38b-490d-4c77-abbc-00223f40ac48"
   }
 ]
