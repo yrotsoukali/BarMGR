@@ -1288,5 +1288,20 @@
     "new_quantity": 22,
     "history_id": "82a7c287-cc28-47cc-b3ea-eeee9ca8422b:0",
     "batch_id": "82a7c287-cc28-47cc-b3ea-eeee9ca8422b"
+  },
+  {
+    "timestamp": "2026-06-27T19:15:42.394Z",
+    "date": "2026-06-27",
+    "time": "22:15:42",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "3Cents Pink Grapefruit 250ml",
+    "quantity": 4,
+    "old_quantity": 12,
+    "new_quantity": 8,
+    "history_id": "878378ba-bc8d-4248-8a70-2f26d9c4f395:0",
+    "batch_id": "878378ba-bc8d-4248-8a70-2f26d9c4f395"
   }
 ]
