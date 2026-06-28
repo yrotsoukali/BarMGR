@@ -1348,5 +1348,20 @@
     "new_quantity": 14,
     "history_id": "a4bc1259-0357-4fec-8a81-80c10f7fd83e:0",
     "batch_id": "a4bc1259-0357-4fec-8a81-80c10f7fd83e"
+  },
+  {
+    "timestamp": "2026-06-28T19:56:30.361Z",
+    "date": "2026-06-28",
+    "time": "22:56:30",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Juices & Refreshments",
+    "item": "Cherry juice",
+    "quantity": 3,
+    "old_quantity": 3,
+    "new_quantity": 0,
+    "history_id": "dac10b14-4d64-43bd-b77b-afee24ca0618:0",
+    "batch_id": "dac10b14-4d64-43bd-b77b-afee24ca0618"
   }
 ]
