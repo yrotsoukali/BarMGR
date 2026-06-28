@@ -1318,5 +1318,20 @@
     "new_quantity": 29,
     "history_id": "937acaf5-0648-48d9-b993-42c50f557927:0",
     "batch_id": "937acaf5-0648-48d9-b993-42c50f557927"
+  },
+  {
+    "timestamp": "2026-06-28T19:49:45.288Z",
+    "date": "2026-06-28",
+    "time": "22:49:45",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Beers",
+    "item": "Sol 330ml",
+    "quantity": 2,
+    "old_quantity": 24,
+    "new_quantity": 22,
+    "history_id": "ada9dde4-0ede-46d8-a2e2-ea345188b34e:0",
+    "batch_id": "ada9dde4-0ede-46d8-a2e2-ea345188b34e"
   }
 ]
