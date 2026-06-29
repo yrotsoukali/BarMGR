@@ -1618,5 +1618,20 @@
     "new_quantity": 432,
     "history_id": "ed4ce9f5-f2df-4d4b-a281-61cf80a0a72d:5",
     "batch_id": "ed4ce9f5-f2df-4d4b-a281-61cf80a0a72d"
+  },
+  {
+    "timestamp": "2026-06-29T10:28:42.728Z",
+    "date": "2026-06-29",
+    "time": "13:28:42",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Juices & Refreshments",
+    "item": "Mixed juice",
+    "quantity": 2,
+    "old_quantity": 10,
+    "new_quantity": 8,
+    "history_id": "092cabb3-2079-483a-93f7-4bd8af7453ae:0",
+    "batch_id": "092cabb3-2079-483a-93f7-4bd8af7453ae"
   }
 ]
