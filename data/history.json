@@ -1393,5 +1393,20 @@
     "new_quantity": 28,
     "history_id": "65ff6ae4-9100-419c-9de9-96c736b008b0:1",
     "batch_id": "65ff6ae4-9100-419c-9de9-96c736b008b0"
+  },
+  {
+    "timestamp": "2026-06-29T06:41:43.806Z",
+    "date": "2026-06-29",
+    "time": "09:41:43",
+    "location": "bar",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Wine - Rose",
+    "item": "Juicy",
+    "quantity": 1,
+    "old_quantity": 29,
+    "new_quantity": 28,
+    "history_id": "ac2daf61-2ea8-475c-b552-a486526c88cc:0",
+    "batch_id": "ac2daf61-2ea8-475c-b552-a486526c88cc"
   }
 ]
