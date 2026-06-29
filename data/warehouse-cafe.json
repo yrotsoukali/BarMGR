@@ -76,12 +76,12 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 504,
+      "quantity": 432,
       "alert": 4
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 72,
+      "quantity": 60,
       "alert": 4
     },
     {
@@ -96,7 +96,7 @@
     },
     {
       "name": "Coca Cola can",
-      "quantity": 24,
+      "quantity": 16,
       "alert": 15
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "name": "Coca Cola Zero can",
-      "quantity": 24,
+      "quantity": 0,
       "alert": 15
     },
     {
@@ -121,7 +121,7 @@
     },
     {
       "name": "Soda can",
-      "quantity": 6,
+      "quantity": 0,
       "alert": 15
     },
     {
@@ -136,7 +136,7 @@
     },
     {
       "name": "Tonic can",
-      "quantity": 18,
+      "quantity": 12,
       "alert": 15
     },
     {
