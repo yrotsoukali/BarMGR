@@ -76,12 +76,12 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 144,
+      "quantity": 504,
       "alert": 4
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 12,
+      "quantity": 72,
       "alert": 4
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "name": "Coca Cola Zero can",
-      "quantity": 0,
+      "quantity": 24,
       "alert": 15
     },
     {
@@ -166,7 +166,7 @@
     },
     {
       "name": "San Pellegrino 750ml",
-      "quantity": 3,
+      "quantity": 27,
       "alert": 15
     },
     {
