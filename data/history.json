@@ -1633,5 +1633,20 @@
     "new_quantity": 8,
     "history_id": "092cabb3-2079-483a-93f7-4bd8af7453ae:0",
     "batch_id": "092cabb3-2079-483a-93f7-4bd8af7453ae"
+  },
+  {
+    "timestamp": "2026-06-29T10:29:52.313Z",
+    "date": "2026-06-29",
+    "time": "13:29:52",
+    "location": "bar",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Champagne & Sparkling",
+    "item": "Zonin Prosecco 1821",
+    "quantity": 2,
+    "old_quantity": 15,
+    "new_quantity": 13,
+    "history_id": "fe1ae4e7-891c-489a-bc06-0fe50432dbaa:0",
+    "batch_id": "fe1ae4e7-891c-489a-bc06-0fe50432dbaa"
   }
 ]
