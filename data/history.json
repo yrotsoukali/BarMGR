@@ -1363,5 +1363,35 @@
     "new_quantity": 0,
     "history_id": "dac10b14-4d64-43bd-b77b-afee24ca0618:0",
     "batch_id": "dac10b14-4d64-43bd-b77b-afee24ca0618"
+  },
+  {
+    "timestamp": "2026-06-29T06:40:36.333Z",
+    "date": "2026-06-29",
+    "time": "09:40:36",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Soft Drinks",
+    "item": "San Pellegrino 750ml",
+    "quantity": 9,
+    "old_quantity": 12,
+    "new_quantity": 3,
+    "history_id": "65ff6ae4-9100-419c-9de9-96c736b008b0:0",
+    "batch_id": "65ff6ae4-9100-419c-9de9-96c736b008b0"
+  },
+  {
+    "timestamp": "2026-06-29T06:40:36.333Z",
+    "date": "2026-06-29",
+    "time": "09:40:36",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Soft Drinks",
+    "item": "Water 1lt (table)",
+    "quantity": 12,
+    "old_quantity": 40,
+    "new_quantity": 28,
+    "history_id": "65ff6ae4-9100-419c-9de9-96c736b008b0:1",
+    "batch_id": "65ff6ae4-9100-419c-9de9-96c736b008b0"
   }
 ]
