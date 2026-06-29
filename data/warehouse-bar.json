@@ -266,7 +266,7 @@
   "Liqueurs (700ml)": [
     {
       "name": "Disaronno",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 2
     },
     {
@@ -320,12 +320,12 @@
     },
     {
       "name": "Vina Esmeralda",
-      "quantity": 8,
+      "quantity": 32,
       "alert": 7
     },
     {
       "name": "Tselepou Mantineia",
-      "quantity": 0,
+      "quantity": 12,
       "alert": 5
     },
     {
@@ -384,7 +384,7 @@
   "Wine - Red": [
     {
       "name": "Lalari Nikolaou Skyros",
-      "quantity": 0,
+      "quantity": 6,
       "alert": 7
     },
     {
