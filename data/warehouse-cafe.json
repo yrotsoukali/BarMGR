@@ -76,7 +76,7 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 192,
+      "quantity": 168,
       "alert": 4
     },
     {
@@ -86,7 +86,7 @@
     },
     {
       "name": "Water 1lt (table)",
-      "quantity": 108,
+      "quantity": 102,
       "alert": 4
     },
     {
