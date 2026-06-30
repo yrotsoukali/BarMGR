@@ -2113,5 +2113,35 @@
     "new_quantity": 192,
     "history_id": "43284904-e564-4a36-8253-744c5a913dab:2",
     "batch_id": "43284904-e564-4a36-8253-744c5a913dab"
+  },
+  {
+    "timestamp": "2026-06-30T20:20:40.928Z",
+    "date": "2026-06-30",
+    "time": "23:20:40",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Water 1lt (table)",
+    "quantity": 6,
+    "old_quantity": 108,
+    "new_quantity": 102,
+    "history_id": "cc31c057-2ebf-4063-90f3-08504c625696:0",
+    "batch_id": "cc31c057-2ebf-4063-90f3-08504c625696"
+  },
+  {
+    "timestamp": "2026-06-30T20:20:40.928Z",
+    "date": "2026-06-30",
+    "time": "23:20:40",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Water 500ml",
+    "quantity": 24,
+    "old_quantity": 192,
+    "new_quantity": 168,
+    "history_id": "cc31c057-2ebf-4063-90f3-08504c625696:1",
+    "batch_id": "cc31c057-2ebf-4063-90f3-08504c625696"
   }
 ]
