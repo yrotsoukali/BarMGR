@@ -39,7 +39,7 @@
   "Juices & Refreshments": [
     {
       "name": "Cherry juice",
-      "quantity": 0,
+      "quantity": 12,
       "alert": 3
     },
     {
@@ -81,12 +81,12 @@
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 60,
+      "quantity": 120,
       "alert": 4
     },
     {
       "name": "Water 1lt (table)",
-      "quantity": 28,
+      "quantity": 148,
       "alert": 4
     },
     {
@@ -96,7 +96,7 @@
     },
     {
       "name": "Coca Cola can",
-      "quantity": 16,
+      "quantity": 40,
       "alert": 15
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "name": "Coca Cola Zero can",
-      "quantity": 0,
+      "quantity": 24,
       "alert": 15
     },
     {
@@ -121,7 +121,7 @@
     },
     {
       "name": "Soda can",
-      "quantity": 0,
+      "quantity": 24,
       "alert": 15
     },
     {
@@ -136,7 +136,7 @@
     },
     {
       "name": "Tonic can",
-      "quantity": 12,
+      "quantity": 36,
       "alert": 15
     },
     {
@@ -171,7 +171,7 @@
     },
     {
       "name": "3Cents Pink Grapefruit 250ml",
-      "quantity": 8,
+      "quantity": 56,
       "alert": 20
     },
     {
