@@ -91,7 +91,7 @@
     },
     {
       "name": "Coca Cola glass",
-      "quantity": 36,
+      "quantity": 40,
       "alert": 15
     },
     {
@@ -106,7 +106,7 @@
     },
     {
       "name": "Coca Cola Zero glass",
-      "quantity": 20,
+      "quantity": 30,
       "alert": 15
     },
     {
@@ -116,7 +116,7 @@
     },
     {
       "name": "Soda glass",
-      "quantity": 20,
+      "quantity": 26,
       "alert": 15
     },
     {
