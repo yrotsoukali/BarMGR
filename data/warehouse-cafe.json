@@ -76,22 +76,22 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 432,
+      "quantity": 240,
       "alert": 4
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 120,
+      "quantity": 72,
       "alert": 4
     },
     {
       "name": "Water 1lt (table)",
-      "quantity": 148,
+      "quantity": 108,
       "alert": 4
     },
     {
       "name": "Coca Cola glass",
-      "quantity": 40,
+      "quantity": 32,
       "alert": 15
     },
     {
@@ -106,17 +106,17 @@
     },
     {
       "name": "Coca Cola Zero glass",
-      "quantity": 30,
+      "quantity": 10,
       "alert": 15
     },
     {
       "name": "Coca Cola Zero can",
-      "quantity": 24,
+      "quantity": 11,
       "alert": 15
     },
     {
       "name": "Soda glass",
-      "quantity": 26,
+      "quantity": 0,
       "alert": 15
     },
     {
@@ -166,7 +166,7 @@
     },
     {
       "name": "San Pellegrino 750ml",
-      "quantity": 27,
+      "quantity": 15,
       "alert": 15
     },
     {
@@ -181,7 +181,7 @@
     },
     {
       "name": "3Cents Aegean Tonic 250ml",
-      "quantity": 8,
+      "quantity": 0,
       "alert": 20
     }
   ]
