@@ -1768,5 +1768,50 @@
     "quantity": 120,
     "old_quantity": 28,
     "new_quantity": 148
+  },
+  {
+    "timestamp": "2026-06-30T09:21:34.380Z",
+    "date": "2026-06-30",
+    "time": "12:21:34",
+    "history_id": "96544edd-5a5f-4c56-9737-113985a365ff:0",
+    "batch_id": "96544edd-5a5f-4c56-9737-113985a365ff",
+    "location": "bar",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Beers",
+    "item": "Fischer 330ml",
+    "quantity": 48,
+    "old_quantity": 39,
+    "new_quantity": 87
+  },
+  {
+    "timestamp": "2026-06-30T09:21:34.380Z",
+    "date": "2026-06-30",
+    "time": "12:21:34",
+    "history_id": "96544edd-5a5f-4c56-9737-113985a365ff:1",
+    "batch_id": "96544edd-5a5f-4c56-9737-113985a365ff",
+    "location": "bar",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Beers",
+    "item": "MAMOS 330ml",
+    "quantity": 48,
+    "old_quantity": 14,
+    "new_quantity": 62
+  },
+  {
+    "timestamp": "2026-06-30T09:21:34.380Z",
+    "date": "2026-06-30",
+    "time": "12:21:34",
+    "history_id": "96544edd-5a5f-4c56-9737-113985a365ff:2",
+    "batch_id": "96544edd-5a5f-4c56-9737-113985a365ff",
+    "location": "bar",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Beers",
+    "item": "Sol 330ml",
+    "quantity": 48,
+    "old_quantity": 22,
+    "new_quantity": 70
   }
 ]
