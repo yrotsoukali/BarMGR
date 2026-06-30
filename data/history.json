@@ -1813,5 +1813,50 @@
     "quantity": 48,
     "old_quantity": 22,
     "new_quantity": 70
+  },
+  {
+    "timestamp": "2026-06-30T09:23:23.491Z",
+    "date": "2026-06-30",
+    "time": "12:23:23",
+    "history_id": "2e9628d1-39bc-4245-aa87-2ba9c8af411e:0",
+    "batch_id": "2e9628d1-39bc-4245-aa87-2ba9c8af411e",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Soft Drinks",
+    "item": "Coca Cola glass",
+    "quantity": 4,
+    "old_quantity": 36,
+    "new_quantity": 40
+  },
+  {
+    "timestamp": "2026-06-30T09:23:23.491Z",
+    "date": "2026-06-30",
+    "time": "12:23:23",
+    "history_id": "2e9628d1-39bc-4245-aa87-2ba9c8af411e:1",
+    "batch_id": "2e9628d1-39bc-4245-aa87-2ba9c8af411e",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Soft Drinks",
+    "item": "Coca Cola Zero glass",
+    "quantity": 10,
+    "old_quantity": 20,
+    "new_quantity": 30
+  },
+  {
+    "timestamp": "2026-06-30T09:23:23.491Z",
+    "date": "2026-06-30",
+    "time": "12:23:23",
+    "history_id": "2e9628d1-39bc-4245-aa87-2ba9c8af411e:2",
+    "batch_id": "2e9628d1-39bc-4245-aa87-2ba9c8af411e",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Soft Drinks",
+    "item": "Soda glass",
+    "quantity": 6,
+    "old_quantity": 20,
+    "new_quantity": 26
   }
 ]
