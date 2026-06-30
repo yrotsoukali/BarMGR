@@ -2068,5 +2068,50 @@
     "quantity": 7,
     "old_quantity": 13,
     "new_quantity": 20
+  },
+  {
+    "timestamp": "2026-06-30T13:22:50.133Z",
+    "date": "2026-06-30",
+    "time": "16:22:50",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Soft Drinks",
+    "item": "Coca Cola Zero can",
+    "quantity": 11,
+    "old_quantity": 11,
+    "new_quantity": 0,
+    "history_id": "43284904-e564-4a36-8253-744c5a913dab:0",
+    "batch_id": "43284904-e564-4a36-8253-744c5a913dab"
+  },
+  {
+    "timestamp": "2026-06-30T13:22:50.133Z",
+    "date": "2026-06-30",
+    "time": "16:22:50",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Soft Drinks",
+    "item": "Soda can",
+    "quantity": 12,
+    "old_quantity": 24,
+    "new_quantity": 12,
+    "history_id": "43284904-e564-4a36-8253-744c5a913dab:1",
+    "batch_id": "43284904-e564-4a36-8253-744c5a913dab"
+  },
+  {
+    "timestamp": "2026-06-30T13:22:50.133Z",
+    "date": "2026-06-30",
+    "time": "16:22:50",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Soft Drinks",
+    "item": "Water 500ml",
+    "quantity": 48,
+    "old_quantity": 240,
+    "new_quantity": 192,
+    "history_id": "43284904-e564-4a36-8253-744c5a913dab:2",
+    "batch_id": "43284904-e564-4a36-8253-744c5a913dab"
   }
 ]
