@@ -76,7 +76,7 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 168,
+      "quantity": 408,
       "alert": 4
     },
     {
@@ -106,7 +106,7 @@
     },
     {
       "name": "Coca Cola Zero glass",
-      "quantity": 10,
+      "quantity": 34,
       "alert": 15
     },
     {
