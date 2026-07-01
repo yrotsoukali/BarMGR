@@ -207,7 +207,7 @@
   "Tequila & Mezcal (700ml)": [
     {
       "name": "Buen Amigo Blanco",
-      "quantity": 3,
+      "quantity": 9,
       "alert": 5
     },
     {
@@ -254,7 +254,7 @@
     },
     {
       "name": "Campari",
-      "quantity": 0,
+      "quantity": 4,
       "alert": 5
     },
     {
@@ -286,7 +286,7 @@
     },
     {
       "name": "Mastic Roots",
-      "quantity": 0,
+      "quantity": 2,
       "alert": 2
     },
     {
@@ -401,7 +401,7 @@
   "Champagne & Sparkling": [
     {
       "name": "Zonin Prosecco 1821",
-      "quantity": 20,
+      "quantity": 32,
       "alert": 10
     },
     {
