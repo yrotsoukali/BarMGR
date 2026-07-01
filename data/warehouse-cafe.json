@@ -54,7 +54,7 @@
     },
     {
       "name": "Lemon juice",
-      "quantity": 18,
+      "quantity": 13,
       "alert": 3
     },
     {
@@ -76,12 +76,12 @@
   "Soft Drinks": [
     {
       "name": "Water 500ml",
-      "quantity": 408,
+      "quantity": 336,
       "alert": 4
     },
     {
       "name": "Water 1lt (personal)",
-      "quantity": 72,
+      "quantity": 60,
       "alert": 4
     },
     {
@@ -106,7 +106,7 @@
     },
     {
       "name": "Coca Cola Zero glass",
-      "quantity": 34,
+      "quantity": 28,
       "alert": 15
     },
     {
@@ -121,7 +121,7 @@
     },
     {
       "name": "Soda can",
-      "quantity": 12,
+      "quantity": 0,
       "alert": 15
     },
     {
@@ -136,7 +136,7 @@
     },
     {
       "name": "Tonic can",
-      "quantity": 36,
+      "quantity": 30,
       "alert": 15
     },
     {
