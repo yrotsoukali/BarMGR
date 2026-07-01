@@ -2233,5 +2233,35 @@
     "quantity": 6,
     "old_quantity": 3,
     "new_quantity": 9
+  },
+  {
+    "timestamp": "2026-07-01T12:34:13.718Z",
+    "date": "2026-07-01",
+    "time": "15:34:13",
+    "history_id": "9bf5e43e-57fd-4cb9-8e54-9d9580eb3306:0",
+    "batch_id": "9bf5e43e-57fd-4cb9-8e54-9d9580eb3306",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Soft Drinks",
+    "item": "Coca Cola Zero glass",
+    "quantity": 24,
+    "old_quantity": 10,
+    "new_quantity": 34
+  },
+  {
+    "timestamp": "2026-07-01T12:34:13.718Z",
+    "date": "2026-07-01",
+    "time": "15:34:13",
+    "history_id": "9bf5e43e-57fd-4cb9-8e54-9d9580eb3306:1",
+    "batch_id": "9bf5e43e-57fd-4cb9-8e54-9d9580eb3306",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Soft Drinks",
+    "item": "Water 500ml",
+    "quantity": 240,
+    "old_quantity": 168,
+    "new_quantity": 408
   }
 ]
