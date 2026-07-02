@@ -2398,5 +2398,20 @@
     "new_quantity": 59,
     "history_id": "f78aa5e3-0029-499e-b2c3-a006b3ab1bb4:0",
     "batch_id": "f78aa5e3-0029-499e-b2c3-a006b3ab1bb4"
+  },
+  {
+    "timestamp": "2026-07-02T19:47:43.156Z",
+    "date": "2026-07-02",
+    "time": "22:47:43",
+    "location": "bar",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Aperitif (700ml)",
+    "item": "Aperol",
+    "quantity": 1,
+    "old_quantity": 4,
+    "new_quantity": 3,
+    "history_id": "ce5a8af4-7e48-4edd-bc01-51bd5cc8db0f:0",
+    "batch_id": "ce5a8af4-7e48-4edd-bc01-51bd5cc8db0f"
   }
 ]
