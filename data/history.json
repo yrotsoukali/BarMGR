@@ -2353,5 +2353,20 @@
     "new_quantity": 336,
     "history_id": "15cb8870-3e8f-47b5-8ae6-d3e4c9c57018:5",
     "batch_id": "15cb8870-3e8f-47b5-8ae6-d3e4c9c57018"
+  },
+  {
+    "timestamp": "2026-07-02T16:26:54.425Z",
+    "date": "2026-07-02",
+    "time": "19:26:54",
+    "location": "bar",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Beers",
+    "item": "NYMFI draft 400ml",
+    "quantity": 2,
+    "old_quantity": 2,
+    "new_quantity": 0,
+    "history_id": "07207017-eb85-43e8-9969-c9e52b8def78:0",
+    "batch_id": "07207017-eb85-43e8-9969-c9e52b8def78"
   }
 ]
