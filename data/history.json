@@ -2413,5 +2413,35 @@
     "new_quantity": 3,
     "history_id": "ce5a8af4-7e48-4edd-bc01-51bd5cc8db0f:0",
     "batch_id": "ce5a8af4-7e48-4edd-bc01-51bd5cc8db0f"
+  },
+  {
+    "timestamp": "2026-07-02T19:48:34.514Z",
+    "date": "2026-07-02",
+    "time": "22:48:34",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Coca Cola glass",
+    "quantity": 4,
+    "old_quantity": 32,
+    "new_quantity": 28,
+    "history_id": "263adc00-504d-413c-9987-1f7f88be9c31:0",
+    "batch_id": "263adc00-504d-413c-9987-1f7f88be9c31"
+  },
+  {
+    "timestamp": "2026-07-02T19:48:34.514Z",
+    "date": "2026-07-02",
+    "time": "22:48:34",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Coca Cola Zero glass",
+    "quantity": 3,
+    "old_quantity": 28,
+    "new_quantity": 25,
+    "history_id": "263adc00-504d-413c-9987-1f7f88be9c31:1",
+    "batch_id": "263adc00-504d-413c-9987-1f7f88be9c31"
   }
 ]
