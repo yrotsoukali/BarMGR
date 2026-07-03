@@ -2443,5 +2443,35 @@
     "new_quantity": 25,
     "history_id": "263adc00-504d-413c-9987-1f7f88be9c31:1",
     "batch_id": "263adc00-504d-413c-9987-1f7f88be9c31"
+  },
+  {
+    "timestamp": "2026-07-03T19:10:52.561Z",
+    "date": "2026-07-03",
+    "time": "22:10:52",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Coca Cola can",
+    "quantity": 7,
+    "old_quantity": 40,
+    "new_quantity": 33,
+    "history_id": "0805e8cf-b1f8-4cb2-8297-b0a51a03131f:0",
+    "batch_id": "0805e8cf-b1f8-4cb2-8297-b0a51a03131f"
+  },
+  {
+    "timestamp": "2026-07-03T19:10:52.561Z",
+    "date": "2026-07-03",
+    "time": "22:10:52",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Κώστας",
+    "category": "Soft Drinks",
+    "item": "Coca Cola glass",
+    "quantity": 7,
+    "old_quantity": 28,
+    "new_quantity": 21,
+    "history_id": "0805e8cf-b1f8-4cb2-8297-b0a51a03131f:1",
+    "batch_id": "0805e8cf-b1f8-4cb2-8297-b0a51a03131f"
   }
 ]
