@@ -2488,5 +2488,20 @@
     "quantity": 2,
     "old_quantity": 0,
     "new_quantity": 2
+  },
+  {
+    "timestamp": "2026-07-04T09:56:55.188Z",
+    "date": "2026-07-04",
+    "time": "12:56:55",
+    "location": "cafe",
+    "action": "remove",
+    "user": "Σπύρος",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 2,
+    "old_quantity": 2,
+    "new_quantity": 0,
+    "history_id": "ffeeee71-4cd8-4b26-bb86-e7b1b968f4c3:0",
+    "batch_id": "ffeeee71-4cd8-4b26-bb86-e7b1b968f4c3"
   }
 ]
