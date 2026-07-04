@@ -2473,5 +2473,20 @@
     "new_quantity": 21,
     "history_id": "0805e8cf-b1f8-4cb2-8297-b0a51a03131f:1",
     "batch_id": "0805e8cf-b1f8-4cb2-8297-b0a51a03131f"
+  },
+  {
+    "timestamp": "2026-07-04T09:55:55.247Z",
+    "date": "2026-07-04",
+    "time": "12:55:55",
+    "history_id": "23e450d8-0758-4868-86f1-e578958368f9:0",
+    "batch_id": "23e450d8-0758-4868-86f1-e578958368f9",
+    "location": "cafe",
+    "action": "adjust",
+    "user": "Web",
+    "category": "Coffee",
+    "item": "Greek coffee",
+    "quantity": 2,
+    "old_quantity": 0,
+    "new_quantity": 2
   }
 ]
